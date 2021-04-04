@@ -1,9 +1,14 @@
 import logo from './logo.svg';
+import styled from 'styled-components';
 import './App.css';
+
+const Container = styled.div`
+background-color: red;
+`;
 
 function App() {
   return (
-    <div className="App">
+    <Container className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -15,10 +20,11 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Dance
         </a>
       </header>
-    </div>
+      Hi
+    </Container>
   );
 }
 
