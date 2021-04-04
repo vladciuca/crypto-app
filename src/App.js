@@ -11,6 +11,14 @@ import reactDom from "react-dom";
 import React from "react";
 import axios from "axios";
 
+const Header = () => {
+  return (
+    <div>
+      Hello
+    </div>
+  )
+}
+
 
 class App extends React.Component {
   state = {
@@ -45,6 +53,7 @@ class App extends React.Component {
               </li>
             </ul>
           </nav>
+          <Header />
   
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
