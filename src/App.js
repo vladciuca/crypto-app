@@ -14,7 +14,7 @@ import axios from "axios";
 const Header = () => {
   return (
     <div>
-      Hello
+      Hi
     </div>
   )
 }
