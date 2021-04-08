@@ -106,7 +106,7 @@ export const CointCirculatingSupply = styled.div`
 `;
 
 export const CoinTotalSupply = styled.div`
-  display: felx;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: right;

@@ -43,7 +43,7 @@ class CoinList extends React.Component {
     const hasCoinList = !this.state.isLoading && this.state.coinList;
 
     return (
-      <>
+      <div>
         {this.state.isLoading && <div>Loading...</div>}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
@@ -56,9 +56,9 @@ class CoinList extends React.Component {
                 <li key={coin.id}>
                   <CoinRank>#{coin.market_cap_rank}</CoinRank>
                   <CoinName>
-                    <StyledLink to={`coin/${coin.name}`}>
+                    <StyledLink to={`/coin/${coin.name}`}>
                       <span>
-                        <Img src={coin.image} alt="" />
+                        <Img src={coin.image} />
                       </span>
                       <span>{coin.name}</span>
                     </StyledLink>
@@ -105,7 +105,7 @@ class CoinList extends React.Component {
             })}
           </Ul>
         )}
-      </>
+      </div>
     );
   }
 }
