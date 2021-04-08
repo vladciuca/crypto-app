@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Nav = styled.nav`
-  background-color: #191320;
+  background-color: #241b2f;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -12,7 +12,7 @@ export const Nav = styled.nav`
     display: flex;
     align-items: center;
     font-size: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 1.75rem 1.5rem;
   }
 `;
 

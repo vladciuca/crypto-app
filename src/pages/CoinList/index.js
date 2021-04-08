@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Line } from "react-chartjs-2";
 import { StyledLink } from "../../App.styles";
 import {
   Ul,
@@ -14,6 +15,7 @@ import {
   CoinSupply,
   CointCirculatingSupply,
   CoinTotalSupply,
+  ChartBox,
 } from "./CoinList.sytles";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 import { CgInfinity } from "react-icons/cg";
@@ -29,7 +31,7 @@ class CoinList extends React.Component {
       this.setState({ isLoading: true });
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true`
+        `${base}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=true`
       );
       this.setState({ coinList: data, isLoading: false, hasError: false });
     } catch (error) {
@@ -100,6 +102,42 @@ class CoinList extends React.Component {
                       </div>
                     </CoinTotalSupply>
                   </CoinSupply>
+                  <ChartBox>
+                    <Line
+                      data={{
+                        labels: coin.sparkline_in_7d.price,
+                        datasets: [
+                          {
+                            label: "My First Line Chart",
+                            data: coin.sparkline_in_7d.price,
+                            backgroundColor: "rgb(164, 135, 195, 0.5)",
+                            borderColor: "rgb(164, 135, 195, 0.5)",
+                            borderJoinStyle: "round",
+                            pointBorderWidth: 1,
+                            pointRadius: 0,
+                          },
+                        ],
+                      }}
+                      options={{
+                        maintainAspectRatio: false,
+                        legend: {
+                          display: false,
+                        },
+                        scales: {
+                          xAxes: [
+                            {
+                              display: false,
+                            },
+                          ],
+                          yAxes: [
+                            {
+                              display: false,
+                            },
+                          ],
+                        },
+                      }}
+                    />
+                  </ChartBox>
                 </li>
               );
             })}

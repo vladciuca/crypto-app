@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchContainer, SearchInput, SearchBtn } from "./Search.styles";
-import { ImSearch } from "react-icons/im";
+import { RiSearch2Fill } from "react-icons/ri";
 
 export default class Search extends React.Component {
   state = {
@@ -8,8 +8,9 @@ export default class Search extends React.Component {
   };
   input = React.createRef();
   handleClick = () => {
-    this.setState({ showInput: true });
+    this.setState({ showInput: !this.showInput });
   };
+  handleToggle = () => {};
   handleSubmit = (e) => {
     e.preventDefault();
     this.setState({ showInput: false });
@@ -31,10 +32,10 @@ export default class Search extends React.Component {
             />
           </form>
         ) : (
-          <span>Search Coins...</span>
+          <span>Search</span>
         )}
         <SearchBtn>
-          <ImSearch size="1.1rem" color="#5b486a" />
+          <RiSearch2Fill size="1.4rem" color="#5b486a" />
         </SearchBtn>
       </SearchContainer>
     );

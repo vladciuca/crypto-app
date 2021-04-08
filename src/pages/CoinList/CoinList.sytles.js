@@ -113,3 +113,9 @@ export const CoinTotalSupply = styled.div`
   font-size: 0.8rem;
   padding-top: 0.35rem;
 `;
+
+export const ChartBox = styled.div`
+  margin-left: 1rem;
+  height: 3rem;
+  width: 15%;
+`;
