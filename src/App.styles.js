@@ -8,6 +8,7 @@ export const Nav = styled.nav`
   justify-content: space-between;
   ul {
     margin-left: 2.5rem;
+    margin-bottom: 0;
     list-style-type: none;
     display: flex;
     align-items: center;

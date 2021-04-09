@@ -7,6 +7,7 @@ import Search from "./components/Search";
 import { FaCoins } from "react-icons/fa";
 import { GiPieChart } from "react-icons/gi";
 import { Nav, StyledLink } from "./App.styles";
+import "antd/dist/antd.css";
 import "./App.css";
 
 class App extends React.Component {

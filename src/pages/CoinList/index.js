@@ -1,25 +1,8 @@
 import React from "react";
 import axios from "axios";
-import { Line } from "react-chartjs-2";
-import { StyledLink } from "../../App.styles";
-import {
-  Ul,
-  Img,
-  InfoText,
-  CoinRank,
-  CoinName,
-  CoinTicker,
-  CoinPrice,
-  CoinPriceChange,
-  CoinMarketCap,
-  CoinSupply,
-  CointCirculatingSupply,
-  CoinTotalSupply,
-  ChartBox,
-} from "./CoinList.sytles";
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
-import { CgInfinity } from "react-icons/cg";
-
+import { Container } from "./CoinList.sytles";
+import { CoinListHeader } from "../../components/CoinListHeader";
+import { CoinListItem } from "../../components/CoinListItem";
 class CoinList extends React.Component {
   state = {
     coinList: [],
@@ -31,7 +14,7 @@ class CoinList extends React.Component {
       this.setState({ isLoading: true });
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=30&page=1&sparkline=true`
+        `${base}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=true`
       );
       this.setState({ coinList: data, isLoading: false, hasError: false });
     } catch (error) {
@@ -51,97 +34,27 @@ class CoinList extends React.Component {
           <div>There was a problem fetching your data..</div>
         )}
         {hasCoinList && (
-          <Ul>
+          <Container>
+            <CoinListHeader />
             {this.state.coinList.map((coin) => {
-              const priceChange = coin.market_cap_change_percentage_24h < 0;
               return (
-                <li key={coin.id}>
-                  <CoinRank>#{coin.market_cap_rank}</CoinRank>
-                  <CoinName>
-                    <StyledLink to={`/coin/${coin.name}`}>
-                      <span>
-                        <Img src={coin.image} />
-                      </span>
-                      <span>{coin.name}</span>
-                    </StyledLink>
-                  </CoinName>
-                  <CoinTicker>{coin.symbol.toUpperCase()}</CoinTicker>
-                  <CoinPrice>
-                    $
-                    {coin.current_price.toLocaleString(undefined, {
-                      maximumFractionDigits: 2,
-                    })}
-                  </CoinPrice>
-                  <CoinPriceChange priceChange={priceChange}>
-                    {priceChange ? <FaCaretDown /> : <FaCaretUp />}
-                    {coin.market_cap_change_percentage_24h.toFixed(2)}%
-                  </CoinPriceChange>
-                  <CoinMarketCap>
-                    ${coin.market_cap.toLocaleString()}
-                  </CoinMarketCap>
-                  <CoinSupply>
-                    <CointCirculatingSupply>
-                      <InfoText>In Circ.</InfoText>
-                      <div>
-                        {coin.circulating_supply.toLocaleString(undefined, {
-                          maximumFractionDigits: 0,
-                        })}
-                        <span>{coin.symbol.toUpperCase()}</span>
-                      </div>
-                    </CointCirculatingSupply>
-                    <CoinTotalSupply>
-                      <InfoText>Max Supply</InfoText>
-                      <div>
-                        {coin.total_supply === null ? (
-                          <CgInfinity size="1rem" />
-                        ) : (
-                          `${coin.total_supply.toLocaleString(undefined, {
-                            maximumFractionDigits: 0,
-                          })} ${coin.symbol.toUpperCase()}`
-                        )}
-                      </div>
-                    </CoinTotalSupply>
-                  </CoinSupply>
-                  <ChartBox>
-                    <Line
-                      data={{
-                        labels: coin.sparkline_in_7d.price,
-                        datasets: [
-                          {
-                            label: "My First Line Chart",
-                            data: coin.sparkline_in_7d.price,
-                            backgroundColor: "rgb(164, 135, 195, 0.5)",
-                            borderColor: "rgb(164, 135, 195, 0.5)",
-                            borderJoinStyle: "round",
-                            pointBorderWidth: 1,
-                            pointRadius: 0,
-                          },
-                        ],
-                      }}
-                      options={{
-                        maintainAspectRatio: false,
-                        legend: {
-                          display: false,
-                        },
-                        scales: {
-                          xAxes: [
-                            {
-                              display: false,
-                            },
-                          ],
-                          yAxes: [
-                            {
-                              display: false,
-                            },
-                          ],
-                        },
-                      }}
-                    />
-                  </ChartBox>
-                </li>
+                <CoinListItem
+                  key={coin.id}
+                  rank={coin.market_cap_rank}
+                  img={coin.image}
+                  name={coin.name}
+                  ticker={coin.symbol}
+                  currentPrice={coin.current_price}
+                  priceChange24h={coin.market_cap_change_percentage_24h}
+                  marketCap={coin.market_cap}
+                  totalVolume={coin.total_volume}
+                  circulatingSupply={coin.circulating_supply}
+                  totalSupply={coin.total_supply}
+                  priceChart7d={coin.sparkline_in_7d.price}
+                />
               );
             })}
-          </Ul>
+          </Container>
         )}
       </div>
     );
