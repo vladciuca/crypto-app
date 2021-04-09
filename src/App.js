@@ -1,69 +1,43 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Home from "./pages/Home";
-import {Coin} from "./pages/Coin";
-import { Dashboard } from "./pages/Dashboard";
-import reactDom from "react-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import axios from "axios";
-
-const Header = () => {
-  return (
-    <div>
-      Hi
-    </div>
-  )
-}
-
+import CoinList from "./pages/CoinList";
+import CoinPage from "./pages/CoinPage";
+import Dashboard from "./pages/Dashboard";
+import Search from "./components/Search";
+import { FaCoins } from "react-icons/fa";
+import { GiPieChart } from "react-icons/gi";
+import { Nav, StyledLink } from "./App.styles";
+import "antd/dist/antd.css";
+import "./App.css";
 
 class App extends React.Component {
-  state = {
-    list: [],
-  }
-  getAllCoins = async () =>{
-    try{
-      const {data} = await axios('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=false');
-      this.setState({list: data})
-      console.log(data)
-    }catch(error){
-      console.log(error)
-    }
-  }
-  componentDidMount(){
-    this.getAllCoins();
-  }
-  render(){
+  render() {
     return (
       <Router>
         <div>
-          <nav>
+          <Nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <StyledLink to="/">
+                  <FaCoins size="1.3rem" color="#5b486a" />
+                  <span>Cryptocurrencies</span>
+                </StyledLink>
               </li>
               <li>
-                <Link to="/coin">Coin</Link>
-              </li>
-              <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <StyledLink to="/dashboard">
+                  <GiPieChart size="1.4rem" color="#5b486a" />
+                  <span>Dashboard</span>
+                </StyledLink>
               </li>
             </ul>
-          </nav>
-          <Header />
-  
-          {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-          <Switch>  
+            <Search />
+          </Nav>
+
+          <Switch>
             <Route exact path="/">
-              <Home list={this.state.list}/>
+              <CoinList />
             </Route>
-            <Route exact path="/coin">
-              <Coin />
-            </Route>
+            <Route exact path="/coin/:name" component={CoinPage}></Route>
             <Route exact path="/dashboard">
               <Dashboard />
             </Route>
@@ -72,7 +46,6 @@ class App extends React.Component {
       </Router>
     );
   }
-  
 }
 
-export default App
+export default App;

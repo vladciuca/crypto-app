@@ -1,4 +1,8 @@
 import React from "react";
-import axios from "axios";
 
-export const Dashboard = ()=>(<div>IM ON THE DASHBOARD!</div>)
+export default class Dashboard extends React.Component {
+  state = {};
+  render() {
+    return <div>I'm on the Dashboard!</div>;
+  }
+}
