@@ -1,4 +1,4 @@
-import CoinFavorite from "../CoinFavorite";
+import FavoriteCoin from "../FavoriteCoin";
 import { CoinListChart } from "../CoinListChart";
 import { Col } from "antd";
 import { FaCaretUp, FaCaretDown } from "react-icons/fa";
@@ -20,7 +20,9 @@ import { StyledLink } from "../../App.styles";
 
 export const CoinListItem = (
   {
+    id,
     rank,
+    currency,
     img,
     name,
     ticker,
@@ -37,37 +39,37 @@ export const CoinListItem = (
   return (
     <StyledRow>
       <Favorite span={1}>
-        <CoinFavorite />
+        <FavoriteCoin />
       </Favorite>
       <Rank span={1}>#{rank}</Rank>
       <Col span={1}>
         <Img src={img} />
       </Col>
-      <Name span={3}>
-        <StyledLink to={`/coin/${name}`}>{name}</StyledLink>
-      </Name>
-      <Col span={1}>
+      <Name span={4}>
+        <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
         <Ticker>{ticker}</Ticker>
-      </Col>
+      </Name>
       <CurrentPrice span={2}>
-        $
+        {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
         {currentPrice.toLocaleString(undefined, {
           maximumFractionDigits: 2,
         })}
       </CurrentPrice>
-      <PriceChange span={2}>
+      <PriceChange span={2} pricechange={priceChange24h}>
         {priceChange24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
         {priceChange24h.toFixed(2)}%
       </PriceChange>
       <ListItemBox span={5}>
         <div>
-          <InfoText>Mkt Cap</InfoText>$
+          <InfoText>Mkt Cap</InfoText>
+          {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
           {marketCap.toLocaleString(undefined, {
             maximumFractionDigits: 0,
           })}
         </div>
         <div>
-          <InfoText>Vol 24h</InfoText>$
+          <InfoText>Vol 24h</InfoText>
+          {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
           {totalVolume.toLocaleString(undefined, {
             maximumFractionDigits: 0,
           })}

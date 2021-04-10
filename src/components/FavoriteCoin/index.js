@@ -1,7 +1,7 @@
 import React from "react";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
 
-export default class CoinFavorite extends React.Component {
+export default class FavoriteCoin extends React.Component {
   state = {
     isFavorite: false,
   };

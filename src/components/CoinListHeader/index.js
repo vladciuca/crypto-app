@@ -10,7 +10,6 @@ export const CoinListHeader = (props) => {
       <ColumnHeader span={1}>
         <div>Rank</div>
       </ColumnHeader>
-
       <ColumnHeader span={5}>
         <div>Name</div>
       </ColumnHeader>

@@ -102,10 +102,11 @@ export const CurrentPrice = styled(Col)`
 
 export const PriceChange = styled(Col)`
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding-right: 1rem;
   ${(props) =>
-    props.priceChange < 0
+    props.pricechange < 0
       ? css`
           color: #ff7b7b;
         `
