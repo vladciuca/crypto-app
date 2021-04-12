@@ -1,13 +1,14 @@
 import React from "react";
 import axios from "axios";
-import { CoinListHeader } from "../../components/CoinListHeader";
+import CoinListHeader from "../../components/CoinListHeader";
 import { CoinListItem } from "../../components/CoinListItem";
-import { Container, Button } from "./CoinList.sytles";
+import { Container } from "./CoinList.sytles";
+
 class CoinList extends React.Component {
   state = {
     coinList: [],
-    order: true,
     sortBy: "market_cap_rank",
+    order: true,
     isLoading: false,
     hasError: false,
   };
@@ -16,12 +17,16 @@ class CoinList extends React.Component {
       this.setState({ isLoading: true });
       const base = process.env.REACT_APP_ENDPOINT;
       const currency = this.props.currency;
-      const itemPerPage = "10";
+      const itemsPerPage = "100";
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemPerPage}&page=1&sparkline=true`
+        `${base}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemsPerPage}&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
       );
-      // console.log(data);
-      this.setState({ coinList: data, isLoading: false, hasError: false });
+      //convert snake case to camel case.
+      this.setState({
+        coinList: data,
+        isLoading: false,
+        hasError: false,
+      });
     } catch (error) {
       this.setState({ isLoading: false, hasError: true });
     }
@@ -29,26 +34,20 @@ class CoinList extends React.Component {
   sortCoinList = (sortBy) => {
     return this.state.coinList.sort((a, b) => {
       if (this.state.order === true) {
-        return a[sortBy] - b[sortBy];
+        return a[sortBy] > b[sortBy] ? 1 : -1;
       } else if (this.state.order === false) {
-        return b[sortBy] - a[sortBy];
+        return a[sortBy] < b[sortBy] ? 1 : -1;
       }
     });
   };
-  handlePriceChangeSort = () => {
+  handleSort = (sortBy) => {
     this.setState({
-      sortBy: "price_change_percentage_24h",
-      order: !this.state.order,
-    });
-  };
-  handleRankSort = () => {
-    this.setState({
-      sortBy: "market_cap_rank",
+      sortBy: sortBy,
       order: !this.state.order,
     });
   };
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currency != this.props.currency && this.state.coinList) {
+    if (prevProps.currency !== this.props.currency && this.state.coinList) {
       this.getCoinList();
     }
   }
@@ -56,9 +55,8 @@ class CoinList extends React.Component {
     this.getCoinList();
   }
   render() {
-    const hasData = !this.state.isLoading && this.state.coinList;
+    const hasData = !this.state.isLoading && !this.state.coinList.lenght;
     const sortedList = this.sortCoinList(this.state.sortBy);
-    // console.log(this.state.order, this.state.sortBy);
     return (
       <div>
         {this.state.isLoading && <div>Loading...</div>}
@@ -67,14 +65,11 @@ class CoinList extends React.Component {
         )}
         {hasData && (
           <Container>
-            <CoinListHeader />
-            <Button onClick={this.handleRankSort}>
-              {this.state.order ? "down " : "up "}Rank sort
-            </Button>
-            <Button onClick={this.handlePriceChangeSort}>
-              {this.state.order ? "down " : "up "}Price Change sort
-            </Button>
-
+            <CoinListHeader
+              order={this.state.order}
+              sortBy={this.state.sortBy}
+              handleSort={this.handleSort}
+            />
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
@@ -86,7 +81,9 @@ class CoinList extends React.Component {
                   name={coin.name}
                   ticker={coin.symbol}
                   currentPrice={coin.current_price}
-                  priceChange24h={coin.price_change_percentage_24h}
+                  priceChange1h={coin.price_change_percentage_1h_in_currency}
+                  priceChange24h={coin.price_change_percentage_24h_in_currency}
+                  priceChange7d={coin.price_change_percentage_7d_in_currency}
                   marketCap={coin.market_cap}
                   totalVolume={coin.total_volume}
                   circulatingSupply={coin.circulating_supply}

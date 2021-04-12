@@ -28,4 +28,7 @@ export const StyledLink = styled(Link)`
   span {
     margin-left: 0.75rem;
   }
+  :hover {
+    color: white;
+  }
 `;

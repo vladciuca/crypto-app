@@ -22,6 +22,7 @@ class App extends React.Component {
       <Router>
         <div>
           <GlobalData
+            currency={this.state.currency}
             handleCurrencyChange={this.handleCurrencyChange}
           ></GlobalData>
           <Nav>
@@ -48,7 +49,7 @@ class App extends React.Component {
             <Route exact path="/">
               <CoinList currency={this.state.currency} />
             </Route>
-            <Route exact path="/coin/:name" component={CoinPage}></Route>
+            <Route exact path="/coin/:id" component={CoinPage}></Route>
             <Route exact path="/dashboard">
               <Portfolio />
             </Route>

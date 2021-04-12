@@ -10,13 +10,13 @@ export default class FavoriteCoin extends React.Component {
   };
   render() {
     return (
-      <div onClick={this.handleClick}>
+      <span onClick={this.handleClick}>
         {this.state.isFavorite ? (
           <RiHeartFill size="1.3rem" color="#ff7b7b" />
         ) : (
           <RiHeartLine size="1rem" color="#ff7b7b" />
         )}
-      </div>
+      </span>
     );
   }
 }

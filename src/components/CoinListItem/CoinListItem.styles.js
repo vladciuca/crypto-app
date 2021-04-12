@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Row, Col } from "antd";
 import { StyledLink } from "../../App.styles";
 
-export const StyledRow = styled(Row)`
+export const ListItemRow = styled(Row)`
   cursor: default;
   align-items: center;
   border-radius: 0.5rem;
@@ -12,17 +12,9 @@ export const StyledRow = styled(Row)`
   :hover {
     background-color: #191320;
   }
-  ${StyledLink} {
-    display: inline-block;
-  }
 `;
 
-export const InfoText = styled.span`
-  font-size: 0.8rem;
-  color: #5b486a;
-`;
-
-export const Favorite = styled(Col)`
+export const FavoriteCol = styled(Col)`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +23,83 @@ export const Favorite = styled(Col)`
   }
 `;
 
-export const ListItemBox = styled(Col)`
+export const RankCol = styled(Col)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #a487c3;
+`;
+
+export const ImgCol = styled(Col)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    border-radius: 25rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    margin: 1rem 1rem;
+  }
+`;
+
+export const NameCol = styled(Col)`
+  align-items: center;
+  font-size: 0.9rem;
+  color: #a487c3;
+  ${StyledLink} {
+    padding-left: 0.25rem !important;
+  }
+`;
+
+export const CurrentPriceCol = styled(Col)`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: #a487c3;
+  padding-right: 1rem;
+`;
+
+export const PriceChange1hCol = styled(Col)`
+  display: flex;
+  align-items: center;
+  ${(props) =>
+    props.pricechange1h < 0
+      ? css`
+          color: #ff7b7b;
+        `
+      : css`
+          color: #a2f5a2;
+        `}
+`;
+
+export const PriceChange24hCol = styled(Col)`
+  display: flex;
+  align-items: center;
+  ${(props) =>
+    props.pricechange24h < 0
+      ? css`
+          color: #ff7b7b;
+        `
+      : css`
+          color: #a2f5a2;
+        `}
+`;
+
+export const PriceChange7dCol = styled(Col)`
+  display: flex;
+  align-items: center;
+  ${(props) =>
+    props.pricechange7d < 0
+      ? css`
+          color: #ff7b7b;
+        `
+      : css`
+          color: #a2f5a2;
+        `}
+`;
+
+export const DoubleSlotCol = styled(Col)`
   text-align: right;
   padding: 0.5rem 1rem;
   div:first-child {
@@ -52,36 +120,13 @@ export const ListItemBox = styled(Col)`
   }
 `;
 
-export const ListChartBox = styled(Col)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  div {
-    height: 3rem;
-    width: 85%;
-  }
+export const ChartCol = styled(Col)`
+  padding: 0 0.5rem;
 `;
 
-export const Rank = styled(Col)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const InfoText = styled.span`
   font-size: 0.8rem;
-  color: #a487c3;
-`;
-
-export const Name = styled(Col)`
-  display: flex;
-  align-items: center;
-  font-size: 0.8rem;
-  color: #a487c3;
-`;
-
-export const Img = styled.img`
-  border-radius: 25rem;
-  height: 1.5rem;
-  width: 1.5rem;
-  margin: 1rem 1rem;
+  color: #5b486a;
 `;
 
 export const Ticker = styled.span`
@@ -92,25 +137,15 @@ export const Ticker = styled.span`
   padding-left: 0.2rem;
 `;
 
-export const CurrentPrice = styled(Col)`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  color: #a487c3;
-  padding-right: 1rem;
+export const ChartContainer = styled.div`
+  height: 2.75rem;
 `;
 
-export const PriceChange = styled(Col)`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-right: 1rem;
-  ${(props) =>
-    props.pricechange < 0
-      ? css`
-          color: #ff7b7b;
-        `
-      : css`
-          color: #a2f5a2;
-        `}
+export const BottomChartBorder = styled.div`
+  height: 1rem;
+  background: linear-gradient(
+    to top,
+    transparent 10%,
+    rgb(164, 135, 195, 0.5) 90%
+  );
 `;
