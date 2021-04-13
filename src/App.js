@@ -3,11 +3,8 @@ import React from "react";
 import CoinList from "./pages/CoinList";
 import CoinPage from "./pages/CoinPage";
 import Portfolio from "./pages/Portfolio";
-import Search from "./components/Search";
 import GlobalData from "./components/GlobalData";
-import { FaCoins } from "react-icons/fa";
-import { GiPieChart } from "react-icons/gi";
-import { Nav, NavContainer, StyledLink } from "./App.styles";
+import { NavBar } from "./components/NavBar";
 import "antd/dist/antd.css";
 import "./App.css";
 class App extends React.Component {
@@ -25,26 +22,7 @@ class App extends React.Component {
             currency={this.state.currency}
             handleCurrencyChange={this.handleCurrencyChange}
           ></GlobalData>
-          <Nav>
-            <NavContainer>
-              <ul>
-                <li>
-                  <StyledLink to="/">
-                    <FaCoins size="1.3rem" color="#5b486a" />
-                    <span>Cryptocurrencies</span>
-                  </StyledLink>
-                </li>
-                <li>
-                  <StyledLink to="/dashboard">
-                    <GiPieChart size="1.4rem" color="#5b486a" />
-                    <span>Portfolio</span>
-                  </StyledLink>
-                </li>
-              </ul>
-              <Search />
-            </NavContainer>
-          </Nav>
-
+          <NavBar />
           <Switch>
             <Route exact path="/">
               <CoinList currency={this.state.currency} />

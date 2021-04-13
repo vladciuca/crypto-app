@@ -28,7 +28,7 @@ export const Value = styled.span`
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: #5b486a !important;
+  color: #a487c3 !important;
   padding-right: 0.1rem;
 `;
 
@@ -41,18 +41,4 @@ export const MarketCapChange = styled.span`
       : css`
           color: #a2f5a2 !important;
         `}
-`;
-
-export const CurrencySelect = styled.select`
-  background: #191320;
-  color: #5b486a;
-  border: none;
-  font-size: 1rem;
-  font-weight: bold;
-  :focus {
-    outline: none;
-  }
-  option {
-    color: #a487c3;
-  }
 `;

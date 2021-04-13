@@ -19,6 +19,6 @@ export const Value = styled.span`
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: #5b486a !important;
+  color: #a487c3 !important;
   padding-left: 0.1rem;
 `;

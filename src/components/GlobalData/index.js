@@ -1,9 +1,12 @@
 import React from "react";
 import axios from "axios";
 import ETHGasPrice from "../ETHGasPrice";
-import numberFormatter from "../../uitls/numberFormatter";
+import { CurrencySelect } from "../CurrencySelect";
+import { CaretSymbol } from "../CaretSymbol";
+import formatNumber from "../../uitls/NumberUtils/formatNumber";
+import convertLongNumber from "../../uitls/NumberUtils/convertLongNumber";
+import getCurrencySymbol from "../../uitls/getCurrencySymbol";
 import { Row, Col, Tooltip } from "antd";
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 import {
   GlobalDataBar,
   ETHGasPriceCol,
@@ -12,7 +15,6 @@ import {
   Value,
   Ticker,
   MarketCapChange,
-  CurrencySelect,
 } from "./GlobalData.styles";
 
 export default class GlobalData extends React.Component {
@@ -33,6 +35,10 @@ export default class GlobalData extends React.Component {
       this.setState({ isLoading: false, hasError: true });
     }
   };
+  getCurrencyValue = (key) => {
+    const currency = this.props.currency;
+    return this.state.globalData[key][currency];
+  };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.currency !== this.props.currency && this.state.globalData) {
       this.getGlobalData();
@@ -43,6 +49,7 @@ export default class GlobalData extends React.Component {
   }
   render() {
     const hasData = !this.state.isLoading && this.state.globalData;
+    const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
         {this.state.isLoading && <div>Loading...</div>}
@@ -69,40 +76,15 @@ export default class GlobalData extends React.Component {
                     <Value>
                       <Tooltip
                         placement="bottom"
-                        title={
-                          this.props.currency === "eur"
-                            ? `€${this.state.globalData.total_market_cap.eur.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                            : this.props.currency === "gbp"
-                            ? `£${this.state.globalData.total_market_cap.gbp.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                            : `$${this.state.globalData.total_market_cap.usd.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                        }
+                        title={`${currencySymbol}
+                          ${formatNumber(
+                            this.getCurrencyValue("total_market_cap")
+                          )}`}
                       >
-                        {this.props.currency === "eur"
-                          ? `€${numberFormatter(
-                              this.state.globalData.total_market_cap.eur
-                            )}`
-                          : this.props.currency === "gbp"
-                          ? `£${numberFormatter(
-                              this.state.globalData.total_market_cap.gbp
-                            )}`
-                          : `$${numberFormatter(
-                              this.state.globalData.total_market_cap.usd
-                            )}`}
+                        {currencySymbol}
+                        {convertLongNumber(
+                          this.getCurrencyValue("total_market_cap")
+                        )}
                       </Tooltip>
                     </Value>
                     <MarketCapChange
@@ -111,12 +93,12 @@ export default class GlobalData extends React.Component {
                           .market_cap_change_percentage_24h_usd
                       }
                     >
-                      {this.state.globalData
-                        .market_cap_change_percentage_24h_usd < 0 ? (
-                        <FaCaretDown />
-                      ) : (
-                        <FaCaretUp />
-                      )}
+                      <CaretSymbol
+                        value={
+                          this.state.globalData
+                            .market_cap_change_percentage_24h_usd
+                        }
+                      />
                       {this.state.globalData.market_cap_change_percentage_24h_usd.toFixed(
                         2
                       )}
@@ -128,40 +110,14 @@ export default class GlobalData extends React.Component {
                     <Value>
                       <Tooltip
                         placement="bottom"
-                        title={
-                          this.props.currency === "eur"
-                            ? `€${this.state.globalData.total_volume.eur.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                            : this.props.currency === "gbp"
-                            ? `£${this.state.globalData.total_volume.gbp.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                            : `$${this.state.globalData.total_volume.usd.toLocaleString(
-                                undefined,
-                                {
-                                  maximumFractionDigits: 0,
-                                }
-                              )}`
-                        }
+                        title={`${currencySymbol}${formatNumber(
+                          this.getCurrencyValue("total_volume")
+                        )}`}
                       >
-                        {this.props.currency === "eur"
-                          ? `€${numberFormatter(
-                              this.state.globalData.total_volume.eur
-                            )}`
-                          : this.props.currency === "gbp"
-                          ? `£${numberFormatter(
-                              this.state.globalData.total_volume.gbp
-                            )}`
-                          : `$${numberFormatter(
-                              this.state.globalData.total_volume.usd
-                            )}`}
+                        {currencySymbol}
+                        {convertLongNumber(
+                          this.getCurrencyValue("total_volume")
+                        )}
                       </Tooltip>
                     </Value>
                   </Col>
@@ -169,15 +125,15 @@ export default class GlobalData extends React.Component {
                     <Description>Dominace:</Description>
                     <Value>
                       <Ticker>BTC</Ticker>
-                      {this.state.globalData.market_cap_percentage.btc.toFixed(
-                        2
+                      {formatNumber(
+                        this.state.globalData.market_cap_percentage.btc
                       )}
                       %
                     </Value>
                     <Value>
                       <Ticker>ETH</Ticker>
-                      {this.state.globalData.market_cap_percentage.eth.toFixed(
-                        2
+                      {formatNumber(
+                        this.state.globalData.market_cap_percentage.eth
                       )}
                       %
                     </Value>
@@ -185,16 +141,11 @@ export default class GlobalData extends React.Component {
                   </ETHGasPriceCol>
                 </Row>
               </Col>
-
               <Col>
                 <CurrencySelect
-                  value={this.props.currency}
-                  onChange={this.props.handleCurrencyChange}
-                >
-                  <option value="usd">USD</option>
-                  <option value="eur">EUR</option>
-                  <option value="gbp">GBP</option>
-                </CurrencySelect>
+                  currency={this.props.currency}
+                  handleCurrencyChange={this.props.handleCurrencyChange}
+                />
               </Col>
             </Row>
           </Container>

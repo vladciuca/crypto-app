@@ -4,7 +4,7 @@ import {
   GasPrice,
   Speed,
   Ticker,
-} from "./ETHGasProceTooltip.styles";
+} from "./ETHGasPriceTooltip.styles";
 
 export const ETHGasPriceTooltip = (props) => {
   return (

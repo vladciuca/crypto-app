@@ -1,10 +1,14 @@
-import numberFormatter from "../../uitls/numberFormatter";
+import convertLongNumber from "../../uitls/NumberUtils/convertLongNumber";
+import formatNumber from "../../uitls/NumberUtils/formatNumber";
+import formatPrice from "../../uitls/NumberUtils/formatPrice";
+import getCurrencySymbol from "../../uitls/getCurrencySymbol";
 import FavoriteCoin from "../FavoriteCoin";
+import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
 import { Row, Col, Tooltip } from "antd";
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
 import { CgInfinity } from "react-icons/cg";
 import {
+  StyledLink,
   ListItemRow,
   FavoriteCol,
   RankCol,
@@ -21,7 +25,6 @@ import {
   InfoText,
   Ticker,
 } from "./CoinListItem.styles";
-import { StyledLink } from "../../App.styles";
 
 export const CoinListItem = (
   {
@@ -43,18 +46,17 @@ export const CoinListItem = (
   },
   ...rest
 ) => {
+  const currencySymbol = getCurrencySymbol(currency);
   return (
     <ListItemRow>
-      <FavoriteCol md={{ span: 1 }} lg={{ span: 1 }}>
+      <FavoriteCol lg={{ span: 1 }}>
         <FavoriteCoin />
       </FavoriteCol>
-      <RankCol md={{ span: 1 }} lg={{ span: 1 }}>
-        #{rank}
-      </RankCol>
-      <ImgCol md={{ span: 1 }} lg={{ span: 1 }}>
+      <RankCol lg={{ span: 1 }}>#{rank}</RankCol>
+      <ImgCol lg={{ span: 1 }}>
         <img src={img} />
       </ImgCol>
-      <NameCol md={{ span: 4 }} lg={{ span: 4 }}>
+      <NameCol lg={{ span: 4 }}>
         <div>
           <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
         </div>
@@ -62,70 +64,61 @@ export const CoinListItem = (
           <Ticker>{ticker}</Ticker>
         </div>
       </NameCol>
-      <CurrentPriceCol md={{ span: 1 }} lg={{ span: 1 }}>
-        {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
-        {currentPrice.toLocaleString(undefined, {
-          maximumFractionDigits: 2,
-        })}
+      <CurrentPriceCol lg={{ span: 1 }}>
+        {currencySymbol}
+        {formatPrice(currentPrice)}
       </CurrentPriceCol>
-      <Col md={{ span: 5 }} lg={{ span: 5 }}>
+      <Col lg={{ span: 5 }}>
+        {/* // Try a map here...............................................................
+        // Use the .value prop to create 1 condition for all 3 colums in the styles.js fiel */}
         <Row>
           <PriceChange1hCol span={8} pricechange1h={priceChange1h}>
-            {priceChange1h < 0 ? <FaCaretDown /> : <FaCaretUp />}
+            <CaretSymbol value={priceChange1h} />
             {priceChange1h.toFixed(2)}%
           </PriceChange1hCol>
           <PriceChange24hCol span={8} pricechange24h={priceChange24h}>
-            {priceChange24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
+            <CaretSymbol value={priceChange24h} />
             {priceChange24h.toFixed(2)}%
           </PriceChange24hCol>
           <PriceChange7dCol span={8} pricechange7d={priceChange7d}>
-            {priceChange7d < 0 ? <FaCaretDown /> : <FaCaretUp />}
+            <CaretSymbol value={priceChange7d} />
             {priceChange7d.toFixed(2)}%
           </PriceChange7dCol>
         </Row>
       </Col>
-
-      <DoubleSlotCol md={{ span: 5 }} lg={{ span: 4 }}>
+      <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>Mkt Cap</InfoText>
           <Tooltip
             placement="top"
-            title={`${
-              currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"
-            }${marketCap.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}`}
+            title={`${currencySymbol}${formatNumber(marketCap)}`}
           >
-            {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
-            {numberFormatter(marketCap)}
+            {currencySymbol}
+            {convertLongNumber(marketCap)}
           </Tooltip>
         </div>
         <div>
           <InfoText>Vol 24h</InfoText>
           <Tooltip
             placement="bottom"
-            title={`${
-              currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"
-            }${totalVolume.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}`}
+            title={`${currencySymbol}${formatNumber(totalVolume)}`}
           >
-            {currency === "eur" ? "€" : currency === "gbp" ? "£" : "$"}
-            {numberFormatter(totalVolume)}
+            {currencySymbol}
+            {convertLongNumber(totalVolume)}
           </Tooltip>
         </div>
       </DoubleSlotCol>
-      <DoubleSlotCol md={{ span: 5 }} lg={{ span: 4 }}>
+      <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>In Circ</InfoText>
           <span>
             <Tooltip
               placement="top"
-              title={`${circulatingSupply.toLocaleString(undefined, {
-                maximumFractionDigits: 0,
-              })} ${ticker.toUpperCase()}`}
+              title={`${formatNumber(
+                circulatingSupply
+              )} ${ticker.toUpperCase()}`}
             >
-              {numberFormatter(circulatingSupply)}
+              {convertLongNumber(circulatingSupply)}
               <Ticker>{ticker}</Ticker>
             </Tooltip>
           </span>
@@ -138,18 +131,16 @@ export const CoinListItem = (
             <span>
               <Tooltip
                 placement="bottom"
-                title={`${totalSupply.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
-                })} ${ticker.toUpperCase()}`}
+                title={`${formatNumber(totalSupply)} ${ticker.toUpperCase()}`}
               >
-                {numberFormatter(totalSupply)}
+                {convertLongNumber(totalSupply)}
                 <Ticker>{ticker}</Ticker>
               </Tooltip>
             </span>
           )}
         </div>
       </DoubleSlotCol>
-      <ChartCol md={{ span: 24 }} lg={{ span: 3 }}>
+      <ChartCol lg={{ span: 3 }}>
         <ChartContainer>
           <CoinListChart priceData={priceChart7d} />
         </ChartContainer>

@@ -1,6 +1,15 @@
-import styled, { css } from "styled-components";
+import { Link } from "react-router-dom";
 import { Row, Col } from "antd";
-import { StyledLink } from "../../App.styles";
+import styled, { css } from "styled-components";
+
+export const StyledLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+  padding-left: 0.25rem !important;
+  :hover {
+    color: white;
+  }
+`;
 
 export const ListItemRow = styled(Row)`
   cursor: default;
@@ -47,9 +56,6 @@ export const NameCol = styled(Col)`
   align-items: center;
   font-size: 0.9rem;
   color: #a487c3;
-  ${StyledLink} {
-    padding-left: 0.25rem !important;
-  }
 `;
 
 export const CurrentPriceCol = styled(Col)`

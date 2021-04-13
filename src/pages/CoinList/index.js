@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import CoinListHeader from "../../components/CoinListHeader";
+import { CoinListHeader } from "../../components/CoinListHeader";
 import { CoinListItem } from "../../components/CoinListItem";
 import { Container } from "./CoinList.sytles";
 
@@ -18,8 +18,9 @@ class CoinList extends React.Component {
       const base = process.env.REACT_APP_ENDPOINT;
       const currency = this.props.currency;
       const itemsPerPage = "100";
+      const page = "1";
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemsPerPage}&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+        `${base}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
       );
       //convert snake case to camel case.
       this.setState({

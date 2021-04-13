@@ -1,4 +1,4 @@
-const numberFormatter = (number) => {
+const convertLongNumber = (number) => {
   const si = [
     { value: 1, symbol: "" },
     { value: 1e3, symbol: "K" },
@@ -16,4 +16,4 @@ const numberFormatter = (number) => {
   return (number / si[i].value).toFixed(2).replace(rx, "$1") + si[i].symbol;
 };
 
-export default numberFormatter;
+export default convertLongNumber;

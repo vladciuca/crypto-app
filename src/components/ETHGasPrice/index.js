@@ -22,7 +22,6 @@ export default class ETHGasPrice extends React.Component {
       const { data } = await axios(
         `https://data-api.defipulse.com/api/v1/egs/api/ethgasAPI.json?api-key=${apiKey}`
       );
-      console.log(data);
       this.setState({
         ethGasData: data,
         isLoading: false,
