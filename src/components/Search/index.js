@@ -1,43 +1,37 @@
 import React from "react";
-import { SearchContainer, SearchInput, SearchBtn } from "./Search.styles";
+import { SearchForm, SearchInput, SearchBtn } from "./Search.styles";
 import { RiSearch2Fill } from "react-icons/ri";
 
 export default class Search extends React.Component {
   state = {
-    showInput: false,
+    value: this.props.value,
   };
   input = React.createRef();
   handleClick = () => {
-    this.setState({ showInput: !this.showInput });
+    this.input.current.focus();
   };
-  handleToggle = () => {};
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
   handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ showInput: false });
+    this.setState({ value: "" });
   };
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.showInput !== this.state.showInput && this.state.showInput) {
-      this.input.current.focus();
-    }
-  }
   render() {
     return (
-      <SearchContainer onClick={this.handleClick}>
-        {this.state.showInput ? (
-          <form onSubmit={this.handleSubmit}>
-            <SearchInput
-              type="text"
-              ref={this.input}
-              onBlur={this.handleSubmit}
-            />
-          </form>
-        ) : (
-          <span>Search</span>
-        )}
-        <SearchBtn>
+      <SearchForm onSubmit={this.handleSubmit}>
+        <SearchInput
+          type="text"
+          placeholder="Search"
+          ref={this.input}
+          value={this.state.value}
+          onChange={this.handleChange}
+          onBlur={this.handleSubmit}
+        />
+        <SearchBtn onClick={this.handleClick}>
           <RiSearch2Fill size="1.4rem" color="#5b486a" />
         </SearchBtn>
-      </SearchContainer>
+      </SearchForm>
     );
   }
 }

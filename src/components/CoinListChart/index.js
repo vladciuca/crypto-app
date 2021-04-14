@@ -21,6 +21,9 @@ export const CoinListChart = (props) => {
         legend: {
           display: false,
         },
+        tooltips: {
+          enabled: false,
+        },
         scales: {
           xAxes: [
             {

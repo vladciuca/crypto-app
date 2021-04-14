@@ -1,31 +1,41 @@
-import CoinFavorite from "../CoinFavorite";
+import FavoriteCoin from "../FavoriteCoin";
+import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
-import { Col } from "antd";
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+import { Row, Col, Tooltip } from "antd";
 import { CgInfinity } from "react-icons/cg";
 import {
-  StyledRow,
-  ListItemBox,
-  ListChartBox,
+  StyledLink,
+  ListItemRow,
+  FavoriteCol,
+  RankCol,
+  ImgCol,
+  NameCol,
+  PriceChangeCol,
+  CurrentPriceCol,
+  DoubleSlotCol,
+  ChartCol,
+  ChartContainer,
+  BottomChartBorder,
   InfoText,
-  Favorite,
-  Rank,
-  Name,
-  Img,
   Ticker,
-  CurrentPrice,
-  PriceChange,
 } from "./CoinListItem.styles";
-import { StyledLink } from "../../App.styles";
+import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
+import formatNumber from "../../utils/NumberUtils/formatNumber";
+import formatPrice from "../../utils/NumberUtils/formatPrice";
+import getCurrencySymbol from "../../utils/getCurrencySymbol";
 
 export const CoinListItem = (
   {
+    id,
     rank,
+    currency,
     img,
     name,
     ticker,
     currentPrice,
+    priceChange1h,
     priceChange24h,
+    priceChange7d,
     marketCap,
     totalVolume,
     circulatingSupply,
@@ -34,53 +44,76 @@ export const CoinListItem = (
   },
   ...rest
 ) => {
+  const currencySymbol = getCurrencySymbol(currency);
+  const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
   return (
-    <StyledRow>
-      <Favorite span={1}>
-        <CoinFavorite />
-      </Favorite>
-      <Rank span={1}>#{rank}</Rank>
-      <Col span={1}>
-        <Img src={img} />
-      </Col>
-      <Name span={3}>
-        <StyledLink to={`/coin/${name}`}>{name}</StyledLink>
-      </Name>
-      <Col span={1}>
-        <Ticker>{ticker}</Ticker>
-      </Col>
-      <CurrentPrice span={2}>
-        $
-        {currentPrice.toLocaleString(undefined, {
-          maximumFractionDigits: 2,
-        })}
-      </CurrentPrice>
-      <PriceChange span={2}>
-        {priceChange24h < 0 ? <FaCaretDown /> : <FaCaretUp />}
-        {priceChange24h.toFixed(2)}%
-      </PriceChange>
-      <ListItemBox span={5}>
+    <ListItemRow>
+      <FavoriteCol lg={{ span: 1 }}>
+        <FavoriteCoin />
+      </FavoriteCol>
+      <RankCol lg={{ span: 1 }}>#{rank}</RankCol>
+      <ImgCol lg={{ span: 1 }}>
+        <img src={img} />
+      </ImgCol>
+      <NameCol lg={{ span: 4 }}>
         <div>
-          <InfoText>Mkt Cap</InfoText>$
-          {marketCap.toLocaleString(undefined, {
-            maximumFractionDigits: 0,
-          })}
+          <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
         </div>
         <div>
-          <InfoText>Vol 24h</InfoText>$
-          {totalVolume.toLocaleString(undefined, {
-            maximumFractionDigits: 0,
-          })}
+          <Ticker>{ticker}</Ticker>
         </div>
-      </ListItemBox>
-      <ListItemBox span={5}>
+      </NameCol>
+      <CurrentPriceCol lg={{ span: 1 }}>
+        {currencySymbol}
+        {formatPrice(currentPrice)}
+      </CurrentPriceCol>
+      <Col lg={{ span: 5 }}>
+        <Row>
+          {priceChangeValues.map((value) => {
+            return (
+              <PriceChangeCol key={value} span={8} pricechange={value}>
+                <CaretSymbol value={value} />
+                {value.toFixed(2)}%
+              </PriceChangeCol>
+            );
+          })}
+        </Row>
+      </Col>
+      <DoubleSlotCol lg={{ span: 4 }}>
+        <div>
+          <InfoText>Mkt Cap</InfoText>
+          <Tooltip
+            placement="top"
+            title={`${currencySymbol}${formatNumber(marketCap)}`}
+          >
+            {currencySymbol}
+            {convertLongNumber(marketCap)}
+          </Tooltip>
+        </div>
+        <div>
+          <InfoText>Vol 24h</InfoText>
+          <Tooltip
+            placement="bottom"
+            title={`${currencySymbol}${formatNumber(totalVolume)}`}
+          >
+            {currencySymbol}
+            {convertLongNumber(totalVolume)}
+          </Tooltip>
+        </div>
+      </DoubleSlotCol>
+      <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>In Circ</InfoText>
           <span>
-            {circulatingSupply.toLocaleString(undefined, {
-              maximumFractionDigits: 0,
-            })}
-            <Ticker>{ticker}</Ticker>
+            <Tooltip
+              placement="top"
+              title={`${formatNumber(
+                circulatingSupply
+              )} ${ticker.toUpperCase()}`}
+            >
+              {convertLongNumber(circulatingSupply)}
+              <Ticker>{ticker}</Ticker>
+            </Tooltip>
           </span>
         </div>
         <div>
@@ -89,19 +122,23 @@ export const CoinListItem = (
             <CgInfinity size="1.1rem" />
           ) : (
             <span>
-              {totalSupply.toLocaleString(undefined, {
-                maximumFractionDigits: 0,
-              })}
-              <Ticker>{ticker}</Ticker>
+              <Tooltip
+                placement="bottom"
+                title={`${formatNumber(totalSupply)} ${ticker.toUpperCase()}`}
+              >
+                {convertLongNumber(totalSupply)}
+                <Ticker>{ticker}</Ticker>
+              </Tooltip>
             </span>
           )}
         </div>
-      </ListItemBox>
-      <ListChartBox span={3}>
-        <div>
+      </DoubleSlotCol>
+      <ChartCol lg={{ span: 3 }}>
+        <ChartContainer>
           <CoinListChart priceData={priceChart7d} />
-        </div>
-      </ListChartBox>
-    </StyledRow>
+        </ChartContainer>
+        <BottomChartBorder />
+      </ChartCol>
+    </ListItemRow>
   );
 };

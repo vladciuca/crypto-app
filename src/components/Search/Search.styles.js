@@ -1,23 +1,30 @@
 import styled from "styled-components";
 
-export const SearchContainer = styled.span`
+export const SearchForm = styled.form`
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-right: 5.4rem;
 `;
 
 export const SearchBtn = styled.span`
   margin-left: 0.6rem;
+  background-color: #191320;
+  height: 2.5rem;
+  border-radius: 0rem 0.25rem 0.25rem 0rem;
+  margin-left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
 `;
 
 export const SearchInput = styled.input`
-  background: transparent;
-  color: white;
+  background-color: #191320;
   border: none;
-  border-bottom: 0.1rem solid #5b486a;
-  padding: 0.5rem;
-  &:focus {
+  padding: 1rem;
+  height: 2.5rem;
+  border-radius: 0.25rem 0rem 0rem 0.25rem;
+  :focus {
     outline: none;
   }
 `;
