@@ -18,6 +18,7 @@ import {
   BottomChartBorder,
   InfoText,
   Ticker,
+  NotAvailable,
 } from "./CoinListItem.styles";
 import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
 import formatNumber from "../../utils/NumberUtils/formatNumber";
@@ -47,7 +48,7 @@ export const CoinListItem = (
   const currencySymbol = getCurrencySymbol(currency);
   const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
   return (
-    <ListItemRow>
+    <ListItemRow key={id}>
       <FavoriteCol lg={{ span: 1 }}>
         <FavoriteCoin />
       </FavoriteCol>
@@ -56,12 +57,8 @@ export const CoinListItem = (
         <img src={img} />
       </ImgCol>
       <NameCol lg={{ span: 4 }}>
-        <div>
-          <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
-        </div>
-        <div>
-          <Ticker>{ticker}</Ticker>
-        </div>
+        <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
+        <Ticker>{ticker}</Ticker>
       </NameCol>
       <CurrentPriceCol lg={{ span: 1 }}>
         {currencySymbol}
@@ -70,12 +67,16 @@ export const CoinListItem = (
       <Col lg={{ span: 5 }}>
         <Row>
           {priceChangeValues.map((value) => {
-            return (
-              <PriceChangeCol key={value} span={8} pricechange={value}>
-                <CaretSymbol value={value} />
-                {value.toFixed(2)}%
-              </PriceChangeCol>
-            );
+            if (!value) {
+              return <NotAvailable span={8}>-</NotAvailable>;
+            } else {
+              return (
+                <PriceChangeCol key={value} span={8} pricechange={value}>
+                  <CaretSymbol value={value} />
+                  {value.toFixed(2)}%
+                </PriceChangeCol>
+              );
+            }
           })}
         </Row>
       </Col>
@@ -118,7 +119,7 @@ export const CoinListItem = (
         </div>
         <div>
           <InfoText>Max Supply</InfoText>
-          {totalSupply === null ? (
+          {!totalSupply ? (
             <CgInfinity size="1.1rem" />
           ) : (
             <span>

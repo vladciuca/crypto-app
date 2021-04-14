@@ -5,9 +5,12 @@ import { CoinListItem } from "../../components/CoinListItem";
 import keysToCamel from "../../utils/keysToCamel";
 import { Container } from "./CoinList.sytles";
 
-class CoinList extends React.Component {
+export default class CoinList extends React.Component {
   state = {
     coinList: [],
+    page: 1,
+    itemsPerPage: 100,
+    category: "",
     sortBy: "marketCapRank",
     order: true,
     isLoading: false,
@@ -16,12 +19,11 @@ class CoinList extends React.Component {
   getCoinList = async () => {
     try {
       this.setState({ isLoading: true });
+      const { currency } = this.props;
+      const { page, itemsPerPage, category } = this.state;
       const base = process.env.REACT_APP_ENDPOINT;
-      const currency = this.props.currency;
-      const itemsPerPage = "100";
-      const page = "1";
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+        `${base}/coins/markets?vs_currency=${currency}&category=${category}&order=market_cap_desc&per_page=${itemsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
       );
       this.setState({
         coinList: keysToCamel(data),
@@ -30,6 +32,22 @@ class CoinList extends React.Component {
       });
     } catch (error) {
       this.setState({ isLoading: false, hasError: true });
+    }
+  };
+  handleCategory = (e) => {
+    this.setState({ category: e.target.value });
+  };
+  handleItemsPerPage = (e) => {
+    this.setState({ itemsPerPage: e.target.value });
+  };
+  handleNextPage = () => {
+    this.setState({ page: this.state.page + 1 });
+  };
+  handlePrevPage = () => {
+    if (this.state.page === 1) {
+      return;
+    } else {
+      this.setState({ page: this.state.page - 1 });
     }
   };
   sortCoinList = (sortBy) => {
@@ -51,6 +69,18 @@ class CoinList extends React.Component {
     if (prevProps.currency !== this.props.currency && this.state.coinList) {
       this.getCoinList();
     }
+    if (prevState.page !== this.state.page && this.state.coinList) {
+      this.getCoinList();
+    }
+    if (
+      prevState.itemsPerPage !== this.state.itemsPerPage &&
+      this.state.coinList
+    ) {
+      this.getCoinList();
+    }
+    if (prevState.category !== this.state.category && this.state.coinList) {
+      this.getCoinList();
+    }
   }
   componentDidMount() {
     this.getCoinList();
@@ -58,26 +88,29 @@ class CoinList extends React.Component {
   render() {
     const hasData = !this.state.isLoading && !this.state.coinList.lenght;
     const sortedList = this.sortCoinList(this.state.sortBy);
+    const { order, sortBy, category, page, itemsPerPage } = this.state;
     return (
-      <div>
-        {this.state.isLoading && <div>Loading...</div>}
-        {this.state.hasError && (
-          <div>There was a problem fetching your data..</div>
-        )}
+      <Container>
+        <CoinListHeader
+          order={order}
+          sortBy={sortBy}
+          handleSort={this.handleSort}
+          category={category}
+          handleCategory={this.handleCategory}
+          page={page}
+          itemsPerPage={itemsPerPage}
+          handleItemsPerPage={this.handleItemsPerPage}
+          handleNextPage={this.handleNextPage}
+          handlePrevPage={this.handlePrevPage}
+        />
         {hasData && (
-          <Container>
-            <CoinListHeader
-              order={this.state.order}
-              sortBy={this.state.sortBy}
-              handleSort={this.handleSort}
-            />
+          <>
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
-                  key={coin.id}
                   id={coin.id}
                   currency={this.props.currency}
-                  rank={coin.market_cap_rank}
+                  rank={coin.marketCapRank}
                   img={coin.image}
                   name={coin.name}
                   ticker={coin.symbol}
@@ -93,11 +126,13 @@ class CoinList extends React.Component {
                 />
               );
             })}
-          </Container>
+          </>
         )}
-      </div>
+        {this.state.isLoading && <div>Loading...</div>}
+        {this.state.hasError && (
+          <div>There was a problem fetching your data..</div>
+        )}
+      </Container>
     );
   }
 }
-
-export default CoinList;

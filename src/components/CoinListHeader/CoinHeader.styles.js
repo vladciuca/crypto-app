@@ -15,10 +15,19 @@ export const ColumnHeader = styled(Col)`
   }
 `;
 
-export const FavIcon = styled.div`
+export const Icon = styled.div`
   display: flex;
   justify-content: center !important;
   align-items: center;
   width: 100%;
   height: 100%;
+`;
+
+export const Select = styled.select`
+  color: white;
+  background: #191320;
+  border: none;
+  :focus {
+    outline: none;
+  }
 `;
