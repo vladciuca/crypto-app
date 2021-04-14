@@ -14,6 +14,7 @@ import {
   Card,
 } from "./CoinPage.styles";
 import { Row, Col } from "antd";
+import keysToCamel from "../../utils/keysToCamel";
 export default class CoinPage extends React.Component {
   state = {
     coinData: null,
@@ -26,7 +27,11 @@ export default class CoinPage extends React.Component {
       const { data } = await axios(
         `${base}/coins/${coinId}?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`
       );
-      this.setState({ coinData: data, isLoading: false, hasError: false });
+      this.setState({
+        coinData: keysToCamel(data),
+        isLoading: false,
+        hasError: false,
+      });
     } catch (error) {
       this.setState({ isLoading: false, hasError: true });
     }
@@ -36,6 +41,7 @@ export default class CoinPage extends React.Component {
   }
   render() {
     const hasData = !this.state.isLoading && this.state.coinData;
+    const coinData = this.state.coinData;
     return (
       <div>
         {this.state.isLoading && <div>Loading...</div>}
@@ -46,12 +52,12 @@ export default class CoinPage extends React.Component {
           <div>
             <StyledRow>
               <Col>
-                <Img src={this.state.coinData.image.large} />
+                <Img src={coinData.image.large} />
               </Col>
               <Coin>
-                <Rank>#{this.state.coinData.market_cap_rank}</Rank>
-                <Name>{this.state.coinData.name}</Name>
-                <Ticker>{this.state.coinData.symbol}</Ticker>
+                <Rank>#{coinData.marketCapRank}</Rank>
+                <Name>{coinData.name}</Name>
+                <Ticker>{coinData.symbol}</Ticker>
                 <Favorite>
                   <FavoriteCoin />
                 </Favorite>
@@ -59,7 +65,7 @@ export default class CoinPage extends React.Component {
             </StyledRow>
             <Row>
               <CoinListChart
-                priceData={this.state.coinData.market_data.sparkline_7d.price}
+                priceData={coinData.marketData.sparkline7d.price}
               />
             </Row>
             <Background>

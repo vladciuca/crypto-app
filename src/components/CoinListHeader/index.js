@@ -6,9 +6,9 @@ import { ColumnHeader, FavIcon } from "./CoinHeader.styles";
 
 export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
   const priceChangeSorts = [
-    { title: "1h%", value: "price_change_percentage_1h_in_currency" },
-    { title: "24h%", value: "price_change_percentage_24h_in_currency" },
-    { title: "7d%", value: "price_change_percentage_7d_in_currency" },
+    { title: "1h%", value: "priceChangePercentage1hInCurrency" },
+    { title: "24h%", value: "priceChangePercentage24hInCurrency" },
+    { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
   return (
     <Row>
@@ -19,10 +19,10 @@ export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
       </ColumnHeader>
       <ColumnHeader
         lg={{ span: 1 }}
-        onClick={() => handleSort("market_cap_rank")}
+        onClick={() => handleSort("marketCapRank")}
       >
         <div>
-          #{sortBy === "market_cap_rank" && <CaretSymbol value={order} />}
+          #{sortBy === "marketCapRank" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
       <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
@@ -31,13 +31,10 @@ export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
           {sortBy === "name" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
-      <ColumnHeader
-        lg={{ span: 2 }}
-        onClick={() => handleSort("current_price")}
-      >
+      <ColumnHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>
         <div>
           Price
-          {sortBy === "current_price" && <CaretSymbol value={order} />}
+          {sortBy === "currentPrice" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
 
@@ -55,10 +52,10 @@ export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
           })}
         </Row>
       </Col>
-      <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("total_volume")}>
+      <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("totalVolume")}>
         <div>
           24h Volume
-          {sortBy === "total_volume" && <CaretSymbol value={order} />}
+          {sortBy === "totalVolume" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
     </Row>
