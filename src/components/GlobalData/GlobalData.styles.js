@@ -28,7 +28,7 @@ export const Value = styled.span`
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: #a487c3 !important;
+  color: #a487c3;
   padding-right: 0.1rem;
 `;
 
@@ -36,9 +36,9 @@ export const MarketCapChange = styled.span`
   ${(props) =>
     props.marketcapchange < 0
       ? css`
-          color: #ff7b7b !important;
+          color: #ff7b7b;
         `
       : css`
-          color: #a2f5a2 !important;
+          color: #a2f5a2;
         `}
 `;

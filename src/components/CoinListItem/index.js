@@ -1,7 +1,3 @@
-import convertLongNumber from "../../uitls/NumberUtils/convertLongNumber";
-import formatNumber from "../../uitls/NumberUtils/formatNumber";
-import formatPrice from "../../uitls/NumberUtils/formatPrice";
-import getCurrencySymbol from "../../uitls/getCurrencySymbol";
 import FavoriteCoin from "../FavoriteCoin";
 import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
@@ -14,10 +10,8 @@ import {
   RankCol,
   ImgCol,
   NameCol,
+  PriceChangeCol,
   CurrentPriceCol,
-  PriceChange1hCol,
-  PriceChange24hCol,
-  PriceChange7dCol,
   DoubleSlotCol,
   ChartCol,
   ChartContainer,
@@ -25,6 +19,10 @@ import {
   InfoText,
   Ticker,
 } from "./CoinListItem.styles";
+import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
+import formatNumber from "../../utils/NumberUtils/formatNumber";
+import formatPrice from "../../utils/NumberUtils/formatPrice";
+import getCurrencySymbol from "../../utils/getCurrencySymbol";
 
 export const CoinListItem = (
   {
@@ -47,6 +45,7 @@ export const CoinListItem = (
   ...rest
 ) => {
   const currencySymbol = getCurrencySymbol(currency);
+  const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
   return (
     <ListItemRow>
       <FavoriteCol lg={{ span: 1 }}>
@@ -69,21 +68,15 @@ export const CoinListItem = (
         {formatPrice(currentPrice)}
       </CurrentPriceCol>
       <Col lg={{ span: 5 }}>
-        {/* // Try a map here...............................................................
-        // Use the .value prop to create 1 condition for all 3 colums in the styles.js fiel */}
         <Row>
-          <PriceChange1hCol span={8} pricechange1h={priceChange1h}>
-            <CaretSymbol value={priceChange1h} />
-            {priceChange1h.toFixed(2)}%
-          </PriceChange1hCol>
-          <PriceChange24hCol span={8} pricechange24h={priceChange24h}>
-            <CaretSymbol value={priceChange24h} />
-            {priceChange24h.toFixed(2)}%
-          </PriceChange24hCol>
-          <PriceChange7dCol span={8} pricechange7d={priceChange7d}>
-            <CaretSymbol value={priceChange7d} />
-            {priceChange7d.toFixed(2)}%
-          </PriceChange7dCol>
+          {priceChangeValues.map((value) => {
+            return (
+              <PriceChangeCol key={value} span={8} pricechange={value}>
+                <CaretSymbol value={value} />
+                {value.toFixed(2)}%
+              </PriceChangeCol>
+            );
+          })}
         </Row>
       </Col>
       <DoubleSlotCol lg={{ span: 4 }}>

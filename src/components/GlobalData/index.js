@@ -3,9 +3,6 @@ import axios from "axios";
 import ETHGasPrice from "../ETHGasPrice";
 import { CurrencySelect } from "../CurrencySelect";
 import { CaretSymbol } from "../CaretSymbol";
-import formatNumber from "../../uitls/NumberUtils/formatNumber";
-import convertLongNumber from "../../uitls/NumberUtils/convertLongNumber";
-import getCurrencySymbol from "../../uitls/getCurrencySymbol";
 import { Row, Col, Tooltip } from "antd";
 import {
   GlobalDataBar,
@@ -16,7 +13,9 @@ import {
   Ticker,
   MarketCapChange,
 } from "./GlobalData.styles";
-
+import formatNumber from "../../utils/NumberUtils/formatNumber";
+import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
+import getCurrencySymbol from "../../utils/getCurrencySymbol";
 export default class GlobalData extends React.Component {
   state = {
     globalData: null,
@@ -36,7 +35,7 @@ export default class GlobalData extends React.Component {
     }
   };
   getCurrencyValue = (key) => {
-    const currency = this.props.currency;
+    const { currency } = this.props;
     return this.state.globalData[key][currency];
   };
   componentDidUpdate(prevProps, prevState) {

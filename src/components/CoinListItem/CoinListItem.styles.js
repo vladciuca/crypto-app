@@ -66,37 +66,11 @@ export const CurrentPriceCol = styled(Col)`
   padding-right: 1rem;
 `;
 
-export const PriceChange1hCol = styled(Col)`
+export const PriceChangeCol = styled(Col)`
   display: flex;
   align-items: center;
   ${(props) =>
-    props.pricechange1h < 0
-      ? css`
-          color: #ff7b7b;
-        `
-      : css`
-          color: #a2f5a2;
-        `}
-`;
-
-export const PriceChange24hCol = styled(Col)`
-  display: flex;
-  align-items: center;
-  ${(props) =>
-    props.pricechange24h < 0
-      ? css`
-          color: #ff7b7b;
-        `
-      : css`
-          color: #a2f5a2;
-        `}
-`;
-
-export const PriceChange7dCol = styled(Col)`
-  display: flex;
-  align-items: center;
-  ${(props) =>
-    props.pricechange7d < 0
+    props.pricechange < 0
       ? css`
           color: #ff7b7b;
         `

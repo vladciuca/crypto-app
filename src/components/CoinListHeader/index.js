@@ -5,6 +5,11 @@ import { RiHeartFill } from "react-icons/ri";
 import { ColumnHeader, FavIcon } from "./CoinHeader.styles";
 
 export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
+  const priceChangeSorts = [
+    { title: "1h%", value: "price_change_percentage_1h_in_currency" },
+    { title: "24h%", value: "price_change_percentage_24h_in_currency" },
+    { title: "7d%", value: "price_change_percentage_7d_in_currency" },
+  ];
   return (
     <Row>
       <ColumnHeader lg={{ span: 1 }}>
@@ -17,13 +22,13 @@ export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
         onClick={() => handleSort("market_cap_rank")}
       >
         <div>
-          #{sortBy !== "market_cap_rank" ? "" : <CaretSymbol value={order} />}
+          #{sortBy === "market_cap_rank" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
       <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
         <div>
           Name
-          {sortBy !== "name" ? "" : <CaretSymbol value={order} />}
+          {sortBy === "name" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
       <ColumnHeader
@@ -32,59 +37,28 @@ export const CoinListHeader = ({ order, handleSort, sortBy }, ...rest) => {
       >
         <div>
           Price
-          {sortBy !== "current_price" ? "" : <CaretSymbol value={order} />}
+          {sortBy === "current_price" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
 
       <Col lg={{ span: 5 }}>
         <Row>
-          <ColumnHeader
-            span={8}
-            onClick={() => handleSort("price_change_percentage_1h_in_currency")}
-          >
-            <div>
-              1h%
-              {sortBy !== "price_change_percentage_1h_in_currency" ? (
-                ""
-              ) : (
-                <CaretSymbol value={order} />
-              )}
-            </div>
-          </ColumnHeader>
-          <ColumnHeader
-            span={8}
-            onClick={() =>
-              handleSort("price_change_percentage_24h_in_currency")
-            }
-          >
-            <div>
-              24h%
-              {sortBy !== "price_change_percentage_24h_in_currency" ? (
-                ""
-              ) : (
-                <CaretSymbol value={order} />
-              )}
-            </div>
-          </ColumnHeader>
-          <ColumnHeader
-            span={8}
-            onClick={() => handleSort("price_change_percentage_7d_in_currency")}
-          >
-            <div>
-              7d%
-              {sortBy !== "price_change_percentage_7d_in_currency" ? (
-                ""
-              ) : (
-                <CaretSymbol value={order} />
-              )}
-            </div>
-          </ColumnHeader>
+          {priceChangeSorts.map((sort) => {
+            return (
+              <ColumnHeader span={8} onClick={() => handleSort(sort.value)}>
+                <div>
+                  {sort.title}
+                  {sortBy === sort.value && <CaretSymbol value={order} />}
+                </div>
+              </ColumnHeader>
+            );
+          })}
         </Row>
       </Col>
       <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("total_volume")}>
         <div>
           24h Volume
-          {sortBy !== "total_volume" ? "" : <CaretSymbol value={order} />}
+          {sortBy === "total_volume" && <CaretSymbol value={order} />}
         </div>
       </ColumnHeader>
     </Row>
