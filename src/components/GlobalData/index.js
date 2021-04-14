@@ -13,6 +13,7 @@ import {
   Ticker,
   MarketCapChange,
 } from "./GlobalData.styles";
+import keysToCamel from "../../utils/keysToCamel";
 import formatNumber from "../../utils/NumberUtils/formatNumber";
 import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
 import getCurrencySymbol from "../../utils/getCurrencySymbol";
@@ -26,7 +27,7 @@ export default class GlobalData extends React.Component {
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(`${base}/global`);
       this.setState({
-        globalData: data.data,
+        globalData: keysToCamel(data.data),
         isLoading: false,
         hasError: false,
       });
@@ -48,6 +49,7 @@ export default class GlobalData extends React.Component {
   }
   render() {
     const hasData = !this.state.isLoading && this.state.globalData;
+    const globalData = this.state.globalData;
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
@@ -62,13 +64,11 @@ export default class GlobalData extends React.Component {
                 <Row gutter={[16]}>
                   <Col>
                     <Description>Cryptocurrencies:</Description>
-                    <Value>
-                      {this.state.globalData.active_cryptocurrencies}
-                    </Value>
+                    <Value>{globalData.activeCryptocurrencies}</Value>
                   </Col>
                   <Col>
                     <Description>Exchanges:</Description>
-                    <Value>{this.state.globalData.markets}</Value>
+                    <Value>{globalData.markets}</Value>
                   </Col>
                   <Col>
                     <Description>Market Cap:</Description>
@@ -77,31 +77,24 @@ export default class GlobalData extends React.Component {
                         placement="bottom"
                         title={`${currencySymbol}
                           ${formatNumber(
-                            this.getCurrencyValue("total_market_cap")
+                            this.getCurrencyValue("totalMarketCap")
                           )}`}
                       >
                         {currencySymbol}
                         {convertLongNumber(
-                          this.getCurrencyValue("total_market_cap")
+                          this.getCurrencyValue("totalMarketCap")
                         )}
                       </Tooltip>
                     </Value>
                     <MarketCapChange
                       marketcapchange={
-                        this.state.globalData
-                          .market_cap_change_percentage_24h_usd
+                        globalData.marketCapChangePercentage24hUsd
                       }
                     >
                       <CaretSymbol
-                        value={
-                          this.state.globalData
-                            .market_cap_change_percentage_24h_usd
-                        }
+                        value={globalData.marketCapChangePercentage24hUsd}
                       />
-                      {this.state.globalData.market_cap_change_percentage_24h_usd.toFixed(
-                        2
-                      )}
-                      %
+                      {globalData.marketCapChangePercentage24hUsd.toFixed(2)}%
                     </MarketCapChange>
                   </Col>
                   <Col>
@@ -110,12 +103,12 @@ export default class GlobalData extends React.Component {
                       <Tooltip
                         placement="bottom"
                         title={`${currencySymbol}${formatNumber(
-                          this.getCurrencyValue("total_volume")
+                          this.getCurrencyValue("totalVolume")
                         )}`}
                       >
                         {currencySymbol}
                         {convertLongNumber(
-                          this.getCurrencyValue("total_volume")
+                          this.getCurrencyValue("totalVolume")
                         )}
                       </Tooltip>
                     </Value>
@@ -124,17 +117,11 @@ export default class GlobalData extends React.Component {
                     <Description>Dominace:</Description>
                     <Value>
                       <Ticker>BTC</Ticker>
-                      {formatNumber(
-                        this.state.globalData.market_cap_percentage.btc
-                      )}
-                      %
+                      {formatNumber(globalData.marketCapPercentage.btc)}%
                     </Value>
                     <Value>
                       <Ticker>ETH</Ticker>
-                      {formatNumber(
-                        this.state.globalData.market_cap_percentage.eth
-                      )}
-                      %
+                      {formatNumber(globalData.marketCapPercentage.eth)}%
                     </Value>
                     <ETHGasPrice />
                   </ETHGasPriceCol>
