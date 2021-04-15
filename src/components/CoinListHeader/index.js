@@ -1,16 +1,17 @@
 import React from "react";
 import { CaretSymbol } from "../CaretSymbol";
-import { Row, Col } from "antd";
+import { Row } from "antd";
 import { RiHeartFill } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { ColumnHeader, Select, Icon } from "./CoinHeader.styles";
+import { ColHeader, StyledCol, Select, Icon } from "./CoinHeader.styles";
 
 export const CoinListHeader = (
   {
-    order,
+    sortOrder,
     handleSort,
     sortBy,
     category,
+    categoryColor,
     handleCategory,
     page,
     itemsPerPage,
@@ -26,86 +27,73 @@ export const CoinListHeader = (
     { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
   return (
-    <Row justify="space-between">
-      <ColumnHeader lg={{ span: 1 }}>
+    <Row justify="space-between" gutter={[8, 0]}>
+      <ColHeader lg={{ span: 1 }}>
         <Icon>
-          <RiHeartFill size="1rem" color="#ff7b7b" />
+          <RiHeartFill size="0.8rem" color="#ff7b7b" />
         </Icon>
-      </ColumnHeader>
-      <ColumnHeader
-        lg={{ span: 1 }}
-        onClick={() => handleSort("marketCapRank")}
-      >
-        <div>
-          #{sortBy === "marketCapRank" && <CaretSymbol value={order} />}
-        </div>
-      </ColumnHeader>
-      <ColumnHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
-        <div>
-          Name
-          {sortBy === "name" && <CaretSymbol value={order} />}
-        </div>
-      </ColumnHeader>
-      <ColumnHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>
-        <div>
-          Price
-          {sortBy === "currentPrice" && <CaretSymbol value={order} />}
-        </div>
-      </ColumnHeader>
-      <Col lg={{ span: 5 }}>
-        <Row>
-          {priceChangeSorts.map((sort) => {
-            return (
-              <ColumnHeader span={8} onClick={() => handleSort(sort.value)}>
-                <div>
-                  {sort.title}
-                  {sortBy === sort.value && <CaretSymbol value={order} />}
-                </div>
-              </ColumnHeader>
-            );
-          })}
-        </Row>
-      </Col>
-      <ColumnHeader lg={{ span: 3 }} onClick={() => handleSort("totalVolume")}>
-        <div>
-          24h Volume
-          {sortBy === "totalVolume" && <CaretSymbol value={order} />}
-        </div>
-      </ColumnHeader>
-      <ColumnHeader>
-        <div>
-          Category
-          <Select value={category} onChange={handleCategory}>
-            <option value="">None</option>
-            <option value="stablecoins">Stablecoins</option>
-            <option value="decentralized_finance_defi">Defi</option>
-          </Select>
-        </div>
-      </ColumnHeader>
-      <ColumnHeader>
-        <div>
-          Show
-          <Select value={itemsPerPage} onChange={handleItemsPerPage}>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </Select>
-        </div>
-      </ColumnHeader>
-      <ColumnHeader>
+      </ColHeader>
+      <ColHeader lg={{ span: 1 }} onClick={() => handleSort("marketCapRank")}>
+        #{sortBy === "marketCapRank" && <CaretSymbol value={sortOrder} />}
+      </ColHeader>
+      <ColHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
+        Name
+        {sortBy === "name" && <CaretSymbol value={sortOrder} />}
+      </ColHeader>
+      <ColHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>
+        Price
+        {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
+      </ColHeader>
+      <StyledCol lg={{ span: 5 }}>
+        {priceChangeSorts.map((sort) => {
+          return (
+            <ColHeader span={8} onClick={() => handleSort(sort.value)}>
+              {sort.title}
+              {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
+            </ColHeader>
+          );
+        })}
+      </StyledCol>
+      <ColHeader lg={{ span: 4 }} onClick={() => handleSort("totalVolume")}>
+        24h Volume
+        {sortBy === "totalVolume" && <CaretSymbol value={sortOrder} />}
+      </ColHeader>
+      <ColHeader>
+        <Select
+          categoryColor={categoryColor}
+          value={category}
+          onChange={handleCategory}
+        >
+          <option value="">All Coins</option>
+          <option value="stablecoins">Stablecoins</option>
+          <option value="decentralized_finance_defi">Defi Coins</option>
+        </Select>
+      </ColHeader>
+      <ColHeader>
+        Show
+        <Select
+          categoryColor={categoryColor}
+          value={itemsPerPage}
+          onChange={handleItemsPerPage}
+        >
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </Select>
+      </ColHeader>
+      <ColHeader>
         <Icon onClick={handlePrevPage}>
           <FaCaretLeft />
         </Icon>
-      </ColumnHeader>
-      <ColumnHeader>
-        <div>{page}</div>
-      </ColumnHeader>
-      <ColumnHeader>
+      </ColHeader>
+      <ColHeader>
+        <Icon categoryColor={categoryColor}>{page}</Icon>
+      </ColHeader>
+      <ColHeader>
         <Icon onClick={handleNextPage}>
           <FaCaretRight />
         </Icon>
-      </ColumnHeader>
+      </ColHeader>
     </Row>
   );
 };

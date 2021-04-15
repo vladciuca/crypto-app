@@ -62,6 +62,9 @@ export const ImgCol = styled(Col)`
 export const NameCol = styled(Col)`
   font-size: 0.9rem;
   color: #a487c3;
+  ${Ticker} {
+    padding-left: 0;
+  }
 `;
 
 export const CurrentPriceCol = styled(Col)`
@@ -133,6 +136,6 @@ export const BottomChartBorder = styled.div`
   background: linear-gradient(
     to top,
     transparent 10%,
-    rgb(164, 135, 195, 0.5) 90%
+    ${(props) => props.categoryColor} 90%
   );
 `;

@@ -42,6 +42,7 @@ export const CoinListItem = (
     circulatingSupply,
     totalSupply,
     priceChart7d,
+    categoryColor,
   },
   ...rest
 ) => {
@@ -58,11 +59,19 @@ export const CoinListItem = (
       </ImgCol>
       <NameCol lg={{ span: 4 }}>
         <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
-        <Ticker>{ticker}</Ticker>
+        <div>
+          <Ticker>{ticker}</Ticker>
+        </div>
       </NameCol>
-      <CurrentPriceCol lg={{ span: 1 }}>
-        {currencySymbol}
-        {formatPrice(currentPrice)}
+      <CurrentPriceCol lg={{ span: 2 }}>
+        {!currentPrice ? (
+          <NotAvailable>-</NotAvailable>
+        ) : (
+          <span>
+            {currencySymbol}
+            {formatPrice(currentPrice)}
+          </span>
+        )}
       </CurrentPriceCol>
       <Col lg={{ span: 5 }}>
         <Row>
@@ -83,39 +92,55 @@ export const CoinListItem = (
       <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>Mkt Cap</InfoText>
-          <Tooltip
-            placement="top"
-            title={`${currencySymbol}${formatNumber(marketCap)}`}
-          >
-            {currencySymbol}
-            {convertLongNumber(marketCap)}
-          </Tooltip>
+          {!marketCap ? (
+            <NotAvailable>-</NotAvailable>
+          ) : (
+            <span>
+              <Tooltip
+                placement="top"
+                title={`${currencySymbol}${formatNumber(marketCap)}`}
+              >
+                {currencySymbol}
+                {convertLongNumber(marketCap)}
+              </Tooltip>
+            </span>
+          )}
         </div>
         <div>
           <InfoText>Vol 24h</InfoText>
-          <Tooltip
-            placement="bottom"
-            title={`${currencySymbol}${formatNumber(totalVolume)}`}
-          >
-            {currencySymbol}
-            {convertLongNumber(totalVolume)}
-          </Tooltip>
+          {!totalVolume ? (
+            <NotAvailable>-</NotAvailable>
+          ) : (
+            <span>
+              <Tooltip
+                placement="bottom"
+                title={`${currencySymbol}${formatNumber(totalVolume)}`}
+              >
+                {currencySymbol}
+                {convertLongNumber(totalVolume)}
+              </Tooltip>
+            </span>
+          )}
         </div>
       </DoubleSlotCol>
       <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>In Circ</InfoText>
-          <span>
-            <Tooltip
-              placement="top"
-              title={`${formatNumber(
-                circulatingSupply
-              )} ${ticker.toUpperCase()}`}
-            >
-              {convertLongNumber(circulatingSupply)}
-              <Ticker>{ticker}</Ticker>
-            </Tooltip>
-          </span>
+          {!circulatingSupply ? (
+            <NotAvailable>-</NotAvailable>
+          ) : (
+            <span>
+              <Tooltip
+                placement="top"
+                title={`${formatNumber(
+                  circulatingSupply
+                )} ${ticker.toUpperCase()}`}
+              >
+                {convertLongNumber(circulatingSupply)}
+                <Ticker>{ticker}</Ticker>
+              </Tooltip>
+            </span>
+          )}
         </div>
         <div>
           <InfoText>Max Supply</InfoText>
@@ -134,11 +159,14 @@ export const CoinListItem = (
           )}
         </div>
       </DoubleSlotCol>
-      <ChartCol lg={{ span: 3 }}>
+      <ChartCol lg={{ span: 2 }}>
         <ChartContainer>
-          <CoinListChart priceData={priceChart7d} />
+          <CoinListChart
+            priceData={priceChart7d}
+            categoryColor={categoryColor}
+          />
         </ChartContainer>
-        <BottomChartBorder />
+        <BottomChartBorder categoryColor={categoryColor} />
       </ChartCol>
     </ListItemRow>
   );

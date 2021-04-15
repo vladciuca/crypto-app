@@ -1,16 +1,16 @@
 import { Line } from "react-chartjs-2";
 
-export const CoinListChart = (props) => {
+export const CoinListChart = ({ categoryColor, priceData }, ...rest) => {
   return (
     <Line
       data={{
-        labels: props.priceData,
+        labels: priceData,
         datasets: [
           {
             label: `Price Chart`,
-            data: props.priceData,
-            backgroundColor: "rgb(164, 135, 195, 0.5)",
-            borderColor: "rgb(164, 135, 195, 0.5)",
+            data: priceData,
+            backgroundColor: categoryColor,
+            borderColor: categoryColor,
             borderJoinStyle: "round",
             pointRadius: 0,
           },

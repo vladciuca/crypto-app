@@ -63,7 +63,7 @@ export default class GlobalData extends React.Component {
               <Col>
                 <Row gutter={[16]}>
                   <Col>
-                    <Description>Cryptocurrencies:</Description>
+                    <Description>Coins:</Description>
                     <Value>{globalData.activeCryptocurrencies}</Value>
                   </Col>
                   <Col>
