@@ -152,6 +152,9 @@ export default class CoinList extends React.Component {
       this.getSearchQuery();
       this.getCoinList();
     }
+    if (!this.props.location.search) {
+      this.getSearchQuery();
+    }
   }
   componentDidMount() {
     if (this.props.location.search) {
