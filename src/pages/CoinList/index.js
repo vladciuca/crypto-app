@@ -10,7 +10,7 @@ import { Container } from "./CoinList.styles";
 export default class CoinList extends React.Component {
   state = {
     coinList: [],
-    coinListLength: 0,
+    coinListLength: null,
     coinListOrder: true,
     listOrder: "market_cap_desc",
     page: 1,
@@ -22,12 +22,12 @@ export default class CoinList extends React.Component {
         rgb: "rgb(164,135,195, 0.5)",
       },
       stableCoins: {
-        hex: "#59C9A5",
+        hex: "#59c9a5",
         rgb: "rgb(89,201,165, 0.5)",
       },
       defiCoins: {
-        hex: "#48ACF0",
-        rgb: "rgb(72,172,240, 0.5)",
+        hex: "#78e3fd",
+        rgb: "rgb(120,227,253, 0.5)",
       },
     },
     sortOrder: true,
@@ -37,7 +37,6 @@ export default class CoinList extends React.Component {
   };
   getCoinList = async () => {
     try {
-      this.setState({ isLoading: true });
       const { currency } = this.props;
       const { page, coinsPerPage, category, listOrder } = this.state;
       const base = process.env.REACT_APP_ENDPOINT;
@@ -64,7 +63,10 @@ export default class CoinList extends React.Component {
   };
   handleCategory = (e) => {
     this.setState({ page: 1, category: e.target.value });
-    if (e.target.value === "decentralized_finance_defi" || "stablecoins") {
+    if (
+      e.target.value === "decentralized_finance_defi" ||
+      e.target.value === "stablecoins"
+    ) {
       this.setState({ coinsPerPage: 50 });
     }
   };
@@ -89,13 +91,17 @@ export default class CoinList extends React.Component {
     this.setState({ page: this.state.page - 1 });
   };
   sortCoinList = (sortBy) => {
-    return this.state.coinList.sort((a, b) => {
-      if (this.state.sortOrder === true) {
-        return a[sortBy] > b[sortBy] ? 1 : -1;
-      } else if (this.state.sortOrder === false) {
-        return a[sortBy] < b[sortBy] ? 1 : -1;
-      }
-    });
+    if (!this.state.coinList) {
+      return;
+    } else {
+      return this.state.coinList.sort((a, b) => {
+        if (this.state.sortOrder === true) {
+          return a[sortBy] > b[sortBy] ? 1 : -1;
+        } else if (this.state.sortOrder === false) {
+          return a[sortBy] < b[sortBy] ? 1 : -1;
+        }
+      });
+    }
   };
   handleSort = (sortBy) => {
     this.setState({
@@ -124,6 +130,7 @@ export default class CoinList extends React.Component {
   };
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.currency !== this.props.currency && this.state.coinList) {
+      this.getSearchQuery();
       this.getCoinList();
     }
     if (prevState.page !== this.state.page && this.state.coinList) {
@@ -168,7 +175,7 @@ export default class CoinList extends React.Component {
     }
   }
   render() {
-    const hasData = !this.state.isLoading && this.state.coinList.length;
+    const hasData = !!(!this.state.isLoading && this.state.coinList.length);
     const sortedList = this.sortCoinList(this.state.sortBy);
     const {
       sortBy,
@@ -206,6 +213,7 @@ export default class CoinList extends React.Component {
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
+                  key={coin.name}
                   id={coin.id}
                   currency={this.props.currency}
                   rank={coin.marketCapRank}
