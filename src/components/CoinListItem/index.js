@@ -49,13 +49,13 @@ export const CoinListItem = (
   const currencySymbol = getCurrencySymbol(currency);
   const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
   return (
-    <ListItemRow key={id}>
+    <ListItemRow>
       <FavoriteCol lg={{ span: 1 }}>
         <FavoriteCoin />
       </FavoriteCol>
       <RankCol lg={{ span: 1 }}>#{rank}</RankCol>
       <ImgCol lg={{ span: 1 }}>
-        <img src={img} />
+        <img src={img} alt={name} />
       </ImgCol>
       <NameCol lg={{ span: 4 }}>
         <StyledLink to={`/coin/${id}`}>{name}</StyledLink>

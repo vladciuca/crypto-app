@@ -53,7 +53,11 @@ export const CoinListHeader = (
       <StyledCol lg={{ span: 5 }}>
         {priceChangeSorts.map((sort) => {
           return (
-            <ColHeader span={8} onClick={() => handleSort(sort.value)}>
+            <ColHeader
+              key={sort.title}
+              span={8}
+              onClick={() => handleSort(sort.value)}
+            >
               {sort.title}
               {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
             </ColHeader>
