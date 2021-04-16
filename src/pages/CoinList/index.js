@@ -13,7 +13,7 @@ export default class CoinList extends React.Component {
     coinListLength: null,
     coinListOrder: true,
     listOrder: "market_cap_desc",
-    page: 1,
+    page: null,
     coinsPerPage: 50,
     category: "",
     categoryColor: {
@@ -167,15 +167,13 @@ export default class CoinList extends React.Component {
     }
   }
   componentDidMount() {
+    this.setState({ page: 1 });
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
         parseBooleans: true,
         parseNumbers: true,
       });
       this.setState(parsed);
-    } else {
-      this.getSearchQuery();
-      this.getCoinList();
     }
   }
   render() {
