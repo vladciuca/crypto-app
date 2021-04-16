@@ -26,6 +26,12 @@ export const CoinListHeader = (
     { title: "24h%", value: "priceChangePercentage24hInCurrency" },
     { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
+  const categoryChange =
+    category === "decentralized_finance_defi"
+      ? true
+      : category === "stablecoins"
+      ? true
+      : false;
   return (
     <Row justify="space-between" gutter={[8, 0]}>
       <ColHeader lg={{ span: 1 }}>
@@ -72,6 +78,7 @@ export const CoinListHeader = (
       <ColHeader>
         Show
         <Select
+          disabled={categoryChange}
           categoryColor={categoryColor}
           value={itemsPerPage}
           onChange={handleItemsPerPage}
@@ -79,6 +86,7 @@ export const CoinListHeader = (
           <option value="10">10</option>
           <option value="20">20</option>
           <option value="50">50</option>
+          <option value="100">100</option>
         </Select>
       </ColHeader>
       <ColHeader>

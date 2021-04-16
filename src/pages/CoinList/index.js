@@ -9,6 +9,7 @@ import { Container } from "./CoinList.styles";
 export default class CoinList extends React.Component {
   state = {
     coinList: [],
+    coinListLenght: 0,
     coinListOrder: true,
     apiListOrder: "market_cap_desc",
     page: 1,
@@ -44,6 +45,7 @@ export default class CoinList extends React.Component {
       );
       this.setState({
         coinList: keysToCamel(data),
+        coinListLenght: data.length,
         isLoading: false,
         hasError: false,
       });
@@ -61,6 +63,9 @@ export default class CoinList extends React.Component {
   };
   handleCategory = (e) => {
     this.setState({ page: 1, category: e.target.value });
+    if (e.target.value === "decentralized_finance_defi" || "stablecoins") {
+      this.setState({ itemsPerPage: 50 });
+    }
   };
   getCategoryColor = (type) => {
     if (this.state.category === "decentralized_finance_defi") {
@@ -75,6 +80,7 @@ export default class CoinList extends React.Component {
     this.setState({ itemsPerPage: e.target.value });
   };
   handleNextPage = () => {
+    if (this.state.coinListLenght < this.state.itemsPerPage) return;
     this.setState({ page: this.state.page + 1 });
   };
   handlePrevPage = () => {
