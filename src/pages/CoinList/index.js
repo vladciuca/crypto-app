@@ -97,9 +97,8 @@ export default class CoinList extends React.Component {
       return this.state.coinList.sort((a, b) => {
         if (this.state.sortOrder === true) {
           return a[sortBy] > b[sortBy] ? 1 : -1;
-        } else if (this.state.sortOrder === false) {
-          return a[sortBy] < b[sortBy] ? 1 : -1;
         }
+        return a[sortBy] < b[sortBy] ? 1 : -1;
       });
     }
   };
