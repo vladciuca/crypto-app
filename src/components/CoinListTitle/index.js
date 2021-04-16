@@ -12,9 +12,9 @@ import {
 
 export const CoinListTitle = (
   {
-    handleApiListOrder,
+    handleListOrder,
     coinListOrder,
-    itemsPerPage,
+    coinsPerPage,
     page,
     category,
     categoryColor,
@@ -29,7 +29,7 @@ export const CoinListTitle = (
       : "COINS";
   return (
     <TitleRow>
-      <Arrows onClick={handleApiListOrder}>
+      <Arrows onClick={handleListOrder}>
         <Arrow>
           <FaCaretUp />
         </Arrow>
@@ -40,7 +40,7 @@ export const CoinListTitle = (
       <Col>
         <Title>
           {coinListOrder ? <span>Top</span> : <span>Bottom</span>}
-          <Value categoryColor={categoryColor}>{itemsPerPage * page}</Value>
+          <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
           <Category>{categoryName}</Category>
         </Title>
       </Col>
