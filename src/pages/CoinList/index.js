@@ -84,14 +84,11 @@ export default class CoinList extends React.Component {
   };
   handleNextPage = () => {
     if (
-      this.state.isLoading &&
       !this.state.coinList.length &&
       this.state.coinListLength < this.state.coinsPerPage
     )
       return;
     this.setState({ page: this.state.page + 1 });
-    console.log(this.state.page);
-    console.log(this.state.isLoading);
   };
   handlePrevPage = () => {
     if (this.state.page === 1) return;
