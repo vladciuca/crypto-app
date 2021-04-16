@@ -83,8 +83,15 @@ export default class CoinList extends React.Component {
     this.setState({ coinsPerPage: e.target.value });
   };
   handleNextPage = () => {
-    if (this.state.coinListLength < this.state.coinsPerPage) return;
+    if (
+      this.state.isLoading &&
+      !this.state.coinList.length &&
+      this.state.coinListLength < this.state.coinsPerPage
+    )
+      return;
     this.setState({ page: this.state.page + 1 });
+    console.log(this.state.page);
+    console.log(this.state.isLoading);
   };
   handlePrevPage = () => {
     if (this.state.page === 1) return;
@@ -166,6 +173,7 @@ export default class CoinList extends React.Component {
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
         parseBooleans: true,
+        parseNumbers: true,
       });
       this.setState(parsed);
     } else {
@@ -194,21 +202,21 @@ export default class CoinList extends React.Component {
           category={category}
           categoryColor={this.getCategoryColor("hex")}
         />
-        <CoinListHeader
-          sortOrder={sortOrder}
-          sortBy={sortBy}
-          handleSort={this.handleSort}
-          category={category}
-          categoryColor={this.getCategoryColor("hex")}
-          handleCategory={this.handleCategory}
-          page={page}
-          coinsPerPage={coinsPerPage}
-          handleCoinsPerPage={this.handleCoinsPerPage}
-          handleNextPage={this.handleNextPage}
-          handlePrevPage={this.handlePrevPage}
-        />
         {hasData && (
           <>
+            <CoinListHeader
+              sortOrder={sortOrder}
+              sortBy={sortBy}
+              handleSort={this.handleSort}
+              category={category}
+              categoryColor={this.getCategoryColor("hex")}
+              handleCategory={this.handleCategory}
+              page={page}
+              coinsPerPage={coinsPerPage}
+              handleCoinsPerPage={this.handleCoinsPerPage}
+              handleNextPage={this.handleNextPage}
+              handlePrevPage={this.handlePrevPage}
+            />
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
