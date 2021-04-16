@@ -14,8 +14,8 @@ export const CoinListHeader = (
     categoryColor,
     handleCategory,
     page,
-    itemsPerPage,
-    handleItemsPerPage,
+    coinsPerPage,
+    handleCoinsPerPage,
     handleNextPage,
     handlePrevPage,
   },
@@ -80,8 +80,8 @@ export const CoinListHeader = (
         <Select
           disabled={categoryChange}
           categoryColor={categoryColor}
-          value={itemsPerPage}
-          onChange={handleItemsPerPage}
+          value={coinsPerPage}
+          onChange={handleCoinsPerPage}
         >
           <option value="10">10</option>
           <option value="20">20</option>
