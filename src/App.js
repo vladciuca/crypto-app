@@ -15,18 +15,21 @@ class App extends React.Component {
     this.setState({ currency: e.target.value });
   };
   render() {
+    const { currency } = this.state;
     return (
       <Router>
         <div>
           <GlobalData
-            currency={this.state.currency}
+            currency={currency}
             handleCurrencyChange={this.handleCurrencyChange}
           ></GlobalData>
           <NavBar />
           <Switch>
-            <Route exact path="/">
-              <CoinList currency={this.state.currency} />
-            </Route>
+            <Route
+              exact
+              path="/"
+              component={(props) => <CoinList {...props} currency={currency} />}
+            ></Route>
             <Route exact path="/coin/:id" component={CoinPage}></Route>
             <Route exact path="/dashboard">
               <Portfolio />

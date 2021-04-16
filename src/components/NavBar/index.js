@@ -11,7 +11,7 @@ export const NavBar = (props) => {
           <li>
             <StyledLink to="/">
               <FaCoins size="1.3rem" color="#5b486a" />
-              <span>Cryptocurrencies</span>
+              <span>Coins</span>
             </StyledLink>
           </li>
           <li>

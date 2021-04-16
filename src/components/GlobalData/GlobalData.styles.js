@@ -32,7 +32,15 @@ export const Ticker = styled.span`
   padding-right: 0.1rem;
 `;
 
-export const MarketCapChange = styled.span`
+export const MarketCapCol = styled(Col)`
+  display: flex;
+  align-items: center;
+`;
+
+export const MarketCapChange = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 0.2rem;
   ${(props) =>
     props.marketcapchange < 0
       ? css`

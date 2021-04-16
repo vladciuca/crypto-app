@@ -11,6 +11,7 @@ import {
   Description,
   Value,
   Ticker,
+  MarketCapCol,
   MarketCapChange,
 } from "./GlobalData.styles";
 import keysToCamel from "../../utils/keysToCamel";
@@ -63,14 +64,14 @@ export default class GlobalData extends React.Component {
               <Col>
                 <Row gutter={[16]}>
                   <Col>
-                    <Description>Cryptocurrencies:</Description>
+                    <Description>Coins:</Description>
                     <Value>{globalData.activeCryptocurrencies}</Value>
                   </Col>
                   <Col>
                     <Description>Exchanges:</Description>
                     <Value>{globalData.markets}</Value>
                   </Col>
-                  <Col>
+                  <MarketCapCol>
                     <Description>Market Cap:</Description>
                     <Value>
                       <Tooltip
@@ -96,7 +97,7 @@ export default class GlobalData extends React.Component {
                       />
                       {globalData.marketCapChangePercentage24hUsd.toFixed(2)}%
                     </MarketCapChange>
-                  </Col>
+                  </MarketCapCol>
                   <Col>
                     <Description>24h Volume:</Description>
                     <Value>

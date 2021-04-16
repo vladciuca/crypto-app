@@ -5,10 +5,17 @@ import styled, { css } from "styled-components";
 export const StyledLink = styled(Link)`
   color: white;
   text-decoration: none;
-  padding-left: 0.25rem !important;
   :hover {
     color: white;
   }
+`;
+
+export const Ticker = styled.span`
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #5b486a;
+  padding-left: 0.2rem;
 `;
 
 export const ListItemRow = styled(Row)`
@@ -53,9 +60,11 @@ export const ImgCol = styled(Col)`
 `;
 
 export const NameCol = styled(Col)`
-  align-items: center;
   font-size: 0.9rem;
   color: #a487c3;
+  ${Ticker} {
+    padding-left: 0;
+  }
 `;
 
 export const CurrentPriceCol = styled(Col)`
@@ -77,6 +86,15 @@ export const PriceChangeCol = styled(Col)`
       : css`
           color: #a2f5a2;
         `}
+`;
+
+export const NotAvailable = styled(Col)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #5b486a;
 `;
 
 export const DoubleSlotCol = styled(Col)`
@@ -109,14 +127,6 @@ export const InfoText = styled.span`
   color: #5b486a;
 `;
 
-export const Ticker = styled.span`
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #5b486a;
-  padding-left: 0.2rem;
-`;
-
 export const ChartContainer = styled.div`
   height: 2.75rem;
 `;
@@ -126,6 +136,6 @@ export const BottomChartBorder = styled.div`
   background: linear-gradient(
     to top,
     transparent 10%,
-    rgb(164, 135, 195, 0.5) 90%
+    ${(props) => props.categoryColor} 90%
   );
 `;
