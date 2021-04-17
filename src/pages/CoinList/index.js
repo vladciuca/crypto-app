@@ -4,7 +4,8 @@ import queryString from "query-string";
 import { CoinListTitle } from "../../components/CoinListTitle";
 import { CoinListHeader } from "../../components/CoinListHeader";
 import { CoinListItem } from "../../components/CoinListItem";
-import keysToCamel from "../../utils/keysToCamel";
+import camelToSnake from "../../utils/StringUtils/camelToSnake";
+import keysToCamel from "../../utils/StringUtils/keysToCamel";
 import { Container } from "./CoinList.styles";
 
 export default class CoinList extends React.Component {
@@ -12,10 +13,10 @@ export default class CoinList extends React.Component {
     coinList: [],
     coinListLength: null,
     coinListOrder: true,
-    listOrder: "market_cap_desc",
+    listOrder: "marketCapDesc",
     page: null,
     coinsPerPage: 50,
-    category: "",
+    category: "all",
     categoryColor: {
       allCoins: {
         hex: "#a487c3",
@@ -38,7 +39,9 @@ export default class CoinList extends React.Component {
   getCoinList = async () => {
     try {
       const { currency } = this.props;
-      const { page, coinsPerPage, category, listOrder } = this.state;
+      const { page, coinsPerPage } = this.state;
+      const category = camelToSnake(this.state.category);
+      const listOrder = camelToSnake(this.state.listOrder);
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(
         `${base}/coins/markets?vs_currency=${currency}&category=${category}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
@@ -56,22 +59,22 @@ export default class CoinList extends React.Component {
   handleListOrder = () => {
     this.setState({ coinListOrder: !this.state.coinListOrder });
     if (this.state.coinListOrder) {
-      this.setState({ listOrder: "market_cap_asc" });
+      this.setState({ listOrder: "marketCapAsc" });
     } else {
-      this.setState({ listOrder: "market_cap_desc" });
+      this.setState({ listOrder: "marketCapDesc" });
     }
   };
   handleCategory = (e) => {
     this.setState({ page: 1, category: e.target.value });
     if (
-      e.target.value === "decentralized_finance_defi" ||
+      e.target.value === "decentralizedFinanceDefi" ||
       e.target.value === "stablecoins"
     ) {
       this.setState({ coinsPerPage: 50 });
     }
   };
   getCategoryColor = (type) => {
-    if (this.state.category === "decentralized_finance_defi") {
+    if (this.state.category === "decentralizedFinanceDefi") {
       return this.state.categoryColor.defiCoins[type];
     } else if (this.state.category === "stablecoins") {
       return this.state.categoryColor.stableCoins[type];
@@ -111,7 +114,7 @@ export default class CoinList extends React.Component {
   getSearchQuery = () => {
     if (
       this.state.category === "stablecoins" ||
-      this.state.category === "decentralized_finance_defi"
+      this.state.category === "decentralizedFinanceDefi"
     ) {
       this.setState({ coinsPerPage: 50 });
     }

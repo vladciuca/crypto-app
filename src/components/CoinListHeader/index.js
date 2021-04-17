@@ -74,9 +74,9 @@ export const CoinListHeader = (
           value={category}
           onChange={handleCategory}
         >
-          <option value="">All Coins</option>
+          <option value="all">All Coins</option>
           <option value="stablecoins">Stablecoins</option>
-          <option value="decentralized_finance_defi">Defi Coins</option>
+          <option value="decentralizedFinanceDefi">Defi Coins</option>
         </Select>
       </ColHeader>
       <ColHeader>

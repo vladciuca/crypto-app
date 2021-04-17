@@ -1,7 +1,9 @@
 import React from "react";
 import axios from "axios";
+import { Row, Col } from "antd";
 import FavoriteCoin from "../../components/FavoriteCoin";
 import { CoinListChart } from "../../components/CoinListChart";
+import keysToCamel from "../../utils/StringUtils/keysToCamel";
 import {
   Background,
   StyledRow,
@@ -13,8 +15,7 @@ import {
   Favorite,
   Card,
 } from "./CoinPage.styles";
-import { Row, Col } from "antd";
-import keysToCamel from "../../utils/keysToCamel";
+
 export default class CoinPage extends React.Component {
   state = {
     coinData: null,
