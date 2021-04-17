@@ -113,6 +113,12 @@ export default class CoinList extends React.Component {
     });
   };
   getSearchQuery = () => {
+    if (
+      this.state.category === "stablecoins" ||
+      this.state.category === "decentralized_finance_defi"
+    ) {
+      this.setState({ coinsPerPage: 50 });
+    }
     const {
       sortOrder,
       sortBy,
