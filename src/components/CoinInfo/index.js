@@ -1,6 +1,6 @@
 import FavoriteCoin from "../FavoriteCoin";
 import { Row, Col } from "antd";
-import { FaEthereum, FaGlobe } from "react-icons/fa";
+import { FaEthereum } from "react-icons/fa";
 import { BiLinkAlt } from "react-icons/bi";
 import { MdContentCopy } from "react-icons/md";
 import {
@@ -50,7 +50,7 @@ export const CoinInfo = (
               <Icon>
                 <BiLinkAlt />
               </Icon>
-              <a target="_blank" href={website}>
+              <a target="_blank" rel="noreferrer" href={website}>
                 {website}
               </a>
             </div>
@@ -67,6 +67,7 @@ export const CoinInfo = (
               <span>
                 <a
                   target="_blank"
+                  rel="noreferrer"
                   href={`https://etherscan.io/token/${contractAddress}`}
                 >
                   {contractAddress}

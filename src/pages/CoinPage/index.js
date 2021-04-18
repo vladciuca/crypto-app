@@ -86,7 +86,7 @@ export default class CoinPage extends React.Component {
                   {Object.entries(coinData.platforms).map((entry) => {
                     const [key, value] = entry;
                     if (key === "" || value === "") {
-                      return;
+                      return null;
                     } else {
                       return (
                         <div key={value}>
