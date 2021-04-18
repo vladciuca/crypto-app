@@ -27,7 +27,7 @@ export const CoinListHeader = (
     { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
   const categoryChange =
-    category === "decentralized_finance_defi"
+    category === "decentralizedFinanceDefi"
       ? true
       : category === "stablecoins"
       ? true

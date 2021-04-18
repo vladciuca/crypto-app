@@ -27,8 +27,8 @@ export default class CoinList extends React.Component {
         rgb: "rgb(89,201,165, 0.5)",
       },
       defiCoins: {
-        hex: "#78e3fd",
-        rgb: "rgb(120,227,253, 0.5)",
+        hex: "#56cbf9",
+        rgb: "rgb(86,203,249, 0.5)",
       },
     },
     sortOrder: true,
@@ -37,6 +37,7 @@ export default class CoinList extends React.Component {
     hasError: false,
   };
   getCoinList = async () => {
+    this.setState({ isLoading: true });
     try {
       const { currency } = this.props;
       const { page, coinsPerPage } = this.state;
@@ -86,6 +87,7 @@ export default class CoinList extends React.Component {
     this.setState({ coinsPerPage: e.target.value });
   };
   handleNextPage = () => {
+    if (this.state.isLoading) return;
     if (this.state.coinListLength < this.state.coinsPerPage) return;
     this.setState({ page: this.state.page + 1 });
   };
@@ -118,6 +120,7 @@ export default class CoinList extends React.Component {
     ) {
       this.setState({ coinsPerPage: 50 });
     }
+    const { currency } = this.props;
     const {
       sortOrder,
       sortBy,
@@ -127,6 +130,7 @@ export default class CoinList extends React.Component {
       listOrder,
     } = this.state;
     const query = queryString.stringify({
+      currency,
       sortOrder,
       sortBy,
       category,
@@ -220,7 +224,7 @@ export default class CoinList extends React.Component {
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
-                  key={coin.name}
+                  key={coin.id}
                   id={coin.id}
                   currency={this.props.currency}
                   rank={coin.marketCapRank}
