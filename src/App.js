@@ -9,11 +9,18 @@ import "antd/dist/antd.css";
 import "./App.css";
 class App extends React.Component {
   state = {
-    currency: "usd",
+    currency: null,
   };
   handleCurrencyChange = (e) => {
-    this.setState({ currency: e.target.value });
+    const currency = e.target.value;
+    this.setState({ currency });
+    localStorage.setItem("currency", JSON.stringify(currency));
   };
+  componentDidMount() {
+    this.setState({
+      currency: JSON.parse(localStorage.getItem("currency")) || "usd",
+    });
+  }
   render() {
     const { currency } = this.state;
     return (

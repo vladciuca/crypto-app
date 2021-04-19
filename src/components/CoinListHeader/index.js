@@ -1,37 +1,33 @@
 import React from "react";
-import { CaretSymbol } from "../CaretSymbol";
 import { Row } from "antd";
+import { CaretSymbol } from "../CaretSymbol";
 import { RiHeartFill } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import { ColHeader, StyledCol, Select, Icon } from "./CoinHeader.styles";
 
-export const CoinListHeader = (
-  {
-    sortOrder,
-    handleSort,
-    sortBy,
-    category,
-    categoryColor,
-    handleCategory,
-    page,
-    coinsPerPage,
-    handleCoinsPerPage,
-    handleNextPage,
-    handlePrevPage,
-  },
-  ...rest
-) => {
+export const CoinListHeader = ({
+  sortOrder,
+  handleSort,
+  sortBy,
+  category,
+  categoryColor,
+  handleCategory,
+  page,
+  coinsPerPage,
+  handleCoinsPerPage,
+  handleNextPage,
+  handlePrevPage,
+}) => {
   const priceChangeSorts = [
     { title: "1h%", value: "priceChangePercentage1hInCurrency" },
     { title: "24h%", value: "priceChangePercentage24hInCurrency" },
     { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
-  const categoryChange =
-    category === "decentralized_finance_defi"
-      ? true
-      : category === "stablecoins"
-      ? true
-      : false;
+  const categoryChange = (category) => {
+    if (category === "decentralizedFinanceDefi" || category === "stablecoins") {
+      return true;
+    }
+  };
   return (
     <Row justify="space-between" gutter={[8, 0]}>
       <ColHeader lg={{ span: 1 }}>
@@ -74,15 +70,15 @@ export const CoinListHeader = (
           value={category}
           onChange={handleCategory}
         >
-          <option value="">All Coins</option>
+          <option value="all">All Coins</option>
           <option value="stablecoins">Stablecoins</option>
-          <option value="decentralized_finance_defi">Defi Coins</option>
+          <option value="decentralizedFinanceDefi">Defi Coins</option>
         </Select>
       </ColHeader>
       <ColHeader>
         Show
         <Select
-          disabled={categoryChange}
+          disabled={categoryChange(category)}
           categoryColor={categoryColor}
           value={coinsPerPage}
           onChange={handleCoinsPerPage}

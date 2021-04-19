@@ -29,6 +29,6 @@ export const StyledLink = styled(Link)`
     margin-left: 0.75rem;
   }
   :hover {
-    color: white;
+    color: #fff;
   }
 `;

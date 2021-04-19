@@ -1,20 +1,11 @@
 import React from "react";
 import axios from "axios";
-import FavoriteCoin from "../../components/FavoriteCoin";
-import { CoinListChart } from "../../components/CoinListChart";
-import {
-  Background,
-  StyledRow,
-  Img,
-  Coin,
-  Rank,
-  Name,
-  Ticker,
-  Favorite,
-  Card,
-} from "./CoinPage.styles";
 import { Row, Col } from "antd";
-import keysToCamel from "../../utils/keysToCamel";
+import { CoinPageHeader } from "../../components/CoinPageHeader";
+import { CoinPageChart } from "../../components/CoinPageChart";
+import keysToCamel from "../../utils/StringUtils/keysToCamel";
+import { Background, Card } from "./CoinPage.styles";
+
 export default class CoinPage extends React.Component {
   state = {
     coinData: null,
@@ -50,21 +41,10 @@ export default class CoinPage extends React.Component {
         )}
         {hasData && (
           <div>
-            <StyledRow>
-              <Col>
-                <Img src={coinData.image.large} />
-              </Col>
-              <Coin>
-                <Rank>#{coinData.marketCapRank}</Rank>
-                <Name>{coinData.name}</Name>
-                <Ticker>{coinData.symbol}</Ticker>
-                <Favorite>
-                  <FavoriteCoin />
-                </Favorite>
-              </Coin>
-            </StyledRow>
+            <CoinPageHeader coinData={coinData} />
             <Row>
-              <CoinListChart
+              <CoinPageChart
+                name={coinData.name}
                 priceData={coinData.marketData.sparkline7d.price}
               />
             </Row>
@@ -72,13 +52,34 @@ export default class CoinPage extends React.Component {
               <Col span={1}></Col>
               <Col span={12}>
                 <Card>
-                  <div>Markets</div>
+                  <div>Description:</div>
+                  {coinData.description.en}
                 </Card>
               </Col>
               <Col span={1}></Col>
               <Col span={9}>
                 <Card>
-                  <div>News</div>
+                  <div>Platforms</div>
+                  {Object.entries(coinData.platforms).map((entry) => {
+                    const [key, value] = entry;
+                    if (key === "" || value === "") {
+                      return null;
+                    } else {
+                      return (
+                        <div key={value}>
+                          {key}: {value}
+                        </div>
+                      );
+                    }
+                  })}
+                  <div>Explorers</div>
+                  {Object.values(coinData.links.blockchainSite).map((value) => {
+                    return (
+                      <div key={value}>
+                        <a href={value}>{value}</a>
+                      </div>
+                    );
+                  })}
                 </Card>
               </Col>
               <Col span={1}></Col>
