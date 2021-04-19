@@ -12,8 +12,9 @@ class App extends React.Component {
     currency: null,
   };
   handleCurrencyChange = (e) => {
-    this.setState({ currency: e.target.value });
-    localStorage.setItem("currency", JSON.stringify(e.target.value));
+    const currency = e.target.value;
+    this.setState({ currency });
+    localStorage.setItem("currency", JSON.stringify(currency));
   };
   componentDidMount() {
     this.setState({

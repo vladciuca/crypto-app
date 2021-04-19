@@ -5,7 +5,7 @@ export default class FavoriteCoin extends React.Component {
   state = {
     isFavorite: false,
   };
-  toggleFavorite = (coin) => {
+  toggleFavorite = () => {
     this.setState({ isFavorite: !this.state.isFavorite });
   };
   render() {

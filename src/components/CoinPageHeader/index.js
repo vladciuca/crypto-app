@@ -1,54 +1,33 @@
+import { Col } from "antd";
 import { CoinInfo } from "../CoinInfo";
 import { CoinMarketData } from "../CoinMarketData";
-import { Col } from "antd";
 import { CoinPageHeaderRow } from "./CoinPageHeader.styles";
 
-export const CoinPageHeader = (
-  {
-    img,
+export const CoinPageHeader = ({ coinData }) => {
+  const {
+    image,
     rank,
     name,
     ticker,
-    website,
+    links,
     contractAddress,
     categories,
-    currentPrice,
-    priceChange24h,
-    priceChangePercentage24h,
-    marketCap,
-    marketCapChangePercentage24h,
-    fullyDilutedValuation,
-    totalVolume,
-    circulatingSupply,
-    totalSupply,
-  },
-  ...rest
-) => {
+  } = coinData;
   return (
     <CoinPageHeaderRow>
       <Col span={11}>
         <CoinInfo
-          img={img}
+          img={image.large}
           rank={rank}
           name={name}
           ticker={ticker}
-          website={website}
+          website={links.homepage[0]}
           contractAddress={contractAddress}
           categories={categories}
         />
       </Col>
       <Col offset={1} span={12}>
-        <CoinMarketData
-          currentPrice={currentPrice}
-          priceChange24h={priceChange24h}
-          priceChangePercentage24h={priceChangePercentage24h}
-          marketCap={marketCap}
-          marketCapChangePercentage24h={marketCapChangePercentage24h}
-          fullyDilutedValuation={fullyDilutedValuation}
-          totalVolume={totalVolume}
-          circulatingSupply={circulatingSupply}
-          totalSupply={totalSupply}
-        />
+        <CoinMarketData marketData={coinData.marketData} />
       </Col>
     </CoinPageHeaderRow>
   );

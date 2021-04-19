@@ -42,10 +42,16 @@ export default class CoinList extends React.Component {
       const { currency } = this.props;
       const { page, coinsPerPage } = this.state;
       const category = camelToSnake(this.state.category);
+      let categoryQuery;
+      if (category === "all") {
+        categoryQuery = "";
+      } else {
+        categoryQuery = `&category=${category}`;
+      }
       const listOrder = camelToSnake(this.state.listOrder);
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(
-        `${base}/coins/markets?vs_currency=${currency}&category=${category}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+        `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
       );
       this.setState({
         coinList: keysToCamel(data),
@@ -66,25 +72,25 @@ export default class CoinList extends React.Component {
     }
   };
   handleCategory = (e) => {
-    this.setState({ page: 1, category: e.target.value });
-    if (
-      e.target.value === "decentralizedFinanceDefi" ||
-      e.target.value === "stablecoins"
-    ) {
+    const category = e.target.value;
+    this.setState({ page: 1, category });
+    if (category === "decentralizedFinanceDefi" || category === "stablecoins") {
       this.setState({ coinsPerPage: 50 });
     }
   };
   getCategoryColor = (type) => {
-    if (this.state.category === "decentralizedFinanceDefi") {
-      return this.state.categoryColor.defiCoins[type];
-    } else if (this.state.category === "stablecoins") {
-      return this.state.categoryColor.stableCoins[type];
+    const { category, categoryColor } = this.state;
+    if (category === "decentralizedFinanceDefi") {
+      return categoryColor.defiCoins[type];
+    } else if (category === "stablecoins") {
+      return categoryColor.stableCoins[type];
     } else {
-      return this.state.categoryColor.allCoins[type];
+      return categoryColor.allCoins[type];
     }
   };
   handleCoinsPerPage = (e) => {
-    this.setState({ coinsPerPage: e.target.value });
+    const coinsPerPage = e.target.value;
+    this.setState({ coinsPerPage });
   };
   handleNextPage = () => {
     if (this.state.isLoading) return;

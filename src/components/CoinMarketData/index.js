@@ -1,13 +1,13 @@
 import { ProgressBar } from "../ProgressBar";
+import { Row, Col } from "antd";
 import formatNumber from "../../utils/NumberUtils/formatNumber";
 import formatPrice from "../../utils/NumberUtils/formatPrice";
-import { Row, Col } from "antd";
 import { Price } from "./CoinMarketData.styles";
 
-export const CoinMarketData = (
-  {
+export const CoinMarketData = ({ marketData }) => {
+  const {
     currentPrice,
-    priceChange24h,
+    priceChange24hInCurrency,
     priceChangePercentage24h,
     marketCap,
     marketCapChangePercentage24h,
@@ -15,9 +15,7 @@ export const CoinMarketData = (
     totalVolume,
     circulatingSupply,
     totalSupply,
-  },
-  ...rest
-) => {
+  } = marketData;
   const circulatingSupplyPercentage = (
     (circulatingSupply / totalSupply) *
     100
@@ -26,20 +24,20 @@ export const CoinMarketData = (
     <>
       <Row>
         <Col span={8}>
-          <Price>${formatPrice(currentPrice)}</Price>
-          <div>${priceChange24h.toFixed(2)}</div>
+          <Price>${formatPrice(currentPrice.usd)}</Price>
+          <div>${priceChange24hInCurrency.usd.toFixed(2)}</div>
           <div>{priceChangePercentage24h}%</div>
         </Col>
         <Col span={8}>
-          <div>Market Cap:</div>${formatNumber(marketCap)}
+          <div>Market Cap:</div>${formatNumber(marketCap.usd)}
           <div>Fully Diluted Valuation:</div>
-          {fullyDilutedValuation
-            ? `$${formatNumber(fullyDilutedValuation)}`
+          {fullyDilutedValuation.usd
+            ? `$${formatNumber(fullyDilutedValuation.usd)}`
             : "N/A"}
           <div>{marketCapChangePercentage24h.toFixed(2)}%</div>
         </Col>
         <Col span={8}>
-          <div>Total Volume:</div>${formatNumber(totalVolume)}
+          <div>Total Volume:</div>${formatNumber(totalVolume.usd)}
           <div>Volume / Market: </div>
           {(totalVolume / marketCap).toFixed(5)}
         </Col>

@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
 
-export const CoinPageChart = ({ name, priceData }, ...rest) => {
+export const CoinPageChart = ({ name, priceData }) => {
   return (
     <Line
       data={{

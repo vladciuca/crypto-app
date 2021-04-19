@@ -16,10 +16,15 @@ import {
   CopyText,
 } from "./CoinInfo.styles";
 
-export const CoinInfo = (
-  { img, rank, name, ticker, website, contractAddress, categories },
-  ...rest
-) => {
+export const CoinInfo = ({
+  img,
+  rank,
+  name,
+  ticker,
+  website,
+  contractAddress,
+  categories,
+}) => {
   return (
     <>
       <Row align="middle">

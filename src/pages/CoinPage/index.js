@@ -41,30 +41,7 @@ export default class CoinPage extends React.Component {
         )}
         {hasData && (
           <div>
-            <CoinPageHeader
-              img={coinData.image.large}
-              rank={coinData.marketCapRank}
-              name={coinData.name}
-              ticker={coinData.symbol}
-              website={coinData.links.homepage[0]}
-              contractAddress={coinData.contractAddress}
-              categories={coinData.categories}
-              currentPrice={coinData.marketData.currentPrice.usd}
-              priceChange24h={coinData.marketData.priceChange24hInCurrency.usd}
-              priceChangePercentage24h={
-                coinData.marketData.priceChangePercentage24h
-              }
-              marketCap={coinData.marketData.marketCap.usd}
-              marketCapChangePercentage24h={
-                coinData.marketData.marketCapChangePercentage24h
-              }
-              fullyDilutedValuation={
-                coinData.marketData.fullyDilutedValuation.usd
-              }
-              totalVolume={coinData.marketData.totalVolume.usd}
-              circulatingSupply={coinData.marketData.circulatingSupply}
-              totalSupply={coinData.marketData.totalSupply}
-            />
+            <CoinPageHeader coinData={coinData} />
             <Row>
               <CoinPageChart
                 name={coinData.name}
