@@ -17,11 +17,13 @@ class FavoriteCoins extends React.Component {
   }
   render() {
     return (
-      <RiHeartLine
-        size="1rem"
-        color="#ff7b7b"
-        onClick={() => this.toggleFavorite(this.props.id)}
-      />
+      <span onClick={() => this.toggleFavorite(this.props.id)}>
+        {this.state.favoriteList[this.props.id] ? (
+          <RiHeartFill size="1.3rem" color="#ff7b7b" />
+        ) : (
+          <RiHeartLine size="1rem" color="#ff7b7b" />
+        )}
+      </span>
     );
   }
 }
