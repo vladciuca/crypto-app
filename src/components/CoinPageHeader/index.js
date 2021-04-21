@@ -5,10 +5,11 @@ import { CoinPageHeaderRow } from "./CoinPageHeader.styles";
 
 export const CoinPageHeader = ({ coinData }) => {
   const {
+    id,
     image,
-    rank,
+    marketCapRank,
     name,
-    ticker,
+    symbol,
     links,
     contractAddress,
     categories,
@@ -17,17 +18,18 @@ export const CoinPageHeader = ({ coinData }) => {
     <CoinPageHeaderRow>
       <Col span={11}>
         <CoinInfo
-          img={image.large}
-          rank={rank}
+          id={id}
+          image={image.large}
+          marketCapRank={marketCapRank}
           name={name}
-          ticker={ticker}
+          symbol={symbol}
           website={links.homepage[0]}
           contractAddress={contractAddress}
           categories={categories}
         />
       </Col>
       <Col offset={1} span={12}>
-        <CoinMarketData marketData={coinData.marketData} />
+        <CoinMarketData symbol={symbol} marketData={coinData.marketData} />
       </Col>
     </CoinPageHeaderRow>
   );

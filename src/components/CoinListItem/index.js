@@ -1,4 +1,4 @@
-import FavoriteCoin from "../FavoriteCoin";
+import FavoriteCoins from "../FavoriteCoins";
 import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
 import { Row, Col, Tooltip } from "antd";
@@ -25,33 +25,30 @@ import formatNumber from "../../utils/NumberUtils/formatNumber";
 import formatPrice from "../../utils/NumberUtils/formatPrice";
 import getCurrencySymbol from "../../utils/getCurrencySymbol";
 
-export const CoinListItem = (
-  {
-    id,
-    rank,
-    currency,
-    img,
-    name,
-    ticker,
-    currentPrice,
-    priceChange1h,
-    priceChange24h,
-    priceChange7d,
-    marketCap,
-    totalVolume,
-    circulatingSupply,
-    totalSupply,
-    priceChart7d,
-    categoryColor,
-  },
-  ...rest
-) => {
+export const CoinListItem = ({
+  id,
+  rank,
+  currency,
+  img,
+  name,
+  ticker,
+  currentPrice,
+  priceChange1h,
+  priceChange24h,
+  priceChange7d,
+  marketCap,
+  totalVolume,
+  circulatingSupply,
+  totalSupply,
+  priceChart7d,
+  categoryColor,
+}) => {
   const currencySymbol = getCurrencySymbol(currency);
   const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
   return (
     <ListItemRow>
       <FavoriteCol lg={{ span: 1 }}>
-        <FavoriteCoin />
+        <FavoriteCoins id={id} />
       </FavoriteCol>
       <RankCol lg={{ span: 1 }}>#{rank}</RankCol>
       <ImgCol lg={{ span: 1 }}>
@@ -125,7 +122,7 @@ export const CoinListItem = (
       </DoubleSlotCol>
       <DoubleSlotCol lg={{ span: 4 }}>
         <div>
-          <InfoText>In Circ</InfoText>
+          <InfoText>Circ</InfoText>
           {!circulatingSupply ? (
             <NotAvailable>-</NotAvailable>
           ) : (
@@ -143,7 +140,7 @@ export const CoinListItem = (
           )}
         </div>
         <div>
-          <InfoText>Max Supply</InfoText>
+          <InfoText>Max</InfoText>
           {!totalSupply ? (
             <CgInfinity size="1.1rem" />
           ) : (
