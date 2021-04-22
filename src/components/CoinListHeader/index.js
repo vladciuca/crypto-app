@@ -1,5 +1,4 @@
 import React from "react";
-import { Row } from "antd";
 import { CaretSymbol } from "../CaretSymbol";
 import { RiHeartFill } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
