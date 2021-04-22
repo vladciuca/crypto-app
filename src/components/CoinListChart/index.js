@@ -1,6 +1,6 @@
 import { Line } from "react-chartjs-2";
 
-export const CoinListChart = ({ categoryColor, priceData }, ...rest) => {
+export const CoinListChart = ({ categoryColor, priceData }) => {
   return (
     <Line
       data={{

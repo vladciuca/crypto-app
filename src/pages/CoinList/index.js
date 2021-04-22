@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import queryString from "query-string";
+import { v4 as uuidv4 } from "uuid";
 import { CoinListTitle } from "../../components/CoinListTitle";
 import { CoinListHeader } from "../../components/CoinListHeader";
 import { CoinListItem } from "../../components/CoinListItem";
@@ -12,11 +13,12 @@ class CoinList extends React.Component {
   state = {
     coinList: [],
     coinListLength: null,
-    coinListOrder: true,
     listOrder: "marketCapDesc",
     page: null,
     coinsPerPage: 50,
     category: "all",
+    sortOrder: true,
+    sortBy: "marketCapRank",
     categoryColor: {
       allCoins: {
         hex: "#a487c3",
@@ -31,8 +33,6 @@ class CoinList extends React.Component {
         rgb: "rgb(86,203,249, 0.5)",
       },
     },
-    sortOrder: true,
-    sortBy: "marketCapRank",
     isLoading: false,
     hasError: false,
   };
@@ -63,13 +63,11 @@ class CoinList extends React.Component {
       this.setState({ isLoading: false, hasError: true });
     }
   };
-  handleListOrder = () => {
-    this.setState({ coinListOrder: !this.state.coinListOrder });
-    if (this.state.coinListOrder) {
-      this.setState({ listOrder: "marketCapAsc" });
-    } else {
-      this.setState({ listOrder: "marketCapDesc" });
-    }
+  handleListTop = () => {
+    this.setState({ listOrder: "marketCapDesc" });
+  };
+  handleListBottom = () => {
+    this.setState({ listOrder: "marketCapAsc" });
   };
   handleCategory = (e) => {
     const category = e.target.value;
@@ -126,7 +124,6 @@ class CoinList extends React.Component {
     ) {
       this.setState({ coinsPerPage: 50 });
     }
-    const { currency } = this.props;
     const {
       sortOrder,
       sortBy,
@@ -136,7 +133,6 @@ class CoinList extends React.Component {
       listOrder,
     } = this.state;
     const query = queryString.stringify({
-      currency,
       sortOrder,
       sortBy,
       category,
@@ -200,15 +196,16 @@ class CoinList extends React.Component {
       category,
       page,
       coinsPerPage,
-      coinListOrder,
+      listOrder,
     } = this.state;
     return (
       <Container>
         <CoinListTitle
           coinsPerPage={coinsPerPage}
           page={page}
-          coinListOrder={coinListOrder}
-          handleListOrder={this.handleListOrder}
+          listOrder={listOrder}
+          handleListTop={this.handleListTop}
+          handleListBottom={this.handleListBottom}
           category={category}
           categoryColor={this.getCategoryColor("hex")}
         />
@@ -230,22 +227,9 @@ class CoinList extends React.Component {
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
-                  key={coin.id}
-                  id={coin.id}
+                  key={uuidv4()}
+                  coin={coin}
                   currency={this.props.currency}
-                  rank={coin.marketCapRank}
-                  img={coin.image}
-                  name={coin.name}
-                  ticker={coin.symbol}
-                  currentPrice={coin.currentPrice}
-                  priceChange1h={coin.priceChangePercentage1hInCurrency}
-                  priceChange24h={coin.priceChangePercentage24hInCurrency}
-                  priceChange7d={coin.priceChangePercentage7dInCurrency}
-                  marketCap={coin.marketCap}
-                  totalVolume={coin.totalVolume}
-                  circulatingSupply={coin.circulatingSupply}
-                  totalSupply={coin.totalSupply}
-                  priceChart7d={coin.sparklineIn7d.price}
                   categoryColor={this.getCategoryColor("rgb")}
                 />
               );

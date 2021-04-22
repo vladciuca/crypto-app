@@ -3,7 +3,7 @@ import { CoinInfo } from "../CoinInfo";
 import { CoinMarketData } from "../CoinMarketData";
 import { CoinPageHeaderRow } from "./CoinPageHeader.styles";
 
-export const CoinPageHeader = ({ coinData }) => {
+export const CoinPageHeader = ({ coinData, currency }) => {
   const {
     id,
     image,
@@ -29,7 +29,11 @@ export const CoinPageHeader = ({ coinData }) => {
         />
       </Col>
       <Col offset={1} span={12}>
-        <CoinMarketData symbol={symbol} marketData={coinData.marketData} />
+        <CoinMarketData
+          symbol={symbol}
+          marketData={coinData.marketData}
+          currency={currency}
+        />
       </Col>
     </CoinPageHeaderRow>
   );

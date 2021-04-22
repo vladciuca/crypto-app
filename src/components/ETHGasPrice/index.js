@@ -36,6 +36,7 @@ export default class ETHGasPrice extends React.Component {
   }
   render() {
     const hasData = !this.state.isLoading && this.state.ethGasData;
+    const { ethGasData } = this.state;
     return (
       <>
         {this.state.isLoading && <div>Loading...</div>}
@@ -45,14 +46,12 @@ export default class ETHGasPrice extends React.Component {
         {hasData && (
           <Tooltip
             placement="bottomRight"
-            title={() => (
-              <ETHGasPriceTooltip ethGasData={this.state.ethGasData} />
-            )}
+            title={() => <ETHGasPriceTooltip ethGasData={ethGasData} />}
           >
             <GasPriceContainer>
               <FaGasPump color="#5b486a" />
               <Description>ETH Gas:</Description>
-              <Value>{this.state.ethGasData.fast / 10}</Value>
+              <Value>{ethGasData.fast / 10}</Value>
               <Ticker>Gwei</Ticker>
               <BiInfoCircle color="#a487c3" />
             </GasPriceContainer>

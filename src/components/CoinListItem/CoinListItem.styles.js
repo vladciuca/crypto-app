@@ -23,7 +23,6 @@ export const ListItemRow = styled(Row)`
   align-items: center;
   border-radius: 0.5rem;
   background-color: #241b2f;
-  padding: 0rem 1rem;
   margin: 0.2rem 0;
   :hover {
     background-color: #191320;

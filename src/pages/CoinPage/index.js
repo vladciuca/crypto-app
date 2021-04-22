@@ -41,7 +41,10 @@ export default class CoinPage extends React.Component {
         )}
         {hasData && (
           <div>
-            <CoinPageHeader coinData={coinData} />
+            <CoinPageHeader
+              coinData={coinData}
+              currency={this.props.currency}
+            />
             <Row>
               <CoinPageChart
                 name={coinData.name}

@@ -10,36 +10,36 @@ import {
   Category,
 } from "./CoinListTitle.styles";
 
-export const CoinListTitle = (
-  {
-    handleListOrder,
-    coinListOrder,
-    coinsPerPage,
-    page,
-    category,
-    categoryColor,
-  },
-  ...rest
-) => {
+export const CoinListTitle = ({
+  handleListTop,
+  handleListBottom,
+  listOrder,
+  coinsPerPage,
+  page,
+  category,
+  categoryColor,
+}) => {
+  const list =
+    listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
   const categoryName =
     category === "stablecoins"
       ? "STABLECOINS"
-      : category === "decentralized_finance_defi"
+      : category === "decentralizedFinanceDefi"
       ? "DEFI COINS"
       : "COINS";
   return (
     <TitleRow>
-      <Arrows onClick={handleListOrder}>
-        <Arrow>
+      <Arrows>
+        <Arrow onClick={handleListTop}>
           <FaCaretUp />
         </Arrow>
-        <Arrow>
+        <Arrow onClick={handleListBottom}>
           <FaCaretDown />
         </Arrow>
       </Arrows>
       <Col>
         <Title>
-          {coinListOrder ? <span>Top</span> : <span>Bottom</span>}
+          {list}
           <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
           <Category>{categoryName}</Category>
         </Title>

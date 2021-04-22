@@ -7,44 +7,42 @@ import {
 } from "./ETHGasPriceTooltip.styles";
 
 export const ETHGasPriceTooltip = (props) => {
+  const { ethGasData } = props;
+  const ethGasPriceRange = [
+    {
+      speed: "Slow",
+      gasPrice: ethGasData.safeLow / 10,
+      time: ethGasData.safeLowWait * 60,
+    },
+    {
+      speed: "Standard",
+      gasPrice: ethGasData.fast / 10,
+      time: ethGasData.fastWait * 60,
+    },
+    {
+      speed: "Fast",
+      gasPrice: ethGasData.fastest / 10,
+      time: ethGasData.fastestWait * 60,
+    },
+  ];
   return (
     <>
-      <Row>
-        <GasPriceCol span={8}>
-          <Speed>Slow:</Speed>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <GasPrice>{props.ethGasData.safeLow / 10}</GasPrice>
-          <Ticker>Gwei</Ticker>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <span>~{props.ethGasData.safeLowWait * 60} s</span>
-        </GasPriceCol>
-      </Row>
-      <Row>
-        <GasPriceCol span={8}>
-          <Speed>Standard:</Speed>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <GasPrice>{props.ethGasData.fast / 10}</GasPrice>
-          <Ticker>Gwei</Ticker>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <span>~{props.ethGasData.fastWait * 60} s</span>
-        </GasPriceCol>
-      </Row>
-      <Row>
-        <GasPriceCol span={8}>
-          <Speed>Fast:</Speed>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <GasPrice>{props.ethGasData.fastest / 10}</GasPrice>
-          <Ticker>Gwei</Ticker>
-        </GasPriceCol>
-        <GasPriceCol span={8}>
-          <span>~{props.ethGasData.fastestWait * 60} s</span>
-        </GasPriceCol>
-      </Row>
+      {ethGasPriceRange.map((item) => {
+        return (
+          <Row>
+            <GasPriceCol span={8}>
+              <Speed>{item.speed}:</Speed>
+            </GasPriceCol>
+            <GasPriceCol span={8}>
+              <GasPrice>{item.gasPrice}</GasPrice>
+              <Ticker>Gwei</Ticker>
+            </GasPriceCol>
+            <GasPriceCol span={8}>
+              <span>~{item.time} s</span>
+            </GasPriceCol>
+          </Row>
+        );
+      })}
     </>
   );
 };

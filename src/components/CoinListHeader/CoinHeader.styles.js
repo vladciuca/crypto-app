@@ -1,21 +1,32 @@
-import { Col } from "antd";
+import { Col, Row } from "antd";
 import styled from "styled-components";
 
-export const ColHeader = styled(Col)`
-  cursor: pointer;
-  margin-bottom: 0.5rem;
-  display: flex;
+export const RowHeader = styled(Row)`
   justify-content: space-between;
   align-items: center;
   background: #191320;
   border-radius: 0.25rem;
-  padding: 0.3rem;
 `;
 
-export const Icon = styled.div`
+export const ColHeader = styled(Col)`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 0;
+`;
+
+export const Centered = styled.div`
   color: ${(props) => props.categoryColor};
   display: flex;
-  justify-content: center !important;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+export const Right = styled.div`
+  display: flex;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -33,8 +44,4 @@ export const Select = styled.select`
   option {
     color: #5b486a;
   }
-`;
-
-export const StyledCol = styled(Col)`
-  display: flex;
 `;
