@@ -8,7 +8,7 @@ import camelToSnake from "../../utils/StringUtils/camelToSnake";
 import keysToCamel from "../../utils/StringUtils/keysToCamel";
 import { Container } from "./CoinList.styles";
 
-export default class CoinList extends React.Component {
+class CoinList extends React.Component {
   state = {
     coinList: [],
     coinListLength: null,
@@ -260,3 +260,5 @@ export default class CoinList extends React.Component {
     );
   }
 }
+
+export default CoinList;

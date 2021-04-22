@@ -14,14 +14,24 @@ export const Bar = styled.div`
 `;
 
 export const Filler = styled.div`
+  text-align: right;
   height: 100%;
-  width: ${(props) => props.completed}%;
+  width: ${(props) => props.circulatingpercentage}%;
   background-color: #a487c3;
   border-radius: inherit;
 `;
 
-export const Label = styled.span`
-  padding: 0.2rem;
+export const FillerTwo = styled.div`
+  text-align: right;
+  height: 100%;
+  width: ${(props) => props.volumepercentage}%;
+  background-color: #0ac18e;
+  border-radius: inherit;
+  margin-top: -0.5rem;
+`;
+
+export const Label = styled.div`
+  padding-top: 0.5rem;
   color: white;
   font-weight: bold;
 `;

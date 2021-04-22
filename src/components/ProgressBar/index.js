@@ -1,13 +1,27 @@
 import React from "react";
-import { Container, Bar, Filler, Label } from "./ProgressBar.styles";
+import { Container, Bar, Filler, FillerTwo, Label } from "./ProgressBar.styles";
 
-export const ProgressBar = ({ completed }, ...rest) => {
+export const ProgressBar = ({ circulatingPercentage, volumePercentage }) => {
   return (
     <Container>
       <Bar>
-        <Filler completed={completed}></Filler>
+        <Filler circulatingpercentage={circulatingPercentage}>
+          <Label>{`${
+            Number(circulatingPercentage) < Number(volumePercentage)
+              ? ""
+              : circulatingPercentage
+          }%`}</Label>
+        </Filler>
+        <FillerTwo
+          volumepercentage={
+            Number(volumePercentage) > Number(circulatingPercentage)
+              ? 100
+              : volumePercentage
+          }
+        >
+          <Label>{`${volumePercentage}%`}</Label>
+        </FillerTwo>
       </Bar>
-      <Label>{`${completed}%`}</Label>
     </Container>
   );
 };

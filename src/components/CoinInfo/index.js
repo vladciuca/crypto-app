@@ -1,4 +1,4 @@
-import FavoriteCoin from "../FavoriteCoin";
+import FavoriteCoins from "../FavoriteCoins";
 import { Row, Col } from "antd";
 import { FaEthereum } from "react-icons/fa";
 import { BiLinkAlt } from "react-icons/bi";
@@ -17,10 +17,11 @@ import {
 } from "./CoinInfo.styles";
 
 export const CoinInfo = ({
-  img,
-  rank,
+  id,
+  image,
+  marketCapRank,
   name,
-  ticker,
+  symbol,
   website,
   contractAddress,
   categories,
@@ -29,14 +30,14 @@ export const CoinInfo = ({
     <>
       <Row align="middle">
         <Col span={3}>
-          <Img src={img} />
+          <Img src={image} />
         </Col>
         <Col span={21}>
-          <Rank>#{rank}</Rank>
+          <Rank>#{marketCapRank}</Rank>
           <Name>{name}</Name>
-          <Ticker>{ticker}</Ticker>
+          <Ticker>{symbol}</Ticker>
           <Favorite>
-            <FavoriteCoin />
+            <FavoriteCoins id={id} />
           </Favorite>
         </Col>
       </Row>
