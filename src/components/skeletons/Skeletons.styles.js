@@ -41,7 +41,6 @@ export const SkeletonText = styled.div`
   border-radius: 25rem;
   width: 100%;
   height: 0.5rem;
-  margin-bottom: 0.2rem;
   margin: 0 5%;
 `;
 
@@ -58,7 +57,6 @@ export const SkeletonHeader2 = styled.div`
   border-radius: 25rem;
   width: 50%;
   height: 0.6rem;
-  margin-bottom: ;
   margin: 0.6rem 5%;
 `;
 
@@ -73,10 +71,32 @@ export const SkeletalBulletPoint = styled.div`
   border-radius: 25rem;
   width: 0.75rem;
   height: 0.75rem;
-  margin-bottom: 0.2rem;
   margin-right: 0.1rem;
 `;
 
 export const SkeletonContainer = styled.div`
   padding: 1.5rem;
+`;
+
+export const SkeletonGlobal = styled.div`
+  display: flex;
+  align-items: center;
+  color: red;
+`;
+
+export const SkeletonBar = styled.div`
+  background: #262335;
+  border-radius: 25rem;
+  width: 55%;
+  height: 0.5rem;
+  margin: 0 5%;
+`;
+
+export const SkeletonGas = styled.div`
+  display: block;
+  background: #262335;
+  border-radius: 25rem;
+  width: 90%;
+  height: 0.5rem;
+  margin-left: 1rem;
 `;

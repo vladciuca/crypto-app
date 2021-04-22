@@ -29,7 +29,7 @@ export const ETHGasPriceTooltip = (props) => {
     <>
       {ethGasPriceRange.map((item) => {
         return (
-          <Row>
+          <Row key={item.speed}>
             <GasPriceCol span={8}>
               <Speed>{item.speed}:</Speed>
             </GasPriceCol>
