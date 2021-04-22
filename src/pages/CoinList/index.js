@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import queryString from "query-string";
-import { v4 as uuidv4 } from "uuid";
+import { SkeletonCoinList } from "../../components/skeletons/SkeletonCoinList";
 import { CoinListTitle } from "../../components/CoinListTitle";
 import { CoinListHeader } from "../../components/CoinListHeader";
 import { CoinListItem } from "../../components/CoinListItem";
@@ -64,9 +64,11 @@ class CoinList extends React.Component {
     }
   };
   handleListTop = () => {
+    if (this.state.isLoading) return;
     this.setState({ listOrder: "marketCapDesc" });
   };
   handleListBottom = () => {
+    if (this.state.isLoading) return;
     this.setState({ listOrder: "marketCapAsc" });
   };
   handleCategory = (e) => {
@@ -227,7 +229,7 @@ class CoinList extends React.Component {
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
-                  key={uuidv4()}
+                  key={coin.id}
                   coin={coin}
                   currency={this.props.currency}
                   categoryColor={this.getCategoryColor("rgb")}
@@ -236,7 +238,11 @@ class CoinList extends React.Component {
             })}
           </>
         )}
-        {this.state.isLoading && <div>Loading...</div>}
+        {this.state.isLoading && (
+          <div>
+            <SkeletonCoinList coinsPerPage={this.state.coinsPerPage} />
+          </div>
+        )}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}

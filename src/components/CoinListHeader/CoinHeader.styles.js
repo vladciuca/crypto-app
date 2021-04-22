@@ -12,7 +12,9 @@ export const ColHeader = styled(Col)`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
+  font-weight: bold;
+  color: lightgray;
 `;
 
 export const Centered = styled.div`

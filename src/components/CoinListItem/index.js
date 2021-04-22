@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import FavoriteCoins from "../FavoriteCoins";
 import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
@@ -79,7 +78,7 @@ export const CoinListItem = ({ coin, currency, categoryColor }) => {
           return <NotAvailable span={2}>-</NotAvailable>;
         } else {
           return (
-            <PriceChangeCol key={uuidv4()} span={2} pricechange={value}>
+            <PriceChangeCol key={value} span={2} pricechange={value}>
               <CaretSymbol value={value} />
               {value.toFixed(2)}%
             </PriceChangeCol>
