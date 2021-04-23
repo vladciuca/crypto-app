@@ -64,7 +64,7 @@ class CoinList extends React.Component {
         ""
       );
       const base = process.env.REACT_APP_ENDPOINT;
-      if (!this.state.showFavorites) {
+      if (this.state.showFavorites === false) {
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
         );
