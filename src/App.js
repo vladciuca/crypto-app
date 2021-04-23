@@ -37,7 +37,11 @@ class App extends React.Component {
               path="/"
               component={(props) => <CoinList {...props} currency={currency} />}
             ></Route>
-            <Route exact path="/coin/:id" component={CoinPage}></Route>
+            <Route
+              exact
+              path="/coin/:id"
+              component={(props) => <CoinPage {...props} currency={currency} />}
+            ></Route>
             <Route exact path="/dashboard">
               <Portfolio />
             </Route>

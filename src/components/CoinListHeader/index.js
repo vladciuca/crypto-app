@@ -1,11 +1,19 @@
 import React from "react";
-import { Row } from "antd";
 import { CaretSymbol } from "../CaretSymbol";
-import { RiHeartFill } from "react-icons/ri";
+import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
-import { ColHeader, StyledCol, Select, Icon } from "./CoinHeader.styles";
+import {
+  RowHeader,
+  ColHeader,
+  Select,
+  Centered,
+  Right,
+  Page,
+} from "./CoinHeader.styles";
 
 export const CoinListHeader = ({
+  showFavorites,
+  toggleFavoriteList,
   sortOrder,
   handleSort,
   sortBy,
@@ -29,37 +37,43 @@ export const CoinListHeader = ({
     }
   };
   return (
-    <Row justify="space-between" gutter={[8, 0]}>
+    <RowHeader>
       <ColHeader lg={{ span: 1 }}>
-        <Icon>
-          <RiHeartFill size="0.8rem" color="#ff7b7b" />
-        </Icon>
+        <Centered onClick={toggleFavoriteList}>
+          {showFavorites ? (
+            <RiHeartFill size="1.3rem" color="#ff7b7b" />
+          ) : (
+            <RiHeartLine size="1rem" color="#ff7b7b" />
+          )}
+        </Centered>
       </ColHeader>
       <ColHeader lg={{ span: 1 }} onClick={() => handleSort("marketCapRank")}>
         #{sortBy === "marketCapRank" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
-      <ColHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
+      <ColHeader lg={{ span: 3 }} onClick={() => handleSort("name")}>
         Name
         {sortBy === "name" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
       <ColHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>
-        Price
-        {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
+        <Right>
+          {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
+          Price
+        </Right>
       </ColHeader>
-      <StyledCol lg={{ span: 5 }}>
-        {priceChangeSorts.map((sort) => {
-          return (
-            <ColHeader
-              key={sort.title}
-              span={8}
-              onClick={() => handleSort(sort.value)}
-            >
-              {sort.title}
+      {priceChangeSorts.map((sort) => {
+        return (
+          <ColHeader
+            key={sort.title}
+            span={2}
+            onClick={() => handleSort(sort.value)}
+          >
+            <Centered>
               {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
-            </ColHeader>
-          );
-        })}
-      </StyledCol>
+              {sort.title}
+            </Centered>
+          </ColHeader>
+        );
+      })}
       <ColHeader lg={{ span: 4 }} onClick={() => handleSort("totalVolume")}>
         24h Volume
         {sortBy === "totalVolume" && <CaretSymbol value={sortOrder} />}
@@ -89,19 +103,17 @@ export const CoinListHeader = ({
           <option value="100">100</option>
         </Select>
       </ColHeader>
-      <ColHeader>
-        <Icon onClick={handlePrevPage}>
+      <ColHeader lg={{ span: 2 }}>
+        <Centered onClick={handlePrevPage}>
           <FaCaretLeft />
-        </Icon>
-      </ColHeader>
-      <ColHeader>
-        <Icon categoryColor={categoryColor}>{page}</Icon>
-      </ColHeader>
-      <ColHeader>
-        <Icon onClick={handleNextPage}>
+        </Centered>
+        <Centered categoryColor={categoryColor}>
+          <Page>{page}</Page>
+        </Centered>
+        <Centered onClick={handleNextPage}>
           <FaCaretRight />
-        </Icon>
+        </Centered>
       </ColHeader>
-    </Row>
+    </RowHeader>
   );
 };

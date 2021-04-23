@@ -1,7 +1,7 @@
+import { Tooltip } from "antd";
 import FavoriteCoins from "../FavoriteCoins";
 import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
-import { Row, Col, Tooltip } from "antd";
 import { CgInfinity } from "react-icons/cg";
 import {
   StyledLink,
@@ -25,39 +25,42 @@ import formatNumber from "../../utils/NumberUtils/formatNumber";
 import formatPrice from "../../utils/NumberUtils/formatPrice";
 import getCurrencySymbol from "../../utils/getCurrencySymbol";
 
-export const CoinListItem = ({
-  id,
-  rank,
-  currency,
-  img,
-  name,
-  ticker,
-  currentPrice,
-  priceChange1h,
-  priceChange24h,
-  priceChange7d,
-  marketCap,
-  totalVolume,
-  circulatingSupply,
-  totalSupply,
-  priceChart7d,
-  categoryColor,
-}) => {
+export const CoinListItem = ({ coin, currency, categoryColor }) => {
   const currencySymbol = getCurrencySymbol(currency);
-  const priceChangeValues = [priceChange1h, priceChange24h, priceChange7d];
+  const {
+    id,
+    marketCapRank,
+    image,
+    name,
+    symbol,
+    currentPrice,
+    priceChangePercentage1hInCurrency,
+    priceChangePercentage24hInCurrency,
+    priceChangePercentage7dInCurrency,
+    marketCap,
+    totalVolume,
+    circulatingSupply,
+    totalSupply,
+    sparklineIn7d,
+  } = coin;
+  const priceChangeValues = [
+    priceChangePercentage1hInCurrency,
+    priceChangePercentage24hInCurrency,
+    priceChangePercentage7dInCurrency,
+  ];
   return (
     <ListItemRow>
       <FavoriteCol lg={{ span: 1 }}>
         <FavoriteCoins id={id} />
       </FavoriteCol>
-      <RankCol lg={{ span: 1 }}>#{rank}</RankCol>
+      <RankCol lg={{ span: 1 }}>#{marketCapRank}</RankCol>
       <ImgCol lg={{ span: 1 }}>
-        <img src={img} alt={name} />
+        <img src={image} alt={name} />
       </ImgCol>
-      <NameCol lg={{ span: 4 }}>
+      <NameCol lg={{ span: 3 }}>
         <StyledLink to={`/coin/${id}`}>{name}</StyledLink>
         <div>
-          <Ticker>{ticker}</Ticker>
+          <Ticker>{symbol}</Ticker>
         </div>
       </NameCol>
       <CurrentPriceCol lg={{ span: 2 }}>
@@ -70,22 +73,18 @@ export const CoinListItem = ({
           </span>
         )}
       </CurrentPriceCol>
-      <Col lg={{ span: 5 }}>
-        <Row>
-          {priceChangeValues.map((value) => {
-            if (!value) {
-              return <NotAvailable span={8}>-</NotAvailable>;
-            } else {
-              return (
-                <PriceChangeCol key={value} span={8} pricechange={value}>
-                  <CaretSymbol value={value} />
-                  {value.toFixed(2)}%
-                </PriceChangeCol>
-              );
-            }
-          })}
-        </Row>
-      </Col>
+      {priceChangeValues.map((value) => {
+        if (!value) {
+          return <NotAvailable span={2}>-</NotAvailable>;
+        } else {
+          return (
+            <PriceChangeCol key={value} span={2} pricechange={value}>
+              <CaretSymbol value={value} />
+              {value.toFixed(2)}%
+            </PriceChangeCol>
+          );
+        }
+      })}
       <DoubleSlotCol lg={{ span: 4 }}>
         <div>
           <InfoText>Mkt Cap</InfoText>
@@ -131,10 +130,10 @@ export const CoinListItem = ({
                 placement="top"
                 title={`${formatNumber(
                   circulatingSupply
-                )} ${ticker.toUpperCase()}`}
+                )} ${symbol.toUpperCase()}`}
               >
                 {convertLongNumber(circulatingSupply)}
-                <Ticker>{ticker}</Ticker>
+                <Ticker>{symbol}</Ticker>
               </Tooltip>
             </span>
           )}
@@ -147,10 +146,10 @@ export const CoinListItem = ({
             <span>
               <Tooltip
                 placement="bottom"
-                title={`${formatNumber(totalSupply)} ${ticker.toUpperCase()}`}
+                title={`${formatNumber(totalSupply)} ${symbol.toUpperCase()}`}
               >
                 {convertLongNumber(totalSupply)}
-                <Ticker>{ticker}</Ticker>
+                <Ticker>{symbol}</Ticker>
               </Tooltip>
             </span>
           )}
@@ -159,7 +158,7 @@ export const CoinListItem = ({
       <ChartCol lg={{ span: 2 }}>
         <ChartContainer>
           <CoinListChart
-            priceData={priceChart7d}
+            priceData={sparklineIn7d.price}
             categoryColor={categoryColor}
           />
         </ChartContainer>

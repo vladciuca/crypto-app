@@ -4,6 +4,7 @@ import ETHGasPrice from "../ETHGasPrice";
 import { CurrencySelect } from "../CurrencySelect";
 import { CaretSymbol } from "../CaretSymbol";
 import { Row, Col, Tooltip } from "antd";
+import { SkeletonGlobalBar } from "../skeletons/SkeletonGlobalBar";
 import {
   GlobalDataBar,
   ETHGasPriceCol,
@@ -14,10 +15,10 @@ import {
   MarketCapCol,
   MarketCapChange,
 } from "./GlobalData.styles";
-import keysToCamel from "../../utils/StringUtils/keysToCamel";
-import formatNumber from "../../utils/NumberUtils/formatNumber";
-import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
-import getCurrencySymbol from "../../utils/getCurrencySymbol";
+import keysToCamel from "utils/StringUtils/keysToCamel";
+import formatNumber from "utils/NumberUtils/formatNumber";
+import convertLongNumber from "utils/NumberUtils/convertLongNumber";
+import getCurrencySymbol from "utils/getCurrencySymbol";
 export default class GlobalData extends React.Component {
   state = {
     globalData: null,
@@ -54,7 +55,11 @@ export default class GlobalData extends React.Component {
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
-        {this.state.isLoading && <div>Loading...</div>}
+        {this.state.isLoading && (
+          <div>
+            <SkeletonGlobalBar />
+          </div>
+        )}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}

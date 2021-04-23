@@ -1,22 +1,26 @@
 import React from "react";
 import axios from "axios";
 import queryString from "query-string";
-import { CoinListTitle } from "../../components/CoinListTitle";
-import { CoinListHeader } from "../../components/CoinListHeader";
-import { CoinListItem } from "../../components/CoinListItem";
-import camelToSnake from "../../utils/StringUtils/camelToSnake";
-import keysToCamel from "../../utils/StringUtils/keysToCamel";
+import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
+import { CoinListTitle } from "components/CoinListTitle";
+import { CoinListHeader } from "components/CoinListHeader";
+import { CoinListItem } from "components/CoinListItem";
+import { EmptyFavoriteList } from "components/EmptyFavoriteList";
+import camelToSnake from "utils/StringUtils/camelToSnake";
+import keysToCamel from "utils/StringUtils/keysToCamel";
 import { Container } from "./CoinList.styles";
 
 class CoinList extends React.Component {
   state = {
     coinList: [],
     coinListLength: null,
-    coinListOrder: true,
+    showFavorites: false,
     listOrder: "marketCapDesc",
     page: null,
     coinsPerPage: 50,
     category: "all",
+    sortOrder: true,
+    sortBy: "marketCapRank",
     categoryColor: {
       allCoins: {
         hex: "#a487c3",
@@ -31,8 +35,6 @@ class CoinList extends React.Component {
         rgb: "rgb(86,203,249, 0.5)",
       },
     },
-    sortOrder: true,
-    sortBy: "marketCapRank",
     isLoading: false,
     hasError: false,
   };
@@ -49,27 +51,55 @@ class CoinList extends React.Component {
         categoryQuery = `&category=${category}`;
       }
       const listOrder = camelToSnake(this.state.listOrder);
-      const base = process.env.REACT_APP_ENDPOINT;
-      const { data } = await axios(
-        `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+      const storageFavoriteList = JSON.parse(
+        localStorage.getItem("favoriteList")
       );
-      this.setState({
-        coinList: keysToCamel(data),
-        coinListLength: data.length,
-        isLoading: false,
-        hasError: false,
-      });
+      const favoriteList = Object.values(storageFavoriteList).reduce(
+        (acc, current, index, array) => {
+          if (index === array.length - 1) {
+            return acc + `${current}`;
+          }
+          return acc + `${current}%2C%20`;
+        },
+        ""
+      );
+      const base = process.env.REACT_APP_ENDPOINT;
+      if (!this.state.showFavorites) {
+        const { data } = await axios(
+          `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+        );
+        this.setState({
+          coinList: keysToCamel(data),
+          coinListLength: data.length,
+          isLoading: false,
+          hasError: false,
+        });
+      } else {
+        const { data } = await axios(
+          `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+        );
+        this.setState({
+          coinList: keysToCamel(data),
+          coinListLength: data.length,
+          page: 1,
+          isLoading: false,
+          hasError: false,
+        });
+      }
     } catch (error) {
       this.setState({ isLoading: false, hasError: true });
     }
   };
-  handleListOrder = () => {
-    this.setState({ coinListOrder: !this.state.coinListOrder });
-    if (this.state.coinListOrder) {
-      this.setState({ listOrder: "marketCapAsc" });
-    } else {
-      this.setState({ listOrder: "marketCapDesc" });
-    }
+  toggleFavoriteList = () => {
+    this.setState({ showFavorites: !this.state.showFavorites });
+  };
+  handleListTop = () => {
+    if (this.state.isLoading) return;
+    this.setState({ listOrder: "marketCapDesc" });
+  };
+  handleListBottom = () => {
+    if (this.state.isLoading) return;
+    this.setState({ listOrder: "marketCapAsc" });
   };
   handleCategory = (e) => {
     const category = e.target.value;
@@ -126,7 +156,6 @@ class CoinList extends React.Component {
     ) {
       this.setState({ coinsPerPage: 50 });
     }
-    const { currency } = this.props;
     const {
       sortOrder,
       sortBy,
@@ -136,7 +165,6 @@ class CoinList extends React.Component {
       listOrder,
     } = this.state;
     const query = queryString.stringify({
-      currency,
       sortOrder,
       sortBy,
       category,
@@ -177,6 +205,9 @@ class CoinList extends React.Component {
       this.getSearchQuery();
       this.getCoinList();
     }
+    if (prevState.showFavorites !== this.state.showFavorites) {
+      this.getCoinList();
+    }
     if (!this.props.location.search) {
       this.getSearchQuery();
     }
@@ -200,59 +231,58 @@ class CoinList extends React.Component {
       category,
       page,
       coinsPerPage,
-      coinListOrder,
+      listOrder,
+      showFavorites,
     } = this.state;
     return (
       <Container>
         <CoinListTitle
+          showFavorites={showFavorites}
           coinsPerPage={coinsPerPage}
           page={page}
-          coinListOrder={coinListOrder}
-          handleListOrder={this.handleListOrder}
+          listOrder={listOrder}
+          handleListTop={this.handleListTop}
+          handleListBottom={this.handleListBottom}
           category={category}
           categoryColor={this.getCategoryColor("hex")}
         />
+        <CoinListHeader
+          showFavorites={showFavorites}
+          toggleFavoriteList={this.toggleFavoriteList}
+          sortOrder={sortOrder}
+          sortBy={sortBy}
+          handleSort={this.handleSort}
+          category={category}
+          categoryColor={this.getCategoryColor("hex")}
+          handleCategory={this.handleCategory}
+          page={page}
+          coinsPerPage={coinsPerPage}
+          handleCoinsPerPage={this.handleCoinsPerPage}
+          handleNextPage={this.handleNextPage}
+          handlePrevPage={this.handlePrevPage}
+        />
         {hasData && (
           <>
-            <CoinListHeader
-              sortOrder={sortOrder}
-              sortBy={sortBy}
-              handleSort={this.handleSort}
-              category={category}
-              categoryColor={this.getCategoryColor("hex")}
-              handleCategory={this.handleCategory}
-              page={page}
-              coinsPerPage={coinsPerPage}
-              handleCoinsPerPage={this.handleCoinsPerPage}
-              handleNextPage={this.handleNextPage}
-              handlePrevPage={this.handlePrevPage}
-            />
             {sortedList.map((coin) => {
               return (
                 <CoinListItem
                   key={coin.id}
-                  id={coin.id}
+                  coin={coin}
                   currency={this.props.currency}
-                  rank={coin.marketCapRank}
-                  img={coin.image}
-                  name={coin.name}
-                  ticker={coin.symbol}
-                  currentPrice={coin.currentPrice}
-                  priceChange1h={coin.priceChangePercentage1hInCurrency}
-                  priceChange24h={coin.priceChangePercentage24hInCurrency}
-                  priceChange7d={coin.priceChangePercentage7dInCurrency}
-                  marketCap={coin.marketCap}
-                  totalVolume={coin.totalVolume}
-                  circulatingSupply={coin.circulatingSupply}
-                  totalSupply={coin.totalSupply}
-                  priceChart7d={coin.sparklineIn7d.price}
                   categoryColor={this.getCategoryColor("rgb")}
                 />
               );
             })}
           </>
         )}
-        {this.state.isLoading && <div>Loading...</div>}
+        {this.state.coinListLength === 0 && this.state.showFavorites && (
+          <EmptyFavoriteList />
+        )}
+        {this.state.isLoading && (
+          <div>
+            <SkeletonCoinList coinsPerPage={this.state.coinsPerPage} />
+          </div>
+        )}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}

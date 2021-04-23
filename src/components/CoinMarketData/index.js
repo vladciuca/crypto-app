@@ -3,8 +3,9 @@ import { CaretSymbol } from "../CaretSymbol";
 import { Row, Col } from "antd";
 import { BiInfoCircle } from "react-icons/bi";
 import { CgInfinity } from "react-icons/cg";
-import formatNumber from "../../utils/NumberUtils/formatNumber";
-import formatPrice from "../../utils/NumberUtils/formatPrice";
+import formatNumber from "utils/NumberUtils/formatNumber";
+import formatPrice from "utils/NumberUtils/formatPrice";
+import getCurrencySymbol from "utils/getCurrencySymbol";
 import {
   Container,
   Spacer,
@@ -16,19 +17,14 @@ import {
   Ticker,
 } from "./CoinMarketData.styles";
 
-export const CoinMarketData = ({ marketData, symbol }) => {
+export const CoinMarketData = ({ marketData, symbol, currency }) => {
+  const currencySymbol = getCurrencySymbol(currency);
+  const getCurrencyValue = (key) => {
+    return marketData[key][currency];
+  };
   const {
-    currentPrice,
-    ath,
-    athDate,
-    atl,
-    atlDate,
-    priceChange24hInCurrency,
     priceChangePercentage24h,
-    marketCap,
     marketCapChangePercentage24h,
-    fullyDilutedValuation,
-    totalVolume,
     circulatingSupply,
     totalSupply,
   } = marketData;
@@ -36,21 +32,30 @@ export const CoinMarketData = ({ marketData, symbol }) => {
     (circulatingSupply / totalSupply) *
     100
   ).toFixed(0);
-  const totalVolumeInCoins = totalVolume.usd / currentPrice.usd;
+  const totalVolumeInCoins =
+    getCurrencyValue("totalVolume") / getCurrencyValue("currentPrice");
   const totalVolumePercentage = totalSupply
     ? ((totalVolumeInCoins / totalSupply) * 100).toFixed(0)
     : ((totalVolumeInCoins / circulatingSupply) * 100).toFixed(0);
-  const dateAth = new Date(athDate.usd).toUTCString();
-  const dateAtl = new Date(atlDate.usd).toUTCString();
+  const getDate = (key) => {
+    return new Date(marketData[key][currency]).toUTCString();
+  };
   return (
     <>
       <Row>
         <Col span={10}>
-          <Price>${formatPrice(currentPrice.usd)}</Price>
+          <Price>
+            {currencySymbol}
+            {formatPrice(getCurrencyValue("currentPrice"))}
+          </Price>
           <Spacer>
-            <PriceCurrencyChange pricechange={priceChange24hInCurrency.usd}>
-              {priceChange24hInCurrency.usd
-                ? `$${formatPrice(priceChange24hInCurrency.usd)}`
+            <PriceCurrencyChange
+              pricechange={getCurrencyValue("priceChange24hInCurrency")}
+            >
+              {getCurrencyValue("priceChange24hInCurrency")
+                ? `${currencySymbol}${formatPrice(
+                    getCurrencyValue("priceChange24hInCurrency")
+                  )}`
                 : "N/A"}
             </PriceCurrencyChange>
             <PriceChange pricechange={priceChangePercentage24h}>
@@ -62,24 +67,31 @@ export const CoinMarketData = ({ marketData, symbol }) => {
             </PriceChange>
           </Spacer>
           <div>
-            <Description>All Time High:</Description>${formatPrice(ath.usd)}
-            <AllTimeDate>{dateAth}</AllTimeDate>
+            <Description>All Time High:</Description>
+            {currencySymbol}
+            {formatPrice(getCurrencyValue("ath"))}
+            <AllTimeDate>{getDate("athDate")}</AllTimeDate>
           </div>
           <div>
-            <Description>All Time Low:</Description>${formatPrice(atl.usd)}
-            <AllTimeDate>{dateAtl}</AllTimeDate>
+            <Description>All Time Low:</Description>
+            {currencySymbol}
+            {formatPrice(getCurrencyValue("atl"))}
+            <AllTimeDate>{getDate("atlDate")}</AllTimeDate>
           </div>
         </Col>
-
         <Col span={14}>
           <Container>
             <BiInfoCircle color="lightgray" />
             <Description>Market Cap:</Description>
-            {marketCap.usd ? `$${formatNumber(marketCap.usd)}` : "N/A"}
+            {getCurrencyValue("marketCap")
+              ? `${currencySymbol}${formatNumber(
+                  getCurrencyValue("marketCap")
+                )}`
+              : "N/A"}
             <span>
               <PriceChange pricechange={marketCapChangePercentage24h}>
                 <CaretSymbol value={marketCapChangePercentage24h} />
-                {marketCap.usd
+                {getCurrencyValue("marketCap")
                   ? `${marketCapChangePercentage24h.toFixed(2)}`
                   : "N/A"}
                 %
@@ -89,19 +101,28 @@ export const CoinMarketData = ({ marketData, symbol }) => {
           <Container>
             <BiInfoCircle color="lightgray" />
             <Description>Fully Diluted Valuation:</Description>
-            {fullyDilutedValuation.usd
-              ? `$${formatNumber(fullyDilutedValuation.usd)}`
+            {getCurrencyValue("fullyDilutedValuation")
+              ? `${currencySymbol}${formatNumber(
+                  getCurrencyValue("fullyDilutedValuation")
+                )}`
               : "N/A"}
           </Container>
           <Container>
             <BiInfoCircle color="lightgray" />
             <Description>Volume 24h:</Description>
-            {totalVolume.usd ? `$${formatNumber(totalVolume.usd)}` : "N/A"}
+            {getCurrencyValue("totalVolume")
+              ? `${currencySymbol}${formatNumber(
+                  getCurrencyValue("totalVolume")
+                )}`
+              : "N/A"}
           </Container>
           <Container>
             <Description>Volume / Market:</Description>
-            {totalVolume.usd
-              ? `${(totalVolume.usd / marketCap.usd).toFixed(5)}`
+            {getCurrencyValue("totalVolume")
+              ? `${(
+                  getCurrencyValue("totalVolume") /
+                  getCurrencyValue("marketCap")
+                ).toFixed(5)}`
               : "N/A"}
           </Container>
         </Col>

@@ -10,40 +10,52 @@ import {
   Category,
 } from "./CoinListTitle.styles";
 
-export const CoinListTitle = (
-  {
-    handleListOrder,
-    coinListOrder,
-    coinsPerPage,
-    page,
-    category,
-    categoryColor,
-  },
-  ...rest
-) => {
-  const categoryName =
-    category === "stablecoins"
-      ? "STABLECOINS"
-      : category === "decentralized_finance_defi"
-      ? "DEFI COINS"
-      : "COINS";
+export const CoinListTitle = ({
+  handleListTop,
+  handleListBottom,
+  listOrder,
+  coinsPerPage,
+  page,
+  category,
+  categoryColor,
+  showFavorites,
+}) => {
+  const list =
+    listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
+  const isStableCoin = category === "stablecoins";
+  const isDefi = category === "decentralizedFinanceDefi";
+  const categoryName = isStableCoin
+    ? "STABLECOINS"
+    : isDefi
+    ? "DEFI COINS"
+    : "COINS";
   return (
     <TitleRow>
-      <Arrows onClick={handleListOrder}>
-        <Arrow>
-          <FaCaretUp />
-        </Arrow>
-        <Arrow>
-          <FaCaretDown />
-        </Arrow>
-      </Arrows>
-      <Col>
+      {!showFavorites && (
+        <>
+          <Arrows>
+            <Arrow onClick={handleListTop}>
+              <FaCaretUp />
+            </Arrow>
+            <Arrow onClick={handleListBottom}>
+              <FaCaretDown />
+            </Arrow>
+          </Arrows>
+          <Col>
+            <Title>
+              {list}
+              <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
+              <Category>{categoryName}</Category>
+            </Title>
+          </Col>
+        </>
+      )}
+      {showFavorites && (
         <Title>
-          {coinListOrder ? <span>Top</span> : <span>Bottom</span>}
-          <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
-          <Category>{categoryName}</Category>
+          <Value>X</Value>
+          <Category>FAVORITE COINS</Category>
         </Title>
-      </Col>
+      )}
     </TitleRow>
   );
 };

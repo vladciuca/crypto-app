@@ -11,8 +11,8 @@ export default class FavoriteCoins extends React.Component {
   };
   toggleFavorite = (id) => {
     if (this.state.favoriteList[id]) {
-      delete this.state.favoriteList[id];
       const newFavoriteList = { ...this.state.favoriteList };
+      delete newFavoriteList[id];
       this.setInStorage(newFavoriteList);
     } else {
       const localStorageList = JSON.parse(localStorage.getItem("favoriteList"));

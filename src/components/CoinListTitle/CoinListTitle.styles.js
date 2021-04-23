@@ -13,7 +13,6 @@ export const Title = styled.span`
 `;
 
 export const Arrows = styled(Col)`
-  cursor: pointer;
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
@@ -22,6 +21,7 @@ export const Arrows = styled(Col)`
 `;
 
 export const Arrow = styled.div`
+  cursor: pointer;
   height: 1rem;
 `;
 

@@ -32,13 +32,17 @@ export const CoinInfo = ({
         <Col span={3}>
           <Img src={image} />
         </Col>
-        <Col span={21}>
-          <Rank>#{marketCapRank}</Rank>
-          <Name>{name}</Name>
-          <Ticker>{symbol}</Ticker>
-          <Favorite>
-            <FavoriteCoins id={id} />
-          </Favorite>
+        <Col offset={1} span={20}>
+          <Name>
+            {name}
+            <Favorite>
+              <FavoriteCoins id={id} />
+            </Favorite>
+          </Name>
+          <div>
+            <Rank>#{marketCapRank}</Rank>
+            <Ticker>{symbol}</Ticker>
+          </div>
         </Col>
       </Row>
       <CategoryRow>

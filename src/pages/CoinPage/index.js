@@ -1,9 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
-import { CoinPageHeader } from "../../components/CoinPageHeader";
-import { CoinPageChart } from "../../components/CoinPageChart";
-import keysToCamel from "../../utils/StringUtils/keysToCamel";
+import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
+import { CoinPageHeader } from "components/CoinPageHeader";
+import { CoinPageChart } from "components/CoinPageChart";
+import keysToCamel from "utils/StringUtils/keysToCamel";
 import { Background, Card } from "./CoinPage.styles";
 
 export default class CoinPage extends React.Component {
@@ -35,13 +36,20 @@ export default class CoinPage extends React.Component {
     const coinData = this.state.coinData;
     return (
       <div>
-        {this.state.isLoading && <div>Loading...</div>}
+        {this.state.isLoading && (
+          <div>
+            <SkeletonCoinPage />
+          </div>
+        )}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
         {hasData && (
           <div>
-            <CoinPageHeader coinData={coinData} />
+            <CoinPageHeader
+              coinData={coinData}
+              currency={this.props.currency}
+            />
             <Row>
               <CoinPageChart
                 name={coinData.name}
@@ -53,7 +61,7 @@ export default class CoinPage extends React.Component {
               <Col span={12}>
                 <Card>
                   <div>Description:</div>
-                  {coinData.description.en}
+                  {coinData.description.en || ""}
                 </Card>
               </Col>
               <Col span={1}></Col>

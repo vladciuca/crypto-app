@@ -2,27 +2,26 @@ import styled from "styled-components";
 import { Col } from "antd";
 
 export const Img = styled.img`
-  height: 3.5rem;
-  width: 3.5rem;
+  height: 4.5rem;
+  width: 4.5rem;
   border-radius: 25rem;
 `;
 
 export const Rank = styled.span`
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   color: #a487c3;
-  padding-right: 0.6rem;
+  padding-right: 0.4rem;
 `;
 
-export const Name = styled.span`
+export const Name = styled.div`
   font-weight: bold;
-  font-size: 2.5rem;
+  font-size: 2rem;
 `;
 
 export const Ticker = styled.span`
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 1.5rem;
-  padding-left: 0.6rem;
+  font-size: 1.4rem;
   color: #a487c3;
 `;
 
