@@ -15,7 +15,7 @@ export const SkeletonRow = styled.div`
   border-radius: 0.25rem;
   width: 100%;
   height: 4.25rem;
-  margin-bottom: 0.2rem;
+  margin: 0.2rem;
 `;
 
 export const SkeletonAvatar = styled.div`
@@ -79,6 +79,7 @@ export const SkeletonContainer = styled.div`
 `;
 
 export const SkeletonGlobal = styled.div`
+  height: 2rem;
   display: flex;
   align-items: center;
   color: red;

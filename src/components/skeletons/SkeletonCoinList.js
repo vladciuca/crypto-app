@@ -13,7 +13,6 @@ export const SkeletonCoinList = ({ coinsPerPage }) => {
   }
   return (
     <>
-      <SkeletonHeader />
       {rows.map((item) => {
         return (
           <SkeletonRow key={item}>

@@ -47,3 +47,13 @@ export const Select = styled.select`
     color: #5b486a;
   }
 `;
+
+export const Page = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25rem;
+  background: #262335;
+  height: 1.5rem;
+  width: 1.5rem;
+`;

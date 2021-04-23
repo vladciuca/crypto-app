@@ -1,6 +1,6 @@
 import React from "react";
 import { CaretSymbol } from "../CaretSymbol";
-import { RiHeartFill } from "react-icons/ri";
+import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 import {
   RowHeader,
@@ -8,9 +8,12 @@ import {
   Select,
   Centered,
   Right,
+  Page,
 } from "./CoinHeader.styles";
 
 export const CoinListHeader = ({
+  showFavorites,
+  toggleFavoriteList,
   sortOrder,
   handleSort,
   sortBy,
@@ -36,8 +39,12 @@ export const CoinListHeader = ({
   return (
     <RowHeader>
       <ColHeader lg={{ span: 1 }}>
-        <Centered>
-          <RiHeartFill size="1.3rem" color="#ff7b7b" />
+        <Centered onClick={toggleFavoriteList}>
+          {showFavorites ? (
+            <RiHeartFill size="1.3rem" color="#ff7b7b" />
+          ) : (
+            <RiHeartLine size="1rem" color="#ff7b7b" />
+          )}
         </Centered>
       </ColHeader>
       <ColHeader lg={{ span: 1 }} onClick={() => handleSort("marketCapRank")}>
@@ -100,7 +107,9 @@ export const CoinListHeader = ({
         <Centered onClick={handlePrevPage}>
           <FaCaretLeft />
         </Centered>
-        <Centered categoryColor={categoryColor}>{page}</Centered>
+        <Centered categoryColor={categoryColor}>
+          <Page>{page}</Page>
+        </Centered>
         <Centered onClick={handleNextPage}>
           <FaCaretRight />
         </Centered>

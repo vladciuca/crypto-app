@@ -18,6 +18,7 @@ export const CoinListTitle = ({
   page,
   category,
   categoryColor,
+  showFavorites,
 }) => {
   const list =
     listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
@@ -29,21 +30,31 @@ export const CoinListTitle = ({
       : "COINS";
   return (
     <TitleRow>
-      <Arrows>
-        <Arrow onClick={handleListTop}>
-          <FaCaretUp />
-        </Arrow>
-        <Arrow onClick={handleListBottom}>
-          <FaCaretDown />
-        </Arrow>
-      </Arrows>
-      <Col>
+      {!showFavorites && (
+        <>
+          <Arrows>
+            <Arrow onClick={handleListTop}>
+              <FaCaretUp />
+            </Arrow>
+            <Arrow onClick={handleListBottom}>
+              <FaCaretDown />
+            </Arrow>
+          </Arrows>
+          <Col>
+            <Title>
+              {list}
+              <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
+              <Category>{categoryName}</Category>
+            </Title>
+          </Col>
+        </>
+      )}
+      {showFavorites && (
         <Title>
-          {list}
-          <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
-          <Category>{categoryName}</Category>
+          <Value>X</Value>
+          <Category>FAVORITE COINS</Category>
         </Title>
-      </Col>
+      )}
     </TitleRow>
   );
 };
