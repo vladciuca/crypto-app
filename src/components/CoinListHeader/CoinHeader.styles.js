@@ -39,7 +39,7 @@ export const Select = styled.select`
   background: #191320;
   border-radius: 0.25rem;
   border: none;
-  margin: 0.2rem;
+  margin: 0.2rem 0.5rem;
   :focus {
     outline: none;
   }

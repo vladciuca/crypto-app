@@ -48,9 +48,11 @@ export const CoinListHeader = ({
         </Centered>
       </ColHeader>
       <ColHeader lg={{ span: 1 }} onClick={() => handleSort("marketCapRank")}>
-        #{sortBy === "marketCapRank" && <CaretSymbol value={sortOrder} />}
+        <Centered>
+          #{sortBy === "marketCapRank" && <CaretSymbol value={sortOrder} />}
+        </Centered>
       </ColHeader>
-      <ColHeader lg={{ span: 3 }} onClick={() => handleSort("name")}>
+      <ColHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
         Name
         {sortBy === "name" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
@@ -78,18 +80,34 @@ export const CoinListHeader = ({
         24h Volume
         {sortBy === "totalVolume" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
-      <ColHeader>
-        <Select
-          categoryColor={categoryColor}
-          value={category}
-          onChange={handleCategory}
-        >
-          <option value="all">All Coins</option>
-          <option value="stablecoins">Stablecoins</option>
-          <option value="decentralizedFinanceDefi">Defi Coins</option>
-        </Select>
+      <ColHeader lg={{ span: 4 }}>
+        {!showFavorites && (
+          <Centered>
+            <Select
+              categoryColor={categoryColor}
+              value={category}
+              onChange={handleCategory}
+            >
+              <option value="all">All Coins</option>
+              <option value="stablecoins">Stablecoins</option>
+              <option value="decentralizedFinanceDefi">Defi Coins</option>
+            </Select>
+            Show
+            <Select
+              disabled={categoryChange(category)}
+              categoryColor={categoryColor}
+              value={coinsPerPage}
+              onChange={handleCoinsPerPage}
+            >
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </Select>
+          </Centered>
+        )}
       </ColHeader>
-      <ColHeader>
+      {/* <ColHeader lg={{ span: 2 }}>
         Show
         <Select
           disabled={categoryChange(category)}
@@ -102,7 +120,7 @@ export const CoinListHeader = ({
           <option value="50">50</option>
           <option value="100">100</option>
         </Select>
-      </ColHeader>
+      </ColHeader> */}
       <ColHeader lg={{ span: 2 }}>
         <Centered onClick={handlePrevPage}>
           <FaCaretLeft />
