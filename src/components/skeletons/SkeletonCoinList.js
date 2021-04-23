@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  SkeletonText,
-  SkeletonAvatar,
-  SkeletonRow,
-  SkeletonHeader,
-} from "./Skeletons.styles";
+import { SkeletonText, SkeletonAvatar, SkeletonRow } from "./Skeletons.styles";
 
 export const SkeletonCoinList = ({ coinsPerPage }) => {
   const rows = [];

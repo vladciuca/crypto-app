@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
-import { SkeletonCoinPage } from "../../components/skeletons/SkeletonCoinPage";
-import { CoinPageHeader } from "../../components/CoinPageHeader";
-import { CoinPageChart } from "../../components/CoinPageChart";
-import keysToCamel from "../../utils/StringUtils/keysToCamel";
+import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
+import { CoinPageHeader } from "components/CoinPageHeader";
+import { CoinPageChart } from "components/CoinPageChart";
+import keysToCamel from "utils/StringUtils/keysToCamel";
 import { Background, Card } from "./CoinPage.styles";
 
 export default class CoinPage extends React.Component {
@@ -61,9 +61,7 @@ export default class CoinPage extends React.Component {
               <Col span={12}>
                 <Card>
                   <div>Description:</div>
-                  {coinData.description.en === "null"
-                    ? coinData.description.en
-                    : ""}
+                  {coinData.description.en || ""}
                 </Card>
               </Col>
               <Col span={1}></Col>

@@ -3,9 +3,9 @@ import { CaretSymbol } from "../CaretSymbol";
 import { Row, Col } from "antd";
 import { BiInfoCircle } from "react-icons/bi";
 import { CgInfinity } from "react-icons/cg";
-import formatNumber from "../../utils/NumberUtils/formatNumber";
-import formatPrice from "../../utils/NumberUtils/formatPrice";
-import getCurrencySymbol from "../../utils/getCurrencySymbol";
+import formatNumber from "utils/NumberUtils/formatNumber";
+import formatPrice from "utils/NumberUtils/formatPrice";
+import getCurrencySymbol from "utils/getCurrencySymbol";
 import {
   Container,
   Spacer,

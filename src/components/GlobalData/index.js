@@ -15,10 +15,10 @@ import {
   MarketCapCol,
   MarketCapChange,
 } from "./GlobalData.styles";
-import keysToCamel from "../../utils/StringUtils/keysToCamel";
-import formatNumber from "../../utils/NumberUtils/formatNumber";
-import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
-import getCurrencySymbol from "../../utils/getCurrencySymbol";
+import keysToCamel from "utils/StringUtils/keysToCamel";
+import formatNumber from "utils/NumberUtils/formatNumber";
+import convertLongNumber from "utils/NumberUtils/convertLongNumber";
+import getCurrencySymbol from "utils/getCurrencySymbol";
 export default class GlobalData extends React.Component {
   state = {
     globalData: null,

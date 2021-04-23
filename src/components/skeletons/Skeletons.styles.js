@@ -1,13 +1,5 @@
 import styled from "styled-components";
 
-export const SkeletonHeader = styled.div`
-  background: #191320;
-  border-radius: 0.25rem;
-  width: 100%;
-  height: 3rem;
-  margin-bottom: 0.2rem;
-`;
-
 export const SkeletonRow = styled.div`
   display: flex;
   align-items: center;

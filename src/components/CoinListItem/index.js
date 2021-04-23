@@ -1,7 +1,7 @@
+import { Tooltip } from "antd";
 import FavoriteCoins from "../FavoriteCoins";
 import { CaretSymbol } from "../CaretSymbol";
 import { CoinListChart } from "../CoinListChart";
-import { Tooltip } from "antd";
 import { CgInfinity } from "react-icons/cg";
 import {
   StyledLink,

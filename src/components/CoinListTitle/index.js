@@ -22,12 +22,13 @@ export const CoinListTitle = ({
 }) => {
   const list =
     listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
-  const categoryName =
-    category === "stablecoins"
-      ? "STABLECOINS"
-      : category === "decentralizedFinanceDefi"
-      ? "DEFI COINS"
-      : "COINS";
+  const isStableCoin = category === "stablecoins";
+  const isDefi = category === "decentralizedFinanceDefi";
+  const categoryName = isStableCoin
+    ? "STABLECOINS"
+    : isDefi
+    ? "DEFI COINS"
+    : "COINS";
   return (
     <TitleRow>
       {!showFavorites && (
