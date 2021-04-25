@@ -11,12 +11,12 @@ export default class FavoriteCoins extends React.Component {
   };
   toggleFavorite = (id) => {
     if (this.state.favoriteList[id]) {
-      const newFavoriteList = { ...this.state.favoriteList };
-      delete newFavoriteList[id];
-      this.setInStorage(newFavoriteList);
+      const listFromStorage = JSON.parse(localStorage.getItem("favoriteList"));
+      delete listFromStorage[id];
+      this.setInStorage(listFromStorage);
     } else {
-      const localStorageList = JSON.parse(localStorage.getItem("favoriteList"));
-      const newFavoriteList = { ...localStorageList, [id]: id };
+      const listFromStorage = JSON.parse(localStorage.getItem("favoriteList"));
+      const newFavoriteList = { ...listFromStorage, [id]: id };
       this.setInStorage(newFavoriteList);
     }
   };

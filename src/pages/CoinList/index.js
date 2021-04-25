@@ -14,6 +14,7 @@ class CoinList extends React.Component {
   state = {
     coinList: [],
     coinListLength: null,
+    // favoriteCoins: null,
     showFavorites: false,
     listOrder: "marketCapDesc",
     page: null,
@@ -38,6 +39,10 @@ class CoinList extends React.Component {
     isLoading: false,
     hasError: false,
   };
+  // getFavoriteCoins = () => {
+  //   const favoriteCoins = JSON.parse(localStorage.getItem("favoriteList"));
+  //   this.setState({ favoriteCoins });
+  // };
   getCoinList = async () => {
     this.setState({ isLoading: true });
     try {
@@ -51,20 +56,8 @@ class CoinList extends React.Component {
         categoryQuery = `&category=${category}`;
       }
       const listOrder = camelToSnake(this.state.listOrder);
-      const storageFavoriteList = JSON.parse(
-        localStorage.getItem("favoriteList")
-      );
-      const favoriteList = Object.values(storageFavoriteList).reduce(
-        (acc, current, index, array) => {
-          if (index === array.length - 1) {
-            return acc + `${current}`;
-          }
-          return acc + `${current}%2C%20`;
-        },
-        ""
-      );
       const base = process.env.REACT_APP_ENDPOINT;
-      if (this.state.showFavorites === false) {
+      if (!this.state.showFavorites) {
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
         );
@@ -75,13 +68,27 @@ class CoinList extends React.Component {
           hasError: false,
         });
       } else {
+        const storageFavoriteList = JSON.parse(
+          localStorage.getItem("favoriteList")
+        );
+        if (!storageFavoriteList) return;
+        if (Object.values(storageFavoriteList).length === 0) return;
+        const favoriteList = Object.values(storageFavoriteList).reduce(
+          (acc, current, index, array) => {
+            if (index === array.length - 1) {
+              return acc + `${current}`;
+            }
+            return acc + `${current}%2C%20`;
+          },
+          ""
+        );
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
         );
         this.setState({
           coinList: keysToCamel(data),
           coinListLength: data.length,
-          page: 1,
+          // page: 1,
           isLoading: false,
           hasError: false,
         });
@@ -213,6 +220,7 @@ class CoinList extends React.Component {
     }
   }
   componentDidMount() {
+    // this.getFavoriteCoins();
     this.setState({ page: 1 });
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
@@ -223,6 +231,15 @@ class CoinList extends React.Component {
     }
   }
   render() {
+    const favoriteCoins = JSON.parse(localStorage.getItem("favoriteList"));
+
+    const favoriteCoinsLength = () => {
+      if (favoriteCoins) {
+        return Object.values(favoriteCoins).length;
+      }
+      return 0;
+    };
+    console.log(!favoriteCoinsLength() && this.state.showFavorites);
     const hasData = !!(!this.state.isLoading && this.state.coinList.length);
     const sortedList = this.sortCoinList(this.state.sortBy);
     const {
@@ -275,7 +292,7 @@ class CoinList extends React.Component {
             })}
           </>
         )}
-        {this.state.coinListLength === 0 && this.state.showFavorites && (
+        {!favoriteCoinsLength() && this.state.showFavorites && (
           <EmptyFavoriteList />
         )}
         {this.state.isLoading && (
