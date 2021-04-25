@@ -9,7 +9,7 @@ export const NavBar = (props) => {
       <NavContainer>
         <ul>
           <li>
-            <StyledLink to="/">
+            <StyledLink to={`/${props.homePageLink}`}>
               <FaCoins size="1.3rem" color="#5b486a" />
               <span>Coins</span>
             </StyledLink>

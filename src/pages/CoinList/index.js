@@ -179,6 +179,7 @@ class CoinList extends React.Component {
       coinsPerPage,
       listOrder,
     });
+    
     this.props.history.push(`/?${query}`);
   };
   componentDidUpdate(prevProps, prevState) {
@@ -217,10 +218,21 @@ class CoinList extends React.Component {
     }
     if (!this.props.location.search) {
       this.getSearchQuery();
+      
+    }
+    if(this.props.location.search !== prevProps.location.search){
+      this.props.handleHomeLink(this.props.location.search)
     }
   }
+
+  getScreenWidth = () => {
+    const width = window.innerWidth;
+    if(width < 400) return 5;
+    if(width <  1000 && width > 400) return 10;
+    return 12;
+  }
+
   componentDidMount() {
-    // this.getFavoriteCoins();
     this.setState({ page: 1 });
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
@@ -239,7 +251,7 @@ class CoinList extends React.Component {
       }
       return 0;
     };
-    console.log(!favoriteCoinsLength() && this.state.showFavorites);
+
     const hasData = !!(!this.state.isLoading && this.state.coinList.length);
     const sortedList = this.sortCoinList(this.state.sortBy);
     const {
@@ -297,7 +309,7 @@ class CoinList extends React.Component {
         )}
         {this.state.isLoading && (
           <div>
-            <SkeletonCoinList coinsPerPage={this.state.coinsPerPage} />
+            <SkeletonCoinList coinsPerPage={this.getScreenWidth()} />
           </div>
         )}
         {this.state.hasError && (
