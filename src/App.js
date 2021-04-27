@@ -10,19 +10,16 @@ import "./App.css";
 class App extends React.Component {
   state = {
     currency: null,
-    homePageLink: ''
+    homePageLink: "",
   };
   handleCurrencyChange = (e) => {
     const currency = e.target.value;
     this.setState({ currency });
     localStorage.setItem("currency", JSON.stringify(currency));
   };
-
   handleHomeLink = (link) => {
-    console.log(link)
-    this.setState({ homePageLink: link })
-  }
-
+    this.setState({ homePageLink: link });
+  };
   componentDidMount() {
     this.setState({
       currency: JSON.parse(localStorage.getItem("currency")) || "usd",
@@ -42,7 +39,13 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              component={(props) => <CoinList {...props} handleHomeLink={this.handleHomeLink} currency={currency} />}
+              component={(props) => (
+                <CoinList
+                  {...props}
+                  handleHomeLink={this.handleHomeLink}
+                  currency={currency}
+                />
+              )}
             ></Route>
             <Route
               exact

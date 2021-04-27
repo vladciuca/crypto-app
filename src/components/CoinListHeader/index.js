@@ -7,7 +7,6 @@ import {
   ColHeader,
   Select,
   Centered,
-  Right,
   Page,
 } from "./CoinHeader.styles";
 
@@ -21,6 +20,7 @@ export const CoinListHeader = ({
   categoryColor,
   handleCategory,
   page,
+  favoritePage,
   coinsPerPage,
   handleCoinsPerPage,
   handleNextPage,
@@ -57,10 +57,8 @@ export const CoinListHeader = ({
         {sortBy === "name" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
       <ColHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>
-        <Right>
-          {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
-          Price
-        </Right>
+        Price
+        {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
       {priceChangeSorts.map((sort) => {
         return (
@@ -69,10 +67,8 @@ export const CoinListHeader = ({
             span={2}
             onClick={() => handleSort(sort.value)}
           >
-            <Centered>
-              {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
-              {sort.title}
-            </Centered>
+            {sort.title}
+            {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
           </ColHeader>
         );
       })}
@@ -107,26 +103,12 @@ export const CoinListHeader = ({
           </Centered>
         )}
       </ColHeader>
-      {/* <ColHeader lg={{ span: 2 }}>
-        Show
-        <Select
-          disabled={categoryChange(category)}
-          categoryColor={categoryColor}
-          value={coinsPerPage}
-          onChange={handleCoinsPerPage}
-        >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-        </Select>
-      </ColHeader> */}
       <ColHeader lg={{ span: 2 }}>
         <Centered onClick={handlePrevPage}>
           <FaCaretLeft />
         </Centered>
         <Centered categoryColor={categoryColor}>
-          <Page>{page}</Page>
+          <Page>{showFavorites ? favoritePage : page}</Page>
         </Centered>
         <Centered onClick={handleNextPage}>
           <FaCaretRight />

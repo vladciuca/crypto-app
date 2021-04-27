@@ -26,14 +26,6 @@ export const Centered = styled.div`
   height: 100%;
 `;
 
-export const Right = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
 export const Select = styled.select`
   color: ${(props) => props.categoryColor};
   background: #191320;

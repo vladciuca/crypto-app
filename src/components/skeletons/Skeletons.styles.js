@@ -13,8 +13,8 @@ export const SkeletonRow = styled.div`
 export const SkeletonAvatar = styled.div`
   background: #262335;
   border-radius: 25rem;
-  width: 3rem;
-  height: 2.5rem;
+  width: 2.5rem;
+  height: 2rem;
   margin-bottom: 0.2rem;
   margin-left: 5%;
 `;
@@ -32,7 +32,7 @@ export const SkeletonText = styled.div`
   background: #262335;
   border-radius: 25rem;
   width: 100%;
-  height: 0.5rem;
+  height: 0.25rem;
   margin: 0 5%;
 `;
 
@@ -81,7 +81,7 @@ export const SkeletonBar = styled.div`
   background: #262335;
   border-radius: 25rem;
   width: 55%;
-  height: 0.5rem;
+  height: 0.25rem;
   margin: 0 5%;
 `;
 
@@ -90,6 +90,6 @@ export const SkeletonGas = styled.div`
   background: #262335;
   border-radius: 25rem;
   width: 90%;
-  height: 0.5rem;
+  height: 0.25rem;
   margin-left: 1rem;
 `;

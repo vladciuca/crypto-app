@@ -1,5 +1,6 @@
 import React from "react";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import { Icon } from "./FavoriteCoins.styles";
 
 export default class FavoriteCoins extends React.Component {
   state = {
@@ -26,13 +27,13 @@ export default class FavoriteCoins extends React.Component {
   }
   render() {
     return (
-      <span onClick={() => this.toggleFavorite(this.props.id)}>
+      <Icon onClick={() => this.toggleFavorite(this.props.id)}>
         {this.state.favoriteList[this.props.id] ? (
           <RiHeartFill size="1.3rem" color="#ff7b7b" />
         ) : (
           <RiHeartLine size="1rem" color="#ff7b7b" />
         )}
-      </span>
+      </Icon>
     );
   }
 }

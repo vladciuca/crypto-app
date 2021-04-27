@@ -5,6 +5,7 @@ import {
   TitleRow,
   Title,
   Arrows,
+  List,
   Value,
   Arrow,
   Category,
@@ -19,6 +20,7 @@ export const CoinListTitle = ({
   category,
   categoryColor,
   showFavorites,
+  favoriteCoinsLength,
 }) => {
   const list =
     listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
@@ -43,7 +45,7 @@ export const CoinListTitle = ({
           </Arrows>
           <Col>
             <Title>
-              {list}
+              <List>{list}</List>
               <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
               <Category>{categoryName}</Category>
             </Title>
@@ -52,7 +54,7 @@ export const CoinListTitle = ({
       )}
       {showFavorites && (
         <Title>
-          <Value>X</Value>
+          <Value categoryColor={categoryColor}>{favoriteCoinsLength}</Value>
           <Category>FAVORITE COINS</Category>
         </Title>
       )}

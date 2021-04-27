@@ -14,10 +14,10 @@ class CoinList extends React.Component {
   state = {
     coinList: [],
     coinListLength: null,
-    // favoriteCoins: null,
     showFavorites: false,
     listOrder: "marketCapDesc",
     page: null,
+    favoritePage: 1,
     coinsPerPage: 50,
     category: "all",
     sortOrder: true,
@@ -32,22 +32,22 @@ class CoinList extends React.Component {
         rgb: "rgb(89,201,165, 0.5)",
       },
       defiCoins: {
-        hex: "#56cbf9",
-        rgb: "rgb(86,203,249, 0.5)",
+        hex: "#36a4fb",
+        rgb: "rgb(54,164,251, 0.5)",
+      },
+      favoriteCoins: {
+        hex: "#ff7b7b",
+        rgb: "rgb(255,123,123, 0.5)",
       },
     },
     isLoading: false,
     hasError: false,
   };
-  // getFavoriteCoins = () => {
-  //   const favoriteCoins = JSON.parse(localStorage.getItem("favoriteList"));
-  //   this.setState({ favoriteCoins });
-  // };
   getCoinList = async () => {
     this.setState({ isLoading: true });
     try {
       const { currency } = this.props;
-      const { page, coinsPerPage } = this.state;
+      const { favoritePage, page, coinsPerPage } = this.state;
       const category = camelToSnake(this.state.category);
       let categoryQuery;
       if (category === "all") {
@@ -83,12 +83,11 @@ class CoinList extends React.Component {
           ""
         );
         const { data } = await axios(
-          `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+          `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${favoritePage}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
         );
         this.setState({
           coinList: keysToCamel(data),
           coinListLength: data.length,
-          // page: 1,
           isLoading: false,
           hasError: false,
         });
@@ -116,13 +115,17 @@ class CoinList extends React.Component {
     }
   };
   getCategoryColor = (type) => {
-    const { category, categoryColor } = this.state;
-    if (category === "decentralizedFinanceDefi") {
-      return categoryColor.defiCoins[type];
-    } else if (category === "stablecoins") {
-      return categoryColor.stableCoins[type];
+    const { showFavorites, category, categoryColor } = this.state;
+    if (showFavorites) {
+      return categoryColor.favoriteCoins[type];
     } else {
-      return categoryColor.allCoins[type];
+      if (category === "decentralizedFinanceDefi") {
+        return categoryColor.defiCoins[type];
+      } else if (category === "stablecoins") {
+        return categoryColor.stableCoins[type];
+      } else {
+        return categoryColor.allCoins[type];
+      }
     }
   };
   handleCoinsPerPage = (e) => {
@@ -179,7 +182,7 @@ class CoinList extends React.Component {
       coinsPerPage,
       listOrder,
     });
-    
+
     this.props.history.push(`/?${query}`);
   };
   componentDidUpdate(prevProps, prevState) {
@@ -218,20 +221,20 @@ class CoinList extends React.Component {
     }
     if (!this.props.location.search) {
       this.getSearchQuery();
-      
     }
-    if(this.props.location.search !== prevProps.location.search){
-      this.props.handleHomeLink(this.props.location.search)
+    if (
+      this.props.location.search !== prevProps.location.search &&
+      this.state.showFavorites === false
+    ) {
+      this.props.handleHomeLink(this.props.location.search);
     }
   }
-
   getScreenWidth = () => {
     const width = window.innerWidth;
-    if(width < 400) return 5;
-    if(width <  1000 && width > 400) return 10;
+    if (width < 400) return 5;
+    if (width < 1000 && width > 400) return 10;
     return 12;
-  }
-
+  };
   componentDidMount() {
     this.setState({ page: 1 });
     if (this.props.location.search) {
@@ -244,14 +247,12 @@ class CoinList extends React.Component {
   }
   render() {
     const favoriteCoins = JSON.parse(localStorage.getItem("favoriteList"));
-
     const favoriteCoinsLength = () => {
       if (favoriteCoins) {
         return Object.values(favoriteCoins).length;
       }
       return 0;
     };
-
     const hasData = !!(!this.state.isLoading && this.state.coinList.length);
     const sortedList = this.sortCoinList(this.state.sortBy);
     const {
@@ -259,6 +260,7 @@ class CoinList extends React.Component {
       sortOrder,
       category,
       page,
+      favoritePage,
       coinsPerPage,
       listOrder,
       showFavorites,
@@ -267,6 +269,7 @@ class CoinList extends React.Component {
       <Container>
         <CoinListTitle
           showFavorites={showFavorites}
+          favoriteCoinsLength={favoriteCoinsLength()}
           coinsPerPage={coinsPerPage}
           page={page}
           listOrder={listOrder}
@@ -285,6 +288,7 @@ class CoinList extends React.Component {
           categoryColor={this.getCategoryColor("hex")}
           handleCategory={this.handleCategory}
           page={page}
+          favoritePage={favoritePage}
           coinsPerPage={coinsPerPage}
           handleCoinsPerPage={this.handleCoinsPerPage}
           handleNextPage={this.handleNextPage}
@@ -307,7 +311,7 @@ class CoinList extends React.Component {
         {!favoriteCoinsLength() && this.state.showFavorites && (
           <EmptyFavoriteList />
         )}
-        {this.state.isLoading && (
+        {this.state.isLoading && !this.state.showFavorites && (
           <div>
             <SkeletonCoinList coinsPerPage={this.getScreenWidth()} />
           </div>

@@ -68,7 +68,6 @@ export const NameCol = styled(Col)`
 
 export const CurrentPriceCol = styled(Col)`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   color: #a487c3;
   padding-right: 1rem;

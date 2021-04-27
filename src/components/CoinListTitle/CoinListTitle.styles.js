@@ -25,9 +25,12 @@ export const Arrow = styled.div`
   height: 1rem;
 `;
 
+export const List = styled.span`
+  margin-right: 0.8rem;
+`;
+
 export const Value = styled.span`
   color: ${(props) => props.categoryColor};
-  margin-left: 0.8rem;
   font-size: 3.5rem;
 `;
 
