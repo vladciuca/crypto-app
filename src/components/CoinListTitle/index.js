@@ -55,7 +55,14 @@ export const CoinListTitle = ({
       {showFavorites && (
         <Title>
           <Value categoryColor={categoryColor}>{favoriteCoinsLength}</Value>
-          <Category>FAVORITE COINS</Category>
+          <Category>
+            FAVORITE COIN
+            {favoriteCoinsLength === 0
+              ? "S"
+              : favoriteCoinsLength > 1
+              ? "S"
+              : ""}
+          </Category>
         </Title>
       )}
     </TitleRow>

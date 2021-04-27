@@ -7,7 +7,7 @@ export const SkeletonRow = styled.div`
   border-radius: 0.25rem;
   width: 100%;
   height: 4.25rem;
-  margin: 0.2rem;
+  margin: 0.2rem 0;
 `;
 
 export const SkeletonAvatar = styled.div`

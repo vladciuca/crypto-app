@@ -32,8 +32,8 @@ class CoinList extends React.Component {
         rgb: "rgb(89,201,165, 0.5)",
       },
       defiCoins: {
-        hex: "#36a4fb",
-        rgb: "rgb(54,164,251, 0.5)",
+        hex: "#5eb4fb",
+        rgb: "rgb(94,180,251, 0.5)",
       },
       favoriteCoins: {
         hex: "#ff7b7b",

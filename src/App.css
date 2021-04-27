@@ -7,7 +7,9 @@
 }
 
 body {
-  background-color: #262335;
+  background: #262335;
+  background: -webkit-linear-gradient(to right, #453d4f, #262335);
+  background: linear-gradient(to right, #453d4f, #262335);
   color: white;
 }
 
