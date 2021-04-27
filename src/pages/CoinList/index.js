@@ -71,7 +71,9 @@ class CoinList extends React.Component {
         const storageFavoriteList = JSON.parse(
           localStorage.getItem("favoriteList")
         );
-        if (!storageFavoriteList) return;
+        if (!storageFavoriteList) {
+          return;
+        }
         if (Object.values(storageFavoriteList).length === 0) return;
         const favoriteList = Object.values(storageFavoriteList).reduce(
           (acc, current, index, array) => {
@@ -182,7 +184,6 @@ class CoinList extends React.Component {
       coinsPerPage,
       listOrder,
     });
-
     this.props.history.push(`/?${query}`);
   };
   componentDidUpdate(prevProps, prevState) {
@@ -231,9 +232,9 @@ class CoinList extends React.Component {
   }
   getScreenWidth = () => {
     const width = window.innerWidth;
-    if (width < 400) return 5;
-    if (width < 1000 && width > 400) return 10;
-    return 12;
+    if (width < 576) return 5;
+    if (width < 992 && width > 576) return 10;
+    return 15;
   };
   componentDidMount() {
     this.setState({ page: 1 });
@@ -311,11 +312,12 @@ class CoinList extends React.Component {
         {!favoriteCoinsLength() && this.state.showFavorites && (
           <EmptyFavoriteList />
         )}
-        {this.state.isLoading && !this.state.showFavorites && (
-          <div>
+        {this.state.isLoading &&
+          (this.state.showFavorites && favoriteCoinsLength() < 1 ? (
+            <SkeletonCoinList coinsPerPage={favoriteCoinsLength()} />
+          ) : (
             <SkeletonCoinList coinsPerPage={this.getScreenWidth()} />
-          </div>
-        )}
+          ))}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
