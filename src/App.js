@@ -13,7 +13,7 @@ class App extends React.Component {
     currency: null,
     homePageLink: "",
   };
-  coinList = React.createRef()
+
   handleCurrencyChange = (e) => {
     const currency = e.target.value;
     storage("set", "currency", currency);
@@ -26,7 +26,7 @@ class App extends React.Component {
     this.setState({
       currency: storage("get", "currency") || "usd",
     });
-    console.log(this.coinList.current.getScreenWidth())
+
   }
   render() {
     const { currency } = this.state;
@@ -46,7 +46,7 @@ class App extends React.Component {
               component={(props) => (
                 <CoinList
                   {...props}
-                  ref={this.coinList}
+
                   handleHomeLink={this.handleHomeLink}
                   currency={currency}
                 />
