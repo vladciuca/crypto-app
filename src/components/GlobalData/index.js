@@ -4,7 +4,7 @@ import ETHGasPrice from "../ETHGasPrice";
 import { CurrencySelect } from "../CurrencySelect";
 import { CaretSymbol } from "../CaretSymbol";
 import { Row, Col, Tooltip } from "antd";
-import { SkeletonGlobalBar } from "../skeletons/SkeletonGlobalBar";
+import { SkeletonText } from "../skeletons/Skeletons.styles";
 import {
   GlobalDataBar,
   ETHGasPriceCol,
@@ -55,91 +55,76 @@ export default class GlobalData extends React.Component {
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
-        {this.state.isLoading && (
-          <div>
-            <SkeletonGlobalBar />
-          </div>
-        )}
+        {this.state.isLoading && <SkeletonText width="100%" height="0.25rem" />}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
         {hasData && (
           <Container>
-            <Row justify="space-between">
+            <Row gutter={[16]}>
               <Col>
-                <Row gutter={[16]}>
-                  <Col>
-                    <Description>Coins:</Description>
-                    <Value>{globalData.activeCryptocurrencies}</Value>
-                  </Col>
-                  <Col>
-                    <Description>Exchanges:</Description>
-                    <Value>{globalData.markets}</Value>
-                  </Col>
-                  <MarketCapCol>
-                    <Description>Market Cap:</Description>
-                    <Value>
-                      <Tooltip
-                        placement="bottom"
-                        title={`${currencySymbol}
+                <Description>Coins:</Description>
+                <Value>{globalData.activeCryptocurrencies}</Value>
+              </Col>
+              <Col>
+                <Description>Exchanges:</Description>
+                <Value>{globalData.markets}</Value>
+              </Col>
+              <MarketCapCol>
+                <Description>Market Cap:</Description>
+                <Value>
+                  <Tooltip
+                    placement="bottom"
+                    title={`${currencySymbol}
                           ${formatNumber(
                             this.getCurrencyValue("totalMarketCap")
                           )}`}
-                      >
-                        {currencySymbol}
-                        {convertLongNumber(
-                          this.getCurrencyValue("totalMarketCap")
-                        )}
-                      </Tooltip>
-                    </Value>
-                    <MarketCapChange
-                      marketcapchange={
-                        globalData.marketCapChangePercentage24hUsd
-                      }
-                    >
-                      <CaretSymbol
-                        value={globalData.marketCapChangePercentage24hUsd}
-                      />
-                      {globalData.marketCapChangePercentage24hUsd.toFixed(2)}%
-                    </MarketCapChange>
-                  </MarketCapCol>
-                  <Col>
-                    <Description>24h Volume:</Description>
-                    <Value>
-                      <Tooltip
-                        placement="bottom"
-                        title={`${currencySymbol}${formatNumber(
-                          this.getCurrencyValue("totalVolume")
-                        )}`}
-                      >
-                        {currencySymbol}
-                        {convertLongNumber(
-                          this.getCurrencyValue("totalVolume")
-                        )}
-                      </Tooltip>
-                    </Value>
-                  </Col>
-                  <ETHGasPriceCol>
-                    <Description>Dominace:</Description>
-                    <Value>
-                      <Ticker>BTC</Ticker>
-                      {formatNumber(globalData.marketCapPercentage.btc)}%
-                    </Value>
-                    <Value>
-                      <Ticker>ETH</Ticker>
-                      {formatNumber(globalData.marketCapPercentage.eth)}%
-                    </Value>
-                    <ETHGasPrice />
-                  </ETHGasPriceCol>
-                </Row>
-              </Col>
+                  >
+                    {currencySymbol}
+                    {convertLongNumber(this.getCurrencyValue("totalMarketCap"))}
+                  </Tooltip>
+                </Value>
+                <MarketCapChange
+                  marketcapchange={globalData.marketCapChangePercentage24hUsd}
+                >
+                  <CaretSymbol
+                    value={globalData.marketCapChangePercentage24hUsd}
+                  />
+                  {globalData.marketCapChangePercentage24hUsd.toFixed(2)}%
+                </MarketCapChange>
+              </MarketCapCol>
               <Col>
-                <CurrencySelect
-                  currency={this.props.currency}
-                  handleCurrencyChange={this.props.handleCurrencyChange}
-                />
+                <Description>24h Volume:</Description>
+                <Value>
+                  <Tooltip
+                    placement="bottom"
+                    title={`${currencySymbol}${formatNumber(
+                      this.getCurrencyValue("totalVolume")
+                    )}`}
+                  >
+                    {currencySymbol}
+                    {convertLongNumber(this.getCurrencyValue("totalVolume"))}
+                  </Tooltip>
+                </Value>
               </Col>
+              <ETHGasPriceCol>
+                <Description>Dominace:</Description>
+                <Value>
+                  <Ticker>BTC</Ticker>
+                  {formatNumber(globalData.marketCapPercentage.btc)}%
+                </Value>
+                <Value>
+                  <Ticker>ETH</Ticker>
+                  {formatNumber(globalData.marketCapPercentage.eth)}%
+                </Value>
+                <ETHGasPrice />
+              </ETHGasPriceCol>
             </Row>
+
+            <CurrencySelect
+              currency={this.props.currency}
+              handleCurrencyChange={this.props.handleCurrencyChange}
+            />
           </Container>
         )}
       </GlobalDataBar>

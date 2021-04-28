@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Tooltip } from "antd";
 import { ETHGasPriceTooltip } from "../ETHGasPriceTooltip";
-import { SkeletonGasPrice } from "../skeletons/SkeletonGasPrice";
+import { SkeletonText } from "../skeletons/Skeletons.styles";
 import { FaGasPump } from "react-icons/fa";
 import { BiInfoCircle } from "react-icons/bi";
 import {
@@ -40,11 +40,7 @@ export default class ETHGasPrice extends React.Component {
     const { ethGasData } = this.state;
     return (
       <>
-        {this.state.isLoading && (
-          <div>
-            <SkeletonGasPrice />
-          </div>
-        )}
+        {this.state.isLoading && <SkeletonText width="100%" height="0.25rem" />}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}

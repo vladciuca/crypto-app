@@ -7,9 +7,10 @@
 }
 
 body {
-  background: #262335;
-  background: -webkit-linear-gradient(to right, #453d4f, #262335);
-  background: linear-gradient(to right, #453d4f, #262335);
+  background-color: #262335;
+  background-image: radial-gradient(circle at top left, #453d4f, #262335 50%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
   color: white;
 }
 
@@ -19,7 +20,6 @@ body {
 
 ::-webkit-scrollbar-track {
   background: #241b2f;
-  border-radius: 0.9rem;
 }
 
 ::-webkit-scrollbar-thumb {

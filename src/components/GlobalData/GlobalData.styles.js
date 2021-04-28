@@ -3,12 +3,18 @@ import styled, { css } from "styled-components";
 
 export const GlobalDataBar = styled.div`
   background-color: #191320;
+  height: 2rem;
   cursor: default;
+  display: flex;
+  align-items: center;
 `;
 
 export const Container = styled.div`
-  margin: 0 5% 0 5%;
-  padding: 0.5rem 0 0.5rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 5%;
   font-size: 0.8rem;
 `;
 

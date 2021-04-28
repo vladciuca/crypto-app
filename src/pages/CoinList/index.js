@@ -314,7 +314,7 @@ class CoinList extends React.Component {
         )}
         {this.state.isLoading &&
           (this.state.showFavorites && favoriteCoinsLength() < 1 ? (
-            <SkeletonCoinList coinsPerPage={favoriteCoinsLength()} />
+            <SkeletonCoinList coinsPerPage="0" />
           ) : (
             <SkeletonCoinList coinsPerPage={this.getScreenWidth()} />
           ))}

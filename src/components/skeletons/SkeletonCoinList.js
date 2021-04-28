@@ -2,17 +2,13 @@ import React from "react";
 import { SkeletonText, SkeletonAvatar, SkeletonRow } from "./Skeletons.styles";
 
 export const SkeletonCoinList = ({ coinsPerPage }) => {
-  const rows = [];
-  for (let i = 1; i < coinsPerPage; i++) {
-    rows.push(i);
-  }
   return (
     <>
-      {rows.map((item) => {
+      {[...Array(coinsPerPage)].map((item) => {
         return (
           <SkeletonRow key={item}>
-            <SkeletonAvatar />
-            <SkeletonText />
+            <SkeletonAvatar width="2rem" height="2rem" />
+            <SkeletonText width="80%" height="0.25rem" />
           </SkeletonRow>
         );
       })}

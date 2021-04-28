@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
-import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
 import { CoinPageHeader } from "components/CoinPageHeader";
 import { CoinPageChart } from "components/CoinPageChart";
 import keysToCamel from "utils/StringUtils/keysToCamel";
@@ -36,11 +35,7 @@ export default class CoinPage extends React.Component {
     const coinData = this.state.coinData;
     return (
       <div>
-        {this.state.isLoading && (
-          <div>
-            <SkeletonCoinPage />
-          </div>
-        )}
+        {this.state.isLoading && <div>Loading...</div>}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
