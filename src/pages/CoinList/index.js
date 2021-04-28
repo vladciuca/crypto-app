@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import LoadingBar from 'react-top-loading-bar'
 import queryString from "query-string";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
 import { CoinListTitle } from "components/CoinListTitle";
@@ -43,6 +44,9 @@ class CoinList extends React.Component {
     isLoading: false,
     hasError: false,
   };
+
+  loadingBar = React.createRef()
+
   getCoinList = async () => {
     this.setState({ isLoading: true });
     try {
@@ -57,6 +61,8 @@ class CoinList extends React.Component {
       }
       const listOrder = camelToSnake(this.state.listOrder);
       const base = process.env.REACT_APP_ENDPOINT;
+      this.loadingBar.current.continuousStart();
+      
       if (!this.state.showFavorites) {
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
@@ -93,7 +99,9 @@ class CoinList extends React.Component {
           isLoading: false,
           hasError: false,
         });
+       
       }
+      this.loadingBar.current.complete();
     } catch (error) {
       this.setState({ isLoading: false, hasError: true });
     }
@@ -269,6 +277,7 @@ class CoinList extends React.Component {
     } = this.state;
     return (
       <Container>
+        <LoadingBar color='#f11946' ref={this.loadingBar} />
         <CoinListTitle
           showFavorites={showFavorites}
           favoriteCoinsLength={favoriteCoinsLength()}
