@@ -38,7 +38,7 @@ export const SkeletonText = styled.div`
     height: 100%;
     width: 100%;
     background: linear-gradient(to right, transparent 0%, #453d4f 50%, transparent 100%);
-    animation: ${loading} 1s ease-in-out infinite;
+    animation: ${loading} 1.5s ease-in-out infinite;
   }
 `;
 
@@ -60,6 +60,6 @@ export const SkeletonAvatar = styled.div`
     height: 100%;
     width: 100%;
     background: linear-gradient(to right, transparent 0%, #453d4f 50%, transparent 100%);
-    animation: ${loading} 1s ease-in-out infinite;
+    animation: ${loading} 1.5s ease-in-out infinite;
   }
 `;

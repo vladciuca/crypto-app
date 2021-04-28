@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 
 export const GlobalDataBar = styled.div`
   background-color: #191320;
-  height: 2rem;
+  height: 2.5rem;
   cursor: default;
   display: flex;
   align-items: center;
