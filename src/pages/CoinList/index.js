@@ -254,6 +254,7 @@ class CoinList extends React.Component {
       }
       return 0;
     };
+    const noFavorites = this.state.showFavorites && favoriteCoinsLength() < 1;
     const hasData = !!(!this.state.isLoading && this.state.coinList.length);
     const sortedList = this.sortCoinList(this.state.sortBy);
     const {
@@ -312,12 +313,11 @@ class CoinList extends React.Component {
         {!favoriteCoinsLength() && this.state.showFavorites && (
           <EmptyFavoriteList />
         )}
-        {this.state.isLoading &&
-          (this.state.showFavorites && favoriteCoinsLength() < 1 ? (
-            <SkeletonCoinList coinsPerPage={0} />
-          ) : (
-            <SkeletonCoinList coinsPerPage={this.getScreenWidth()} />
-          ))}
+        {this.state.isLoading && (
+          <SkeletonCoinList
+            coinsPerPage={noFavorites ? 0 : this.getScreenWidth()}
+          />
+        )}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
