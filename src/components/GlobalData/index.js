@@ -55,7 +55,7 @@ export default class GlobalData extends React.Component {
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
-        {this.state.isLoading && <SkeletonText width="100%" height="0.25rem" />}
+        {this.state.isLoading && <SkeletonText width="70%" height="0.5rem" />}
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}

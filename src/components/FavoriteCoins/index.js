@@ -1,28 +1,29 @@
 import React from "react";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
+import storage from "../../utils/storage";
 import { Icon } from "./FavoriteCoins.styles";
 
 export default class FavoriteCoins extends React.Component {
   state = {
     favoriteList: {},
   };
-  setInStorage = (list) => {
-    localStorage.setItem("favoriteList", JSON.stringify(list));
+  setFavoriteList = (list) => {
+    storage("set", "favoriteList", list);
     this.setState({ favoriteList: list });
   };
   toggleFavorite = (id) => {
     if (this.state.favoriteList[id]) {
-      const listFromStorage = JSON.parse(localStorage.getItem("favoriteList"));
-      delete listFromStorage[id];
-      this.setInStorage(listFromStorage);
+      const favoriteCoins = storage("get", "favoriteList");
+      delete favoriteCoins[id];
+      this.setFavoriteList(favoriteCoins);
     } else {
-      const listFromStorage = JSON.parse(localStorage.getItem("favoriteList"));
-      const newFavoriteList = { ...listFromStorage, [id]: id };
-      this.setInStorage(newFavoriteList);
+      const favoriteCoins = storage("get", "favoriteList");
+      const newFavoriteCoins = { ...favoriteCoins, [id]: id };
+      this.setFavoriteList(newFavoriteCoins);
     }
   };
   componentDidMount() {
-    const favoriteList = JSON.parse(localStorage.getItem("favoriteList")) || {};
+    const favoriteList = storage("get", "favoriteList") || {};
     this.setState({ favoriteList });
   }
   render() {

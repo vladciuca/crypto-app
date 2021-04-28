@@ -5,6 +5,7 @@ import CoinPage from "./pages/CoinPage";
 import Portfolio from "./pages/Portfolio";
 import GlobalData from "./components/GlobalData";
 import { NavBar } from "./components/NavBar";
+import storage from "./utils/storage";
 import "antd/dist/antd.css";
 import "./App.css";
 class App extends React.Component {
@@ -14,15 +15,15 @@ class App extends React.Component {
   };
   handleCurrencyChange = (e) => {
     const currency = e.target.value;
+    storage("set", "currency", currency);
     this.setState({ currency });
-    localStorage.setItem("currency", JSON.stringify(currency));
   };
   handleHomeLink = (link) => {
     this.setState({ homePageLink: link });
   };
   componentDidMount() {
     this.setState({
-      currency: JSON.parse(localStorage.getItem("currency")) || "usd",
+      currency: storage("get", "currency") || "usd",
     });
   }
   render() {

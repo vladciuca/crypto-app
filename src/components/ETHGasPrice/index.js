@@ -40,10 +40,8 @@ export default class ETHGasPrice extends React.Component {
     const { ethGasData } = this.state;
     return (
       <>
-        {this.state.isLoading && <SkeletonText width="100%" height="0.25rem" />}
-        {this.state.hasError && (
-          <div>There was a problem fetching your data..</div>
-        )}
+        {this.state.isLoading && <SkeletonText width="100%" height="0.5rem" />}
+        {this.state.hasError && <div>Error fetching data..</div>}
         {hasData && (
           <Tooltip
             placement="bottomRight"
