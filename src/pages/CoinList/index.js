@@ -60,6 +60,8 @@ class CoinList extends React.Component {
       }
       const listOrder = camelToSnake(this.state.listOrder);
       const base = process.env.REACT_APP_ENDPOINT;
+      this.loadingBar.current.continuousStart();
+
       if (!this.state.showFavorites) {
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
