@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
 import { Tooltip } from "antd";
-import { ETHGasPriceTooltip } from "components";
-import { SkeletonText } from "../skeletons/Skeletons.styles";
 import { FaGasPump } from "react-icons/fa";
 import { BiInfoCircle } from "react-icons/bi";
+import { ETHGasPriceTooltip } from "components";
+import { SkeletonText } from "../skeletons/Skeletons.styles";
 import {
   GasPriceContainer,
   Description,

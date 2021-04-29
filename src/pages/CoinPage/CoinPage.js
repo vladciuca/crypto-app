@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
 import { CoinPageHeader, CoinPageChart } from "components";
-import keysToCamel from "utils/StringUtils/keysToCamel";
+import { keysToCamel } from "utils";
 import { Background, Card } from "./CoinPage.styles";
 
 export default class CoinPage extends React.Component {

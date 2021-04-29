@@ -1,6 +1,6 @@
 import React from "react";
 import { RiHeartLine, RiHeartFill } from "react-icons/ri";
-import storage from "../../utils/storage";
+import { storage } from "utils";
 import { Icon } from "./FavoriteCoins.styles";
 
 export default class FavoriteCoins extends React.Component {

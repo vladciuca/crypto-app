@@ -1,9 +1,9 @@
 // import FavoriteCoins from "../FavoriteCoins/FavoriteCoins";
 import { Row, Col } from "antd";
-import { FavoriteCoins } from "components";
 import { FaEthereum } from "react-icons/fa";
 import { BiLinkAlt } from "react-icons/bi";
 import { MdContentCopy } from "react-icons/md";
+import { FavoriteCoins } from "components";
 import {
   Img,
   Rank,

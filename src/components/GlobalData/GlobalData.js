@@ -1,7 +1,13 @@
 import React from "react";
 import axios from "axios";
-import { CaretSymbol, ETHGasPrice, CurrencySelect } from "components";
 import { Row, Col, Tooltip } from "antd";
+import { CaretSymbol, ETHGasPrice, CurrencySelect } from "components";
+import {
+  getCurrencySymbol,
+  keysToCamel,
+  convertLongNumber,
+  formatNumber,
+} from "utils";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
 import {
   GlobalDataBar,
@@ -13,10 +19,7 @@ import {
   MarketCapCol,
   MarketCapChange,
 } from "./GlobalData.styles";
-import keysToCamel from "utils/StringUtils/keysToCamel";
-import formatNumber from "utils/NumberUtils/formatNumber";
-import convertLongNumber from "utils/NumberUtils/convertLongNumber";
-import getCurrencySymbol from "utils/getCurrencySymbol";
+
 export default class GlobalData extends React.Component {
   state = {
     globalData: null,

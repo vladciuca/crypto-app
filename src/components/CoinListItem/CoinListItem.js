@@ -1,6 +1,12 @@
 import { Tooltip } from "antd";
-import { CaretSymbol, FavoriteCoins, CoinListChart } from "components";
 import { CgInfinity } from "react-icons/cg";
+import { CaretSymbol, FavoriteCoins, CoinListChart } from "components";
+import {
+  getCurrencySymbol,
+  convertLongNumber,
+  formatNumber,
+  formatPrice,
+} from "utils";
 import {
   StyledLink,
   ListItemRow,
@@ -18,10 +24,6 @@ import {
   Ticker,
   NotAvailable,
 } from "./CoinListItem.styles";
-import convertLongNumber from "../../utils/NumberUtils/convertLongNumber";
-import formatNumber from "../../utils/NumberUtils/formatNumber";
-import formatPrice from "../../utils/NumberUtils/formatPrice";
-import getCurrencySymbol from "../../utils/getCurrencySymbol";
 
 const CoinListItem = ({ coin, currency, categoryColor }) => {
   const currencySymbol = getCurrencySymbol(currency);

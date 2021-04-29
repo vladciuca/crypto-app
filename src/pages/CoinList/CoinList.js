@@ -9,8 +9,7 @@ import {
   EmptyFavoriteList,
 } from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import camelToSnake from "utils/StringUtils/camelToSnake";
-import keysToCamel from "utils/StringUtils/keysToCamel";
+import { camelToSnake, keysToCamel } from "utils";
 import { Container } from "./CoinList.styles";
 
 class CoinList extends React.Component {

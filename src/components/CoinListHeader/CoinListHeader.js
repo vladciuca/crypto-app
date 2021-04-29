@@ -1,7 +1,7 @@
 import React from "react";
-import { CaretSymbol } from "components";
 import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { CaretSymbol } from "components";
 import {
   RowHeader,
   ColHeader,
