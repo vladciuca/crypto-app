@@ -6,14 +6,12 @@ export const SkeletonCoinList = ({ coinsPerPage }) => {
     <>
       {coinsPerPage === 0
         ? ""
-        : [...Array(coinsPerPage)].map((item, index) => {
-            return (
-              <SkeletonRow key={index}>
-                <SkeletonAvatar width="2rem" height="2rem" />
-                <SkeletonText width="80%" height="0.5rem" />
-              </SkeletonRow>
-            );
-          })}
+        : [...Array(coinsPerPage)].map((item, index) => (
+            <SkeletonRow key={index}>
+              <SkeletonAvatar width="2rem" height="2rem" />
+              <SkeletonText width="80%" height="0.5rem" />
+            </SkeletonRow>
+          ))}
     </>
   );
 };

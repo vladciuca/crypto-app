@@ -1,11 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import CoinList from "./pages/CoinList";
-import CoinPage from "./pages/CoinPage";
-import Portfolio from "./pages/Portfolio";
-import GlobalData from "./components/GlobalData";
-import { NavBar } from "./components/NavBar";
-import storage from "./utils/storage";
+import { CoinList, CoinPage, Portfolio } from "pages";
+import GlobalData from "components/GlobalData";
+import NavBar from "components/NavBar";
+import storage from "utils/storage";
 import "antd/dist/antd.css";
 import "./App.css";
 class App extends React.Component {

@@ -3,7 +3,7 @@ import { FaCoins } from "react-icons/fa";
 import { GiPieChart } from "react-icons/gi";
 import { Nav, NavContainer, StyledLink } from "./NavBar.styles";
 
-export const NavBar = (props) => {
+const NavBar = (props) => {
   return (
     <Nav>
       <NavContainer>
@@ -26,3 +26,5 @@ export const NavBar = (props) => {
     </Nav>
   );
 };
+
+export default NavBar;
