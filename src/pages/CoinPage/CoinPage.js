@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
-import { CoinPageHeader } from "components/CoinPageHeader";
-import { CoinPageChart } from "components/CoinPageChart";
+import { CoinPageHeader, CoinPageChart } from "components";
 import keysToCamel from "utils/StringUtils/keysToCamel";
 import { Background, Card } from "./CoinPage.styles";
 

@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
 import { CoinList, CoinPage, Portfolio } from "pages";
-import GlobalData from "components/GlobalData";
-import NavBar from "components/NavBar";
+import { NavBar, GlobalData } from "components";
 import storage from "utils/storage";
 import "antd/dist/antd.css";
 import "./App.css";
@@ -48,7 +47,7 @@ class App extends React.Component {
             ></Route>
             <Route
               exact
-              path="/coin/:id"
+              path="/coins/:id"
               component={(props) => <CoinPage {...props} currency={currency} />}
             ></Route>
             <Route exact path="/dashboard">

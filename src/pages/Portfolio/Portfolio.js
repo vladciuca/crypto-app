@@ -1,5 +1,5 @@
 import React from "react";
-import { ComingSoon } from "../../components/ComingSoon";
+import { ComingSoon } from "components";
 
 export default class Portfolio extends React.Component {
   state = {};

@@ -1,12 +1,14 @@
 import React from "react";
 import axios from "axios";
-import LoadingBar from "react-top-loading-bar";
 import queryString from "query-string";
+import LoadingBar from "react-top-loading-bar";
+import {
+  CoinListTitle,
+  CoinListHeader,
+  CoinListItem,
+  EmptyFavoriteList,
+} from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import { CoinListTitle } from "components/CoinListTitle";
-import { CoinListHeader } from "components/CoinListHeader";
-import { CoinListItem } from "components/CoinListItem";
-import { EmptyFavoriteList } from "components/EmptyFavoriteList";
 import camelToSnake from "utils/StringUtils/camelToSnake";
 import keysToCamel from "utils/StringUtils/keysToCamel";
 import { Container } from "./CoinList.styles";
