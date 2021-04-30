@@ -9,7 +9,7 @@ import {
   EmptyFavoriteList,
 } from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import { camelToSnake, keysToCamel } from "utils";
+import { camelToSnake, keysToCamel, storage } from "utils";
 import { Container } from "./CoinList.styles";
 
 class CoinList extends React.Component {
@@ -17,13 +17,15 @@ class CoinList extends React.Component {
     coinList: [],
     coinListLength: null,
     showFavorites: false,
-    listOrder: "marketCapDesc",
-    page: null,
     favoritePage: 1,
-    coinsPerPage: 50,
-    category: "all",
-    sortOrder: true,
-    sortBy: "marketCapRank",
+    queryConfig: {
+      listOrder: "marketCapDesc",
+      page: null,
+      coinsPerPage: 50,
+      category: "all",
+      sortOrder: true,
+      sortBy: "marketCapRank",
+    },
     categoryColor: {
       allCoins: {
         hex: "#a487c3",
@@ -50,19 +52,18 @@ class CoinList extends React.Component {
     this.setState({ isLoading: true });
     try {
       const { currency } = this.props;
-      const { favoritePage, page, coinsPerPage } = this.state;
-      const category = camelToSnake(this.state.category);
+      const { favoritePage } = this.state;
+      const { page, coinsPerPage } = this.state.queryConfig;
+      const category = camelToSnake(this.state.queryConfig.category);
       let categoryQuery;
-      this.loadingBar.current.continuousStart();
       if (category === "all") {
         categoryQuery = "";
       } else {
         categoryQuery = `&category=${category}`;
       }
-      const listOrder = camelToSnake(this.state.listOrder);
+      const listOrder = camelToSnake(this.state.queryConfig.listOrder);
       const base = process.env.REACT_APP_ENDPOINT;
       this.loadingBar.current.continuousStart();
-
       if (!this.state.showFavorites) {
         const { data } = await axios(
           `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
@@ -74,9 +75,7 @@ class CoinList extends React.Component {
           hasError: false,
         });
       } else {
-        const storageFavoriteList = JSON.parse(
-          localStorage.getItem("favoriteList")
-        );
+        const storageFavoriteList = storage("get", "favoriteList");
         if (!storageFavoriteList) {
           return;
         }
@@ -110,21 +109,29 @@ class CoinList extends React.Component {
   };
   handleListTop = () => {
     if (this.state.isLoading) return;
-    this.setState({ listOrder: "marketCapDesc" });
+    this.setState((prevState) => ({
+      queryConfig: { ...prevState.queryConfig, listOrder: "marketCapDesc" },
+    }));
   };
   handleListBottom = () => {
-    if (this.state.isLoading) return;
-    this.setState({ listOrder: "marketCapAsc" });
+    this.setState((prevState) => ({
+      queryConfig: { ...prevState.queryConfig, listOrder: "marketCapAsc" },
+    }));
   };
   handleCategory = (e) => {
     const category = e.target.value;
-    this.setState({ page: 1, category });
+    this.setState((prevState) => ({
+      queryConfig: { ...prevState.queryConfig, page: 1, category },
+    }));
     if (category === "decentralizedFinanceDefi" || category === "stablecoins") {
-      this.setState({ coinsPerPage: 50 });
+      this.setState((prevState) => ({
+        queryConfig: { ...prevState.queryConfig, coinsPerPage: 50 },
+      }));
     }
   };
   getCategoryColor = (type) => {
-    const { showFavorites, category, categoryColor } = this.state;
+    const { showFavorites, categoryColor } = this.state;
+    const { category } = this.state.queryConfig;
     if (showFavorites) {
       return categoryColor.favoriteCoins[type];
     } else {
@@ -139,23 +146,35 @@ class CoinList extends React.Component {
   };
   handleCoinsPerPage = (e) => {
     const coinsPerPage = e.target.value;
-    this.setState({ coinsPerPage });
+    this.setState((prevState) => ({
+      queryConfig: { ...prevState.queryConfig, coinsPerPage },
+    }));
   };
   handleNextPage = () => {
     if (this.state.isLoading) return;
-    if (this.state.coinListLength < this.state.coinsPerPage) return;
-    this.setState({ page: this.state.page + 1 });
+    if (this.state.coinListLength < this.state.queryConfig.coinsPerPage) return;
+    this.setState((prevState) => ({
+      queryConfig: {
+        ...prevState.queryConfig,
+        page: this.state.queryConfig.page + 1,
+      },
+    }));
   };
   handlePrevPage = () => {
-    if (this.state.page === 1) return;
-    this.setState({ page: this.state.page - 1 });
+    if (this.state.queryConfig.page === 1) return;
+    this.setState((prevState) => ({
+      queryConfig: {
+        ...prevState.queryConfig,
+        page: this.state.queryConfig.page - 1,
+      },
+    }));
   };
   sortCoinList = (sortBy) => {
     if (!this.state.coinList) {
       return;
     } else {
       return this.state.coinList.sort((a, b) => {
-        if (this.state.sortOrder === true) {
+        if (this.state.queryConfig.sortOrder === true) {
           return a[sortBy] > b[sortBy] ? 1 : -1;
         }
         return a[sortBy] < b[sortBy] ? 1 : -1;
@@ -163,17 +182,22 @@ class CoinList extends React.Component {
     }
   };
   handleSort = (sortBy) => {
-    this.setState({
-      sortBy,
-      sortOrder: !this.state.sortOrder,
-    });
+    this.setState((prevState) => ({
+      queryConfig: {
+        ...prevState.queryConfig,
+        sortBy,
+        sortOrder: !this.state.queryConfig.sortOrder,
+      },
+    }));
   };
   getSearchQuery = () => {
     if (
-      this.state.category === "stablecoins" ||
-      this.state.category === "decentralizedFinanceDefi"
+      this.state.queryConfig.category === "stablecoins" ||
+      this.state.queryConfig.category === "decentralizedFinanceDefi"
     ) {
-      this.setState({ coinsPerPage: 50 });
+      this.setState((prevState) => ({
+        queryConfig: { ...prevState.queryConfig, coinsPerPage: 50 },
+      }));
     }
     const {
       sortOrder,
@@ -182,7 +206,7 @@ class CoinList extends React.Component {
       page,
       coinsPerPage,
       listOrder,
-    } = this.state;
+    } = this.state.queryConfig;
     const query = queryString.stringify({
       sortOrder,
       sortBy,
@@ -198,28 +222,38 @@ class CoinList extends React.Component {
       this.getSearchQuery();
       this.getCoinList();
     }
-    if (prevState.page !== this.state.page && this.state.coinList) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
     if (
-      prevState.coinsPerPage !== this.state.coinsPerPage &&
+      prevState.queryConfig.page !== this.state.queryConfig.page &&
       this.state.coinList
     ) {
       this.getSearchQuery();
       this.getCoinList();
     }
-    if (prevState.category !== this.state.category && this.state.coinList) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
-    if (prevState.listOrder !== this.state.listOrder && this.state.coinList) {
+    if (
+      prevState.queryConfig.coinsPerPage !==
+        this.state.queryConfig.coinsPerPage &&
+      this.state.coinList
+    ) {
       this.getSearchQuery();
       this.getCoinList();
     }
     if (
-      prevState.sortOrder !== this.state.sortOrder ||
-      prevState.sortBy !== this.state.sortBy
+      prevState.queryConfig.category !== this.state.queryConfig.category &&
+      this.state.coinList
+    ) {
+      this.getSearchQuery();
+      this.getCoinList();
+    }
+    if (
+      prevState.queryConfig.listOrder !== this.state.queryConfig.listOrder &&
+      this.state.coinList
+    ) {
+      this.getSearchQuery();
+      this.getCoinList();
+    }
+    if (
+      prevState.queryConfig.sortOrder !== this.state.queryConfig.sortOrder ||
+      prevState.queryConfig.sortBy !== this.state.queryConfig.sortBy
     ) {
       this.getSearchQuery();
       this.getCoinList();
@@ -244,13 +278,15 @@ class CoinList extends React.Component {
     return 15;
   };
   componentDidMount() {
-    this.setState({ page: 1 });
+    this.setState((prevState) => ({
+      queryConfig: { ...prevState.queryConfig, page: 1 },
+    }));
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
         parseBooleans: true,
         parseNumbers: true,
       });
-      this.setState(parsed);
+      this.setState({ queryConfig: { ...parsed } });
     }
   }
   render() {
@@ -263,17 +299,16 @@ class CoinList extends React.Component {
     };
     const noFavorites = this.state.showFavorites && favoriteCoinsLength() < 1;
     const hasData = !!(!this.state.isLoading && this.state.coinList.length);
-    const sortedList = this.sortCoinList(this.state.sortBy);
+    const sortedList = this.sortCoinList(this.state.queryConfig.sortBy);
+    const { showFavorites, favoritePage } = this.state;
     const {
-      sortBy,
-      sortOrder,
+      listOrder,
       category,
       page,
-      favoritePage,
       coinsPerPage,
-      listOrder,
-      showFavorites,
-    } = this.state;
+      sortBy,
+      sortOrder,
+    } = this.state.queryConfig;
     return (
       <Container>
         <LoadingBar color="#5b486a" ref={this.loadingBar} />
