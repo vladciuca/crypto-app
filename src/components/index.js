@@ -5,6 +5,7 @@ export { default as ETHGasPriceTooltip } from "./ETHGasPriceTooltip";
 export { default as CurrencySelect } from "./CurrencySelect";
 export { default as NavBar } from "./NavBar";
 export { default as Search } from "./Search";
+export { default as ThemeSwitch } from "./ThemeSwitch";
 //Common Components
 export { default as FavoriteCoins } from "./FavoriteCoins";
 export { default as CaretSymbol } from "./CaretSymbol";

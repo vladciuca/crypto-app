@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Nav = styled.nav`
-  background-color: #241b2f;
+  background-color: ${(props) => props.theme.cardPrimary};
   ul {
     margin: 1.5rem 0;
     list-style-type: none;
@@ -20,7 +20,7 @@ export const NavContainer = styled.div`
 `;
 
 export const StyledLink = styled(Link)`
-  color: white;
+  color: ${(props) => props.theme.text};
   text-decoration: none;
   padding-right: 2rem;
   display: flex;
@@ -29,6 +29,12 @@ export const StyledLink = styled(Link)`
     margin-left: 0.75rem;
   }
   :hover {
-    color: #fff;
+    color: ${(props) => props.theme.primary};
   }
+`;
+
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.secondary};
 `;

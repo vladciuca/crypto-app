@@ -78,25 +78,23 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
         </Col>
         <Col span={14}>
           <Container>
-            <BiInfoCircle color="lightgray" />
+            <BiInfoCircle />
             <Description>Market Cap:</Description>
             {getCurrencyValue("marketCap")
               ? `${currencySymbol}${formatNumber(
                   getCurrencyValue("marketCap")
                 )}`
               : "N/A"}
-            <span>
-              <PriceChange pricechange={marketCapChangePercentage24h}>
-                <CaretSymbol value={marketCapChangePercentage24h} />
-                {getCurrencyValue("marketCap")
-                  ? `${marketCapChangePercentage24h.toFixed(2)}`
-                  : "N/A"}
-                %
-              </PriceChange>
-            </span>
+            <PriceChange pricechange={marketCapChangePercentage24h}>
+              <CaretSymbol value={marketCapChangePercentage24h} />
+              {getCurrencyValue("marketCap")
+                ? `${marketCapChangePercentage24h.toFixed(2)}`
+                : "N/A"}
+              %
+            </PriceChange>
           </Container>
           <Container>
-            <BiInfoCircle color="lightgray" />
+            <BiInfoCircle />
             <Description>Fully Diluted Valuation:</Description>
             {getCurrencyValue("fullyDilutedValuation")
               ? `${currencySymbol}${formatNumber(
@@ -105,7 +103,7 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
               : "N/A"}
           </Container>
           <Container>
-            <BiInfoCircle color="lightgray" />
+            <BiInfoCircle />
             <Description>Volume 24h:</Description>
             {getCurrencyValue("totalVolume")
               ? `${currencySymbol}${formatNumber(

@@ -7,18 +7,20 @@ export const Container = styled.div`
 
 export const Spacer = styled.div`
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
 `;
 
 export const AllTimeDate = styled.div`
   padding-left: 0.2rem;
   font-size: 0.8rem;
-  color: gray;
+  color: ${(props) => props.theme.textLight};
 `;
 
 export const Description = styled.span`
   padding: 0.2rem;
   font-weight: bold;
-  color: lightgray;
+  color: ${(props) => props.theme.info};
 `;
 
 export const Ticker = styled.span`
@@ -35,15 +37,15 @@ export const Price = styled.span`
 export const PriceCurrencyChange = styled.span`
   font-weight: bold;
   border-radius: 0.25rem;
-  color: #262335;
+  color: ${(props) => props.theme.bgPrimary};
   padding: 0.1rem 0.2rem;
   ${(props) =>
     props.pricechange < 0
       ? css`
-          background: #ff7b7b;
+          background: ${(props) => props.theme.danger};
         `
       : css`
-          background: #a2f5a2;
+          background: ${(props) => props.theme.success};
         `}
 `;
 
@@ -54,9 +56,9 @@ export const PriceChange = styled.div`
   ${(props) =>
     props.pricechange < 0
       ? css`
-          color: #ff7b7b;
+          color: ${(props) => props.theme.danger};
         `
       : css`
-          color: #a2f5a2;
+          color: ${(props) => props.theme.success};
         `}
 `;

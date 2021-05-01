@@ -1,7 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { Row, Col, Tooltip } from "antd";
-import { CaretSymbol, ETHGasPrice, CurrencySelect } from "components";
+import {
+  CaretSymbol,
+  ETHGasPrice,
+  CurrencySelect,
+  ThemeSwitch,
+} from "components";
 import {
   getCurrencySymbol,
   keysToCamel,
@@ -18,6 +23,7 @@ import {
   Ticker,
   MarketCapCol,
   MarketCapChange,
+  Icon,
 } from "./GlobalData.styles";
 
 export default class GlobalData extends React.Component {
@@ -53,6 +59,7 @@ export default class GlobalData extends React.Component {
   render() {
     const hasData = !this.state.isLoading && this.state.globalData;
     const globalData = this.state.globalData;
+    const { currency, theme, handleCurrencyChange, handleTheme } = this.props;
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (
       <GlobalDataBar>
@@ -121,11 +128,15 @@ export default class GlobalData extends React.Component {
                 <ETHGasPrice />
               </ETHGasPriceCol>
             </Row>
-
-            <CurrencySelect
-              currency={this.props.currency}
-              handleCurrencyChange={this.props.handleCurrencyChange}
-            />
+            <Row>
+              <CurrencySelect
+                currency={currency}
+                handleCurrencyChange={handleCurrencyChange}
+              />
+              <Icon>
+                <ThemeSwitch theme={theme} handleTheme={handleTheme} />
+              </Icon>
+            </Row>
           </Container>
         )}
       </GlobalDataBar>

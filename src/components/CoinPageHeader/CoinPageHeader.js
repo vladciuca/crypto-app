@@ -15,7 +15,7 @@ const CoinPageHeader = ({ coinData, currency }) => {
   } = coinData;
   return (
     <CoinPageHeaderRow>
-      <Col span={11}>
+      <Col span={9}>
         <CoinInfo
           id={id}
           image={image.large}
@@ -27,7 +27,7 @@ const CoinPageHeader = ({ coinData, currency }) => {
           categories={categories}
         />
       </Col>
-      <Col offset={1} span={12}>
+      <Col offset={1} span={14}>
         <CoinMarketData
           symbol={symbol}
           marketData={coinData.marketData}

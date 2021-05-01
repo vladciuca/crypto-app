@@ -1,21 +1,26 @@
 import styled from "styled-components";
 
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.primary};
+`;
+
 export const Label = styled.label`
   display: flex;
   align-items: center;
 `;
 
 export const Select = styled.select`
-  margin-left: 0.2rem;
-  background: #191320;
-  color: #5b486a;
+  background: ${(props) => props.theme.cardSecondary};
+  color: ${(props) => props.theme.secondary};
   border: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: bold;
   :focus {
     outline: none;
   }
   option {
-    color: #a487c3;
+    color: ${(props) => props.theme.primary};
   }
 `;

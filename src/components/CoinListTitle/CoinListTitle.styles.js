@@ -9,14 +9,14 @@ export const TitleRow = styled(Row)`
 export const Title = styled.span`
   font-size: 2.5rem;
   font-weight: bold;
-  color: white;
+  color: ${(props) => props.theme.text}; ;
 `;
 
 export const Arrows = styled(Col)`
   display: flex;
   flex-direction: column;
   font-size: 1.2rem;
-  color: white;
+  color: ${(props) => props.theme.text};
   margin-right: 1rem;
 `;
 

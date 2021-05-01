@@ -10,6 +10,7 @@ import {
   Description,
   Value,
   Ticker,
+  Icon,
 } from "./ETHGasPrice.styles";
 
 export default class ETHGasPrice extends React.Component {
@@ -48,11 +49,15 @@ export default class ETHGasPrice extends React.Component {
             title={() => <ETHGasPriceTooltip ethGasData={ethGasData} />}
           >
             <GasPriceContainer>
-              <FaGasPump color="#5b486a" />
+              <Icon>
+                <FaGasPump />
+              </Icon>
               <Description>ETH Gas:</Description>
               <Value>{ethGasData.fast / 10}</Value>
               <Ticker>Gwei</Ticker>
-              <BiInfoCircle color="#a487c3" />
+              <Icon>
+                <BiInfoCircle />
+              </Icon>
             </GasPriceContainer>
           </Tooltip>
         )}

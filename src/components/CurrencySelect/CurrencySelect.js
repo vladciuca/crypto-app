@@ -4,26 +4,26 @@ import {
   AiFillPoundCircle,
 } from "react-icons/ai";
 import { FaBitcoin, FaEthereum } from "react-icons/fa";
-import { Label, Select } from "./CurrencySelect.styles";
+import { Icon, Label, Select } from "./CurrencySelect.styles";
 
 const CurrencySelect = ({ currency, handleCurrencyChange }) => {
   const currencyIcon = () => {
     switch (currency) {
       case "eur":
-        return <AiFillEuroCircle size="1.4rem" color="#a487c3" />;
+        return <AiFillEuroCircle size="1.4rem" />;
       case "gbp":
-        return <AiFillPoundCircle size="1.4rem" color="#a487c3" />;
+        return <AiFillPoundCircle size="1.4rem" />;
       case "btc":
-        return <FaBitcoin size="1.3rem" color="#a487c3" />;
+        return <FaBitcoin size="1.3rem" />;
       case "eth":
-        return <FaEthereum size="1rem" color="#a487c3" />;
+        return <FaEthereum size="1rem" />;
       default:
-        return <AiFillDollarCircle size="1.4rem" color="#a487c3" />;
+        return <AiFillDollarCircle size="1.4rem" />;
     }
   };
   return (
     <Label>
-      {currencyIcon()}
+      <Icon>{currencyIcon()}</Icon>
       <Select value={currency} onChange={handleCurrencyChange}>
         <option value="usd">USD</option>
         <option value="eur">EUR</option>

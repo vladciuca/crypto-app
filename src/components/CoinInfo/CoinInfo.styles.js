@@ -9,7 +9,7 @@ export const Img = styled.img`
 
 export const Rank = styled.span`
   font-size: 1.4rem;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
   padding-right: 0.4rem;
 `;
 
@@ -22,7 +22,7 @@ export const Ticker = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   font-size: 1.4rem;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
 `;
 
 export const Favorite = styled.span`
@@ -32,7 +32,8 @@ export const Favorite = styled.span`
 export const Category = styled.div`
   display: inline-block;
   font-size: 0.8rem;
-  background: #5b486a;
+  background: ${(props) => props.theme.secondary};
+  color: white;
   border-radius: 0.25rem;
   padding: 0.3rem 0.6rem;
   margin: 0.2rem;
@@ -45,9 +46,9 @@ export const CategoryRow = styled(Col)`
 export const LinkRow = styled(Col)`
   padding: 0.1rem 0;
   a {
-    color: #5b486a;
+    color: ${(props) => props.theme.success};
     :hover {
-      color: #a487c3;
+      color: ${(props) => props.theme.primary};
     }
   }
 `;

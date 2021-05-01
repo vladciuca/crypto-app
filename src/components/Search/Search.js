@@ -29,7 +29,7 @@ export default class Search extends React.Component {
           onBlur={this.handleSubmit}
         />
         <SearchBtn onClick={this.handleClick}>
-          <RiSearch2Fill size="1.4rem" color="#5b486a" />
+          <RiSearch2Fill size="1.4rem" />
         </SearchBtn>
       </SearchForm>
     );

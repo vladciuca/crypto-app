@@ -12,7 +12,7 @@ const loading = keyframes`
 export const SkeletonRow = styled.div`
   display: flex;
   align-items: center;
-  background: #241b2f;
+  background: ${(props) => props.theme.cardPrimary};
   border-radius: 0.25rem;
   width: 100%;
   height: 4.25rem;
@@ -21,7 +21,7 @@ export const SkeletonRow = styled.div`
 `;
 
 export const SkeletonText = styled.div`
-  background: #262335;
+  background: ${(props) => props.theme.bgPrimary};
   border-radius: 0.25rem;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
@@ -37,13 +37,14 @@ export const SkeletonText = styled.div`
     top: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to right, transparent 0%, #453d4f 50%, transparent 100%);
+    background: linear-gradient(to right, transparent 0%, ${(props) =>
+      props.theme.bgSecondary} 50%, transparent 100%);
     animation: ${loading} 1.5s ease-in-out infinite;
   }
 `;
 
 export const SkeletonAvatar = styled.div`
-  background: #262335;
+  background: ${(props) => props.theme.bgPrimary};
   border-radius: 25rem;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
@@ -59,7 +60,8 @@ export const SkeletonAvatar = styled.div`
     top: 0;
     height: 100%;
     width: 100%;
-    background: linear-gradient(to right, transparent 0%, #453d4f 50%, transparent 100%);
+    background: linear-gradient(to right, transparent 0%, ${(props) =>
+      props.theme.bgSecondary} 50%, transparent 100%);
     animation: ${loading} 1.5s ease-in-out infinite;
   }
 `;

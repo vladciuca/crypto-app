@@ -1,24 +1,31 @@
 import styled from "styled-components";
 
-export const GasPriceContainer = styled.span`
+export const GasPriceContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 0.8rem;
   cursor: pointer;
 `;
 
-export const Description = styled.span`
-  color: #5b486a;
+export const Description = styled.div`
+  color: ${(props) => props.theme.secondary};
   padding-left: 0.1rem;
 `;
 
-export const Value = styled.span`
-  color: #a487c3;
+export const Value = styled.div`
+  color: ${(props) => props.theme.primary};
   padding-left: 0.2rem;
 `;
 
-export const Ticker = styled.span`
+export const Ticker = styled.div`
   font-weight: bold;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
+  padding-left: 0.1rem;
+`;
+
+export const Icon = styled.div`
+  color: ${(props) => props.theme.secondary};
+  display: flex;
+  align-items: center;
   padding-left: 0.1rem;
 `;

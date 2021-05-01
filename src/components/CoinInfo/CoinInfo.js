@@ -30,10 +30,10 @@ const CoinInfo = ({
   return (
     <>
       <Row align="middle">
-        <Col span={3}>
+        <Col span={4}>
           <Img src={image} />
         </Col>
-        <Col offset={1} span={20}>
+        <Col offset={1} span={19}>
           <Name>
             {name}
             <Favorite>
