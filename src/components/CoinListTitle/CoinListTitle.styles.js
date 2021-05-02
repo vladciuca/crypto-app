@@ -7,34 +7,36 @@ export const TitleRow = styled(Row)`
 `;
 
 export const Title = styled.span`
-  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  font-size: 1.6rem;
   font-weight: bold;
+  text-transform: uppercase;
   color: ${(props) => props.theme.text}; ;
 `;
 
 export const Arrows = styled(Col)`
-  display: flex;
-  flex-direction: column;
   font-size: 1.2rem;
   color: ${(props) => props.theme.text};
   margin-right: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 `;
 
 export const Arrow = styled.div`
   cursor: pointer;
-  height: 1rem;
-`;
-
-export const List = styled.span`
-  margin-right: 0.8rem;
+  display: flex;
+  align-items: baseline;
 `;
 
 export const Value = styled.span`
   color: ${(props) => props.categoryColor};
-  font-size: 3.5rem;
+  font-size: 1.8rem;
+  margin-left: 0.4rem;
 `;
 
 export const Category = styled.span`
-  font-size: 1.2rem;
-  margin-left: 0.7rem;
+  margin-left: 0.4rem;
+  text-transform: uppercase;
 `;

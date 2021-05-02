@@ -31,11 +31,8 @@ const CoinListHeader = ({
     { title: "24h%", value: "priceChangePercentage24hInCurrency" },
     { title: "7d%", value: "priceChangePercentage7dInCurrency" },
   ];
-  const categoryChange = (category) => {
-    if (category === "decentralizedFinanceDefi" || category === "stablecoins") {
-      return true;
-    }
-  };
+  const categoryChange = (category) =>
+    category === "decentralizedFinanceDefi" || category === "stablecoins";
   return (
     <RowHeader>
       <ColHeader lg={{ span: 1 }}>

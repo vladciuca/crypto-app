@@ -8,7 +8,7 @@ export const GasPriceContainer = styled.div`
 `;
 
 export const Description = styled.div`
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
   padding-left: 0.1rem;
 `;
 
@@ -24,7 +24,7 @@ export const Ticker = styled.div`
 `;
 
 export const Icon = styled.div`
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
   display: flex;
   align-items: center;
   padding-left: 0.1rem;

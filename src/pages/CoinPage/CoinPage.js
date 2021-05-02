@@ -12,10 +12,10 @@ export default class CoinPage extends React.Component {
   getCoin = async () => {
     try {
       this.setState({ isLoading: true });
-      const coinId = this.props.match.params.id;
+      const id = this.props.match.params.id;
       const base = process.env.REACT_APP_ENDPOINT;
       const { data } = await axios(
-        `${base}/coins/${coinId}?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`
+        `${base}/coins/${id}?tickers=true&market_data=true&community_data=true&developer_data=true&sparkline=true`
       );
       this.setState({
         coinData: keysToCamel(data),

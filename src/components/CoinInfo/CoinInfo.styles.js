@@ -46,7 +46,7 @@ export const CategoryRow = styled(Col)`
 export const LinkRow = styled(Col)`
   padding: 0.1rem 0;
   a {
-    color: ${(props) => props.theme.success};
+    color: ${(props) => props.theme.primary};
     :hover {
       color: ${(props) => props.theme.primary};
     }

@@ -22,7 +22,6 @@ export const SkeletonRow = styled.div`
 
 export const SkeletonText = styled.div`
   background: ${(props) => props.theme.bgPrimary};
-  border-radius: 0.25rem;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   margin: 0 5%;

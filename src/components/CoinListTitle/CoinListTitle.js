@@ -5,7 +5,6 @@ import {
   TitleRow,
   Title,
   Arrows,
-  List,
   Value,
   Arrow,
   Category,
@@ -23,7 +22,7 @@ const CoinListTitle = ({
   favoriteCoinsLength,
 }) => {
   const list =
-    listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
+    listOrder === "marketCapDesc" ? <span>First</span> : <span>Last</span>;
   const isStableCoin = category === "stablecoins";
   const isDefi = category === "decentralizedFinanceDefi";
   const categoryName = isStableCoin
@@ -45,7 +44,7 @@ const CoinListTitle = ({
           </Arrows>
           <Col>
             <Title>
-              <List>{list}</List>
+              <span>{list}</span>
               <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
               <Category>{categoryName}</Category>
             </Title>

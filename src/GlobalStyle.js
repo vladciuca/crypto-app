@@ -29,7 +29,4 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: ${(props) => props.theme.primary};
 }
-.App {
-  text-align: center;
-}
 `;

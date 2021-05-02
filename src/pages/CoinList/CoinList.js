@@ -221,6 +221,8 @@ class CoinList extends React.Component {
     if (prevProps.currency !== this.props.currency && this.state.coinList) {
       this.getSearchQuery();
       this.getCoinList();
+      console.log("currency change");
+      console.log("theme change");
     }
     if (
       prevState.queryConfig.page !== this.state.queryConfig.page &&
@@ -268,6 +270,8 @@ class CoinList extends React.Component {
       this.props.location.search !== prevProps.location.search &&
       this.state.showFavorites === false
     ) {
+      console.log("location change", "currency change");
+      console.log("location change", "theme change");
       this.props.handleHomeLink(this.props.location.search);
     }
   }
@@ -278,6 +282,7 @@ class CoinList extends React.Component {
     return 15;
   };
   componentDidMount() {
+    // console.log("component did mount");
     this.setState((prevState) => ({
       queryConfig: { ...prevState.queryConfig, page: 1 },
     }));

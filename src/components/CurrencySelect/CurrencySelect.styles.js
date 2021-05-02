@@ -13,7 +13,7 @@ export const Label = styled.label`
 
 export const Select = styled.select`
   background: ${(props) => props.theme.cardSecondary};
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.text};
   border: none;
   font-size: 0.9rem;
   font-weight: bold;
