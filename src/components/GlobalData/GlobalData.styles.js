@@ -24,7 +24,7 @@ export const ETHGasPriceCol = styled(Col)`
 `;
 
 export const Description = styled.span`
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.info};
 `;
 
 export const Value = styled.span`
@@ -63,5 +63,5 @@ export const Icon = styled.div`
   margin-left: 0.5rem;
   margin-top: 0.2rem;
   cursor: pointer;
-  color: ${(props) => props.theme.text};
+  color: ${(props) => props.theme.info};
 `;

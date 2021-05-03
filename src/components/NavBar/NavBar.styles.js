@@ -19,6 +19,12 @@ export const NavContainer = styled.div`
   margin: 0 5%;
 `;
 
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.secondary};
+`;
+
 export const StyledLink = styled(Link)`
   color: ${(props) => props.theme.text};
   text-decoration: none;
@@ -29,12 +35,9 @@ export const StyledLink = styled(Link)`
     margin-left: 0.75rem;
   }
   :hover {
-    color: ${(props) => props.theme.primary};
+    color: ${(props) => props.theme.text};
+    ${Icon} {
+      color: ${(props) => props.theme.primary};
+    }
   }
-`;
-
-export const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.secondary};
 `;

@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchForm, SearchInput, SearchBtn } from "./Search.styles";
-import { RiSearch2Fill } from "react-icons/ri";
+import { RiSearch2Line } from "react-icons/ri";
 
 export default class Search extends React.Component {
   state = {
@@ -29,7 +29,7 @@ export default class Search extends React.Component {
           onBlur={this.handleSubmit}
         />
         <SearchBtn onClick={this.handleClick}>
-          <RiSearch2Fill size="1.4rem" />
+          <RiSearch2Line size="1.4rem" />
         </SearchBtn>
       </SearchForm>
     );

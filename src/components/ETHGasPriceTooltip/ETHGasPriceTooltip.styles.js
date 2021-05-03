@@ -15,6 +15,6 @@ export const GasPrice = styled.span`
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.primary};
   padding-left: 0.2rem;
 `;

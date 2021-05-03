@@ -191,14 +191,6 @@ class CoinList extends React.Component {
     }));
   };
   getSearchQuery = () => {
-    if (
-      this.state.queryConfig.category === "stablecoins" ||
-      this.state.queryConfig.category === "decentralizedFinanceDefi"
-    ) {
-      this.setState((prevState) => ({
-        queryConfig: { ...prevState.queryConfig, coinsPerPage: 50 },
-      }));
-    }
     const {
       sortOrder,
       sortBy,
@@ -221,41 +213,10 @@ class CoinList extends React.Component {
     if (prevProps.currency !== this.props.currency && this.state.coinList) {
       this.getSearchQuery();
       this.getCoinList();
-      console.log("currency change");
-      console.log("theme change");
     }
     if (
-      prevState.queryConfig.page !== this.state.queryConfig.page &&
+      prevState.queryConfig !== this.state.queryConfig &&
       this.state.coinList
-    ) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
-    if (
-      prevState.queryConfig.coinsPerPage !==
-        this.state.queryConfig.coinsPerPage &&
-      this.state.coinList
-    ) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
-    if (
-      prevState.queryConfig.category !== this.state.queryConfig.category &&
-      this.state.coinList
-    ) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
-    if (
-      prevState.queryConfig.listOrder !== this.state.queryConfig.listOrder &&
-      this.state.coinList
-    ) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
-    if (
-      prevState.queryConfig.sortOrder !== this.state.queryConfig.sortOrder ||
-      prevState.queryConfig.sortBy !== this.state.queryConfig.sortBy
     ) {
       this.getSearchQuery();
       this.getCoinList();
@@ -270,8 +231,6 @@ class CoinList extends React.Component {
       this.props.location.search !== prevProps.location.search &&
       this.state.showFavorites === false
     ) {
-      console.log("location change", "currency change");
-      console.log("location change", "theme change");
       this.props.handleHomeLink(this.props.location.search);
     }
   }
@@ -282,7 +241,6 @@ class CoinList extends React.Component {
     return 15;
   };
   componentDidMount() {
-    // console.log("component did mount");
     this.setState((prevState) => ({
       queryConfig: { ...prevState.queryConfig, page: 1 },
     }));
@@ -295,7 +253,7 @@ class CoinList extends React.Component {
     }
   }
   render() {
-    const favoriteCoins = JSON.parse(localStorage.getItem("favoriteList"));
+    const favoriteCoins = storage("get", "favoriteList");
     const favoriteCoinsLength = () => {
       if (favoriteCoins) {
         return Object.values(favoriteCoins).length;

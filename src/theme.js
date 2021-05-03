@@ -2,7 +2,7 @@ export const lightTheme = {
   bgPrimary: "#eaeaf5",
   bgSecondary: "#e9e2f0",
   cardPrimary: "#fff",
-  cardSecondary: "#f2f2f2",
+  cardSecondary: "#F0F6F6",
   text: "#474747",
   textLight: "#818181",
   primary: "#a487c3",

@@ -22,7 +22,7 @@ const CoinListTitle = ({
   favoriteCoinsLength,
 }) => {
   const list =
-    listOrder === "marketCapDesc" ? <span>First</span> : <span>Last</span>;
+    listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
   const isStableCoin = category === "stablecoins";
   const isDefi = category === "decentralizedFinanceDefi";
   const categoryName = isStableCoin

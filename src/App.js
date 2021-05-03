@@ -45,7 +45,7 @@ class App extends React.Component {
     //     return false;
     //   }
     // };
-    console.log(typeof storage("get", "theme"));
+    // console.log(typeof storage("get", "theme"));
     return (
       <ThemeProvider theme={this.state.theme ? lightTheme : darkTheme}>
         <Router>

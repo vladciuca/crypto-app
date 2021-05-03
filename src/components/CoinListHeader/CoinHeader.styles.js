@@ -27,25 +27,29 @@ export const Centered = styled.div`
 `;
 
 export const Select = styled.select`
-  color: ${(props) => props.categoryColor};
-  background: ${(props) => props.theme.cardSecondary};
+  color: white;
+  background: ${(props) => props.categoryColor};
   border-radius: 0.25rem;
   border: none;
-  margin: 0.2rem 0.5rem;
+  padding: 0.2rem 0.1rem;
+  margin: 0 0.5rem;
   :focus {
     outline: none;
   }
   option {
-    color: ${(props) => props.theme.secondary};
+    color: white;
   }
 `;
 
 export const Page = styled.div`
+  cursor: default;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: normal;
   border-radius: 25rem;
-  background: ${(props) => props.theme.bgPrimary};
+  color: white;
+  background: ${(props) => props.categoryColor};
   height: 1.5rem;
   width: 1.5rem;
 `;

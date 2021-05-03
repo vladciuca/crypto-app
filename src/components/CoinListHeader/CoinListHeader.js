@@ -85,7 +85,6 @@ const CoinListHeader = ({
               <option value="stablecoins">Stablecoins</option>
               <option value="decentralizedFinanceDefi">Defi Coins</option>
             </Select>
-            Show
             <Select
               disabled={categoryChange(category)}
               categoryColor={categoryColor}
@@ -104,8 +103,10 @@ const CoinListHeader = ({
         <Centered onClick={handlePrevPage}>
           <FaCaretLeft />
         </Centered>
-        <Centered categoryColor={categoryColor}>
-          <Page>{showFavorites ? favoritePage : page}</Page>
+        <Centered>
+          <Page categoryColor={categoryColor}>
+            {showFavorites ? favoritePage : page}
+          </Page>
         </Centered>
         <Centered onClick={handleNextPage}>
           <FaCaretRight />

@@ -32,7 +32,7 @@ export const Arrow = styled.div`
 
 export const Value = styled.span`
   color: ${(props) => props.categoryColor};
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   margin-left: 0.4rem;
 `;
 
