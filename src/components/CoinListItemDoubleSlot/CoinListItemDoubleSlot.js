@@ -1,14 +1,34 @@
 import React from "react";
 import { Tooltip } from "antd";
 import { formatNumber, convertLongNumber } from "utils";
-import { NotAvailable, InfoText } from "../CoinListItem/CoinListItem.styles";
+import {
+  NotAvailable,
+  InfoText,
+  Ticker,
+} from "../CoinListItem/CoinListItem.styles";
 
 const CoinListItemDoubleSlot = ({
   name,
   value,
   tooltipPlacement,
   currencySymbol,
+  symbol,
+  ticker,
 }) => {
+  const hasTicker = () => {
+    if (ticker) {
+      return symbol;
+    } else {
+      return "";
+    }
+  };
+  const hasCurrency = () => {
+    if (!ticker) {
+      return currencySymbol;
+    } else {
+      return "";
+    }
+  };
   return (
     <div>
       <InfoText>{name}</InfoText>
@@ -18,10 +38,13 @@ const CoinListItemDoubleSlot = ({
         <span>
           <Tooltip
             placement={tooltipPlacement}
-            title={`${currencySymbol}${formatNumber(value)}`}
+            title={`${hasCurrency()}${formatNumber(
+              value
+            )} ${hasTicker().toUpperCase()}`}
           >
-            {currencySymbol}
+            {hasCurrency()}
             {convertLongNumber(value)}
+            <Ticker>{hasTicker()}</Ticker>
           </Tooltip>
         </span>
       )}

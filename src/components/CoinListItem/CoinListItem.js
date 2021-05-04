@@ -88,12 +88,16 @@ const CoinListItem = ({ coin, currency, categoryColor }) => {
           value={marketCap}
           tooltipPlacement="top"
           currencySymbol={currencySymbol}
+          symbol={symbol}
+          ticker={false}
         />
         <CoinListItemDoubleSlot
           name="Vol 24h"
           value={totalVolume}
           tooltipPlacement="bottom"
           currencySymbol={currencySymbol}
+          symbol={symbol}
+          ticker={false}
         />
       </DoubleSlotCol>
       <DoubleSlotCol lg={{ span: 4 }}>
@@ -102,12 +106,16 @@ const CoinListItem = ({ coin, currency, categoryColor }) => {
           value={circulatingSupply}
           tooltipPlacement="top"
           currencySymbol={currencySymbol}
+          symbol={symbol}
+          ticker={true}
         />
         <CoinListItemDoubleSlot
           name="Max"
           value={totalSupply}
           tooltipPlacement="bottom"
           currencySymbol={currencySymbol}
+          symbol={symbol}
+          ticker={true}
         />
       </DoubleSlotCol>
       <ChartCol lg={{ span: 2 }}>
