@@ -274,7 +274,10 @@ class CoinList extends React.Component {
     } = this.state.queryConfig;
     return (
       <Container>
-        <LoadingBar color="#5b486a" ref={this.loadingBar} />
+        <LoadingBar
+          color={this.getCategoryColor("hex")}
+          ref={this.loadingBar}
+        />
         <CoinListTitle
           showFavorites={showFavorites}
           favoriteCoinsLength={favoriteCoinsLength()}

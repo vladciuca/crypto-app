@@ -1,12 +1,10 @@
-import { Tooltip } from "antd";
-import { CgInfinity } from "react-icons/cg";
-import { CaretSymbol, FavoriteCoins, CoinListChart } from "components";
 import {
-  getCurrencySymbol,
-  convertLongNumber,
-  formatNumber,
-  formatPrice,
-} from "utils";
+  CaretSymbol,
+  FavoriteCoins,
+  CoinListChart,
+  CoinListItemDoubleSlot,
+} from "components";
+import { getCurrencySymbol, formatPrice } from "utils";
 import {
   StyledLink,
   ListItemRow,
@@ -20,7 +18,6 @@ import {
   ChartCol,
   ChartContainer,
   BottomChartBorder,
-  InfoText,
   Ticker,
   NotAvailable,
 } from "./CoinListItem.styles";
@@ -86,74 +83,32 @@ const CoinListItem = ({ coin, currency, categoryColor }) => {
         }
       })}
       <DoubleSlotCol lg={{ span: 4 }}>
-        <div>
-          <InfoText>Mkt Cap</InfoText>
-          {!marketCap ? (
-            <NotAvailable>-</NotAvailable>
-          ) : (
-            <span>
-              <Tooltip
-                placement="top"
-                title={`${currencySymbol}${formatNumber(marketCap)}`}
-              >
-                {currencySymbol}
-                {convertLongNumber(marketCap)}
-              </Tooltip>
-            </span>
-          )}
-        </div>
-        <div>
-          <InfoText>Vol 24h</InfoText>
-          {!totalVolume ? (
-            <NotAvailable>-</NotAvailable>
-          ) : (
-            <span>
-              <Tooltip
-                placement="bottom"
-                title={`${currencySymbol}${formatNumber(totalVolume)}`}
-              >
-                {currencySymbol}
-                {convertLongNumber(totalVolume)}
-              </Tooltip>
-            </span>
-          )}
-        </div>
+        <CoinListItemDoubleSlot
+          name="Mkt Cap"
+          value={marketCap}
+          tooltipPlacement="top"
+          currencySymbol={currencySymbol}
+        />
+        <CoinListItemDoubleSlot
+          name="Vol 24h"
+          value={totalVolume}
+          tooltipPlacement="bottom"
+          currencySymbol={currencySymbol}
+        />
       </DoubleSlotCol>
       <DoubleSlotCol lg={{ span: 4 }}>
-        <div>
-          <InfoText>Circ</InfoText>
-          {!circulatingSupply ? (
-            <NotAvailable>-</NotAvailable>
-          ) : (
-            <span>
-              <Tooltip
-                placement="top"
-                title={`${formatNumber(
-                  circulatingSupply
-                )} ${symbol.toUpperCase()}`}
-              >
-                {convertLongNumber(circulatingSupply)}
-                <Ticker>{symbol}</Ticker>
-              </Tooltip>
-            </span>
-          )}
-        </div>
-        <div>
-          <InfoText>Max</InfoText>
-          {!totalSupply ? (
-            <CgInfinity size="1.1rem" />
-          ) : (
-            <span>
-              <Tooltip
-                placement="bottom"
-                title={`${formatNumber(totalSupply)} ${symbol.toUpperCase()}`}
-              >
-                {convertLongNumber(totalSupply)}
-                <Ticker>{symbol}</Ticker>
-              </Tooltip>
-            </span>
-          )}
-        </div>
+        <CoinListItemDoubleSlot
+          name="Circ"
+          value={circulatingSupply}
+          tooltipPlacement="top"
+          currencySymbol={currencySymbol}
+        />
+        <CoinListItemDoubleSlot
+          name="Max"
+          value={totalSupply}
+          tooltipPlacement="bottom"
+          currencySymbol={currencySymbol}
+        />
       </DoubleSlotCol>
       <ChartCol lg={{ span: 2 }}>
         <ChartContainer>

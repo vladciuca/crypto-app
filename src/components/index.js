@@ -14,6 +14,7 @@ export { default as EmptyFavoriteList } from "./EmptyFavoriteList";
 export { default as CoinListTitle } from "./CoinListTitle";
 export { default as CoinListHeader } from "./CoinListHeader";
 export { default as CoinListItem } from "./CoinListItem";
+export { default as CoinListItemDoubleSlot } from "./CoinListItemDoubleSlot";
 export { default as CoinListChart } from "./CoinListChart";
 //CoinPage Components
 export { default as CoinPageHeader } from "./CoinPageHeader";

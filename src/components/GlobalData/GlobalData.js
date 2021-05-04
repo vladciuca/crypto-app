@@ -58,7 +58,7 @@ export default class GlobalData extends React.Component {
   }
   render() {
     const hasData = !this.state.isLoading && this.state.globalData;
-    const globalData = this.state.globalData;
+    const { globalData } = this.state;
     const { currency, theme, handleCurrencyChange, handleTheme } = this.props;
     const currencySymbol = getCurrencySymbol(this.props.currency);
     return (

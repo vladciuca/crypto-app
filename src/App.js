@@ -18,7 +18,6 @@ class App extends React.Component {
     const theme = !this.state.theme;
     storage("set", "theme", theme);
     this.setState({ theme });
-    // console.log(storage("get", "theme"));
   };
   handleCurrencyChange = (e) => {
     const currency = e.target.value;
@@ -29,23 +28,13 @@ class App extends React.Component {
     this.setState({ homePageLink: link });
   };
   componentDidMount() {
-    // console.log("IN LOCAL STORAGE", storage("get", "theme"));
     this.setState({
       theme: storage("get", "theme") || true,
       currency: storage("get", "currency") || "usd",
     });
   }
   render() {
-    // console.log("IN STATE", this.state.theme);
     const { currency, theme } = this.state;
-    // const getTheme = () => {
-    //   if (this.state.theme === "true") {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // };
-    // console.log(typeof storage("get", "theme"));
     return (
       <ThemeProvider theme={this.state.theme ? lightTheme : darkTheme}>
         <Router>
