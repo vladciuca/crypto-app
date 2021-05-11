@@ -5,16 +5,23 @@ export const GasPriceCol = styled(Col)`
   width: 10rem;
 `;
 
-export const Speed = styled.span`
+export const TooltipKey = styled.span`
   color: lightgray;
 `;
 
-export const GasPrice = styled.span`
-  color: ${(props) => props.theme.primary};
+export const TooltipRow = styled.div`
+  display: flex;
+  align-items: center;
+  padding-bottom: 0.2rem;
 `;
 
-export const Ticker = styled.span`
+export const TooltipSpacer = styled.div`
+  display: flex;
+  align-items: center;
+  padding-right: 0.2rem;
+`;
+
+export const TooltipValue = styled.span`
   font-weight: bold;
-  color: ${(props) => props.theme.primary};
-  padding-left: 0.2rem;
+  padding: 0 0.2rem;
 `;

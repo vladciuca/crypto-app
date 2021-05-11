@@ -5,11 +5,13 @@ import LoadingBar from "react-top-loading-bar";
 import {
   CoinListTitle,
   CoinListHeader,
+  CoinListFooter,
   CoinListItem,
   EmptyFavoriteList,
 } from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
 import { camelToSnake, keysToCamel, storage } from "utils";
+import { utilityColors } from "../../theme";
 import { Container } from "./CoinList.styles";
 
 class CoinList extends React.Component {
@@ -25,24 +27,6 @@ class CoinList extends React.Component {
       category: "all",
       sortOrder: true,
       sortBy: "marketCapRank",
-    },
-    categoryColor: {
-      allCoins: {
-        hex: "#a487c3",
-        rgb: "rgb(164,135,195, 0.5)",
-      },
-      stableCoins: {
-        hex: "#59c9a5",
-        rgb: "rgb(89,201,165, 0.5)",
-      },
-      defiCoins: {
-        hex: "#5eb4fb",
-        rgb: "rgb(94,180,251, 0.5)",
-      },
-      favoriteCoins: {
-        hex: "#ff7b7b",
-        rgb: "rgb(255,123,123, 0.5)",
-      },
     },
     isLoading: false,
     hasError: false,
@@ -80,6 +64,7 @@ class CoinList extends React.Component {
           return;
         }
         if (Object.values(storageFavoriteList).length === 0) return;
+        //put it in utils
         const favoriteList = Object.values(storageFavoriteList).reduce(
           (acc, current, index, array) => {
             if (index === array.length - 1) {
@@ -274,10 +259,7 @@ class CoinList extends React.Component {
     } = this.state.queryConfig;
     return (
       <Container>
-        <LoadingBar
-          color={this.getCategoryColor("hex")}
-          ref={this.loadingBar}
-        />
+        <LoadingBar color={utilityColors.volume} ref={this.loadingBar} />
         <CoinListTitle
           showFavorites={showFavorites}
           favoriteCoinsLength={favoriteCoinsLength()}
@@ -287,7 +269,7 @@ class CoinList extends React.Component {
           handleListTop={this.handleListTop}
           handleListBottom={this.handleListBottom}
           category={category}
-          categoryColor={this.getCategoryColor("hex")}
+          // categoryColor={this.getCategoryColor("hex")}
         />
         <CoinListHeader
           showFavorites={showFavorites}
@@ -296,7 +278,7 @@ class CoinList extends React.Component {
           sortBy={sortBy}
           handleSort={this.handleSort}
           category={category}
-          categoryColor={this.getCategoryColor("hex")}
+          // categoryColor={this.getCategoryColor("hex")}
           handleCategory={this.handleCategory}
           page={page}
           favoritePage={favoritePage}
@@ -313,7 +295,8 @@ class CoinList extends React.Component {
                   key={coin.id}
                   coin={coin}
                   currency={this.props.currency}
-                  categoryColor={this.getCategoryColor("rgb")}
+                  theme={this.props.theme}
+                  utilityColors={utilityColors}
                 />
               );
             })}
@@ -330,6 +313,7 @@ class CoinList extends React.Component {
         {this.state.hasError && (
           <div>There was a problem fetching your data..</div>
         )}
+        <CoinListFooter />
       </Container>
     );
   }

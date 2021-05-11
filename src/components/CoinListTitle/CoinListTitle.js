@@ -17,7 +17,6 @@ const CoinListTitle = ({
   coinsPerPage,
   page,
   category,
-  categoryColor,
   showFavorites,
   favoriteCoinsLength,
 }) => {
@@ -44,8 +43,8 @@ const CoinListTitle = ({
           </Arrows>
           <Col>
             <Title>
-              <span>{list}</span>
-              <Value categoryColor={categoryColor}>{coinsPerPage * page}</Value>
+              <Category>{list}</Category>
+              <Value>{coinsPerPage * page}</Value>
               <Category>{categoryName}</Category>
             </Title>
           </Col>
@@ -53,7 +52,7 @@ const CoinListTitle = ({
       )}
       {showFavorites && (
         <Title>
-          <Value categoryColor={categoryColor}>{favoriteCoinsLength}</Value>
+          <Value>{favoriteCoinsLength}</Value>
           <Category>
             FAVORITE COIN
             {favoriteCoinsLength === 0

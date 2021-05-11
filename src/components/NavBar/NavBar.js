@@ -1,15 +1,16 @@
+import { withRouter } from "react-router-dom";
 import { Search } from "components";
 import { FaCoins } from "react-icons/fa";
 import { GiPieChart } from "react-icons/gi";
-import { Nav, NavContainer, StyledLink, Icon } from "./NavBar.styles";
+import { Nav, Container, StyledLink, Icon } from "./NavBar.styles";
 
-const NavBar = (props) => {
+const NavBar = ({ homePageLink, ...props }) => {
   return (
     <Nav>
-      <NavContainer>
+      <Container>
         <ul>
           <li>
-            <StyledLink to={`/${props.homePageLink}`}>
+            <StyledLink to={`/${homePageLink}`}>
               <Icon>
                 <FaCoins size="1.3rem" />
               </Icon>
@@ -25,10 +26,10 @@ const NavBar = (props) => {
             </StyledLink>
           </li>
         </ul>
-        <Search />
-      </NavContainer>
+        <Search history={props.history} />
+      </Container>
     </Nav>
   );
 };
 
-export default NavBar;
+export default withRouter(NavBar);

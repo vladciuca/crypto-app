@@ -5,14 +5,14 @@ export const RowHeader = styled(Row)`
   justify-content: space-between;
   align-items: center;
   background: ${(props) => props.theme.cardSecondary};
-  border-radius: 0.25rem;
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
 `;
 
 export const ColHeader = styled(Col)`
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 0.75rem 0;
+  padding: 0.5rem 0;
   font-weight: bold;
   color: ${(props) => props.theme.info};
 `;
@@ -27,17 +27,18 @@ export const Centered = styled.div`
 `;
 
 export const Select = styled.select`
-  color: white;
-  background: ${(props) => props.categoryColor};
+  font-weight: bold;
+  color: ${(props) => props.theme.info};
+  background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.25rem;
   border: none;
-  padding: 0.2rem 0.1rem;
+  padding: 0.1rem;
   margin: 0 0.5rem;
   :focus {
     outline: none;
   }
   option {
-    color: white;
+    color: ${(props) => props.theme.info};
   }
 `;
 
@@ -46,10 +47,14 @@ export const Page = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-weight: normal;
+  font-weight: bold;
   border-radius: 25rem;
-  color: white;
-  background: ${(props) => props.categoryColor};
-  height: 1.5rem;
-  width: 1.5rem;
+  color: ${(props) => props.theme.info};
+  background: ${(props) => props.theme.cardSecondary};
+  height: 1.35rem;
+  width: 1.35rem;
+`;
+
+export const Name = styled.span`
+  margin-left: 1rem;
 `;

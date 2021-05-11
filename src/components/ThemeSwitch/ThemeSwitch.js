@@ -1,11 +1,12 @@
 import React from "react";
 import { FiSun, FiMoon } from "react-icons/fi";
+import { Container } from "./ThemeSwitch.styles";
 
 const ThemeSwitch = ({ theme, handleTheme }) => {
   return (
-    <span onClick={handleTheme}>
-      {theme ? <FiMoon size="1rem" /> : <FiSun size="1rem" />}
-    </span>
+    <Container onClick={handleTheme}>
+      {theme ? <FiSun size="0.9rem" /> : <FiMoon size="0.9rem" />}
+    </Container>
   );
 };
 

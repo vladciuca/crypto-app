@@ -2,7 +2,7 @@ import {
   CaretSymbol,
   FavoriteCoins,
   CoinListChart,
-  CoinListItemDoubleSlot,
+  CoinListItemPercentage,
 } from "components";
 import { getCurrencySymbol, formatPrice } from "utils";
 import {
@@ -14,15 +14,15 @@ import {
   NameCol,
   PriceChangeCol,
   CurrentPriceCol,
-  DoubleSlotCol,
   ChartCol,
   ChartContainer,
-  BottomChartBorder,
   Ticker,
   NotAvailable,
 } from "./CoinListItem.styles";
 
-const CoinListItem = ({ coin, currency, categoryColor }) => {
+import { Col } from "antd";
+
+const CoinListItem = ({ coin, currency, theme, utilityColors }) => {
   const currencySymbol = getCurrencySymbol(currency);
   const {
     id,
@@ -72,7 +72,7 @@ const CoinListItem = ({ coin, currency, categoryColor }) => {
       </CurrentPriceCol>
       {priceChangeValues.map((value) => {
         if (!value) {
-          return <NotAvailable span={2}>-</NotAvailable>;
+          return <NotAvailable span={2}>N/A</NotAvailable>;
         } else {
           return (
             <PriceChangeCol key={value} span={2} pricechange={value}>
@@ -82,50 +82,38 @@ const CoinListItem = ({ coin, currency, categoryColor }) => {
           );
         }
       })}
-      <DoubleSlotCol lg={{ span: 4 }}>
-        <CoinListItemDoubleSlot
-          name="Mkt Cap"
-          value={marketCap}
-          tooltipPlacement="top"
+      <Col lg={{ span: 4 }}>
+        <CoinListItemPercentage
           currencySymbol={currencySymbol}
-          symbol={symbol}
-          ticker={false}
+          ticker={""}
+          baseTitle={"Market Cap"}
+          baseValue={marketCap}
+          baseColor={utilityColors.mktCap}
+          fillTitle={"24h Volume"}
+          fillValue={totalVolume}
+          fillColor={utilityColors.volume}
         />
-        <CoinListItemDoubleSlot
-          name="Vol 24h"
-          value={totalVolume}
-          tooltipPlacement="bottom"
-          currencySymbol={currencySymbol}
-          symbol={symbol}
-          ticker={false}
+      </Col>
+      <Col lg={{ span: 4 }}>
+        <CoinListItemPercentage
+          currencySymbol={""}
+          ticker={symbol.toUpperCase()}
+          baseTitle={"Total Supply"}
+          baseValue={totalSupply}
+          baseColor={utilityColors.maxSupply}
+          fillTitle={"Circulating Supply"}
+          fillValue={circulatingSupply}
+          fillColor={utilityColors.mktCap}
         />
-      </DoubleSlotCol>
-      <DoubleSlotCol lg={{ span: 4 }}>
-        <CoinListItemDoubleSlot
-          name="Circ"
-          value={circulatingSupply}
-          tooltipPlacement="top"
-          currencySymbol={currencySymbol}
-          symbol={symbol}
-          ticker={true}
-        />
-        <CoinListItemDoubleSlot
-          name="Max"
-          value={totalSupply}
-          tooltipPlacement="bottom"
-          currencySymbol={currencySymbol}
-          symbol={symbol}
-          ticker={true}
-        />
-      </DoubleSlotCol>
+      </Col>
       <ChartCol lg={{ span: 2 }}>
         <ChartContainer>
           <CoinListChart
             priceData={sparklineIn7d.price}
-            categoryColor={categoryColor}
+            priceChange={priceChangePercentage7dInCurrency}
+            theme={theme}
           />
         </ChartContainer>
-        <BottomChartBorder categoryColor={categoryColor} />
       </ChartCol>
     </ListItemRow>
   );
