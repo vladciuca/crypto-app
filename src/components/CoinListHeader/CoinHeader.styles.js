@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const RowHeader = styled(Row)`
   justify-content: space-between;
   align-items: center;
-  background: #191320;
+  background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.25rem;
 `;
 
@@ -14,7 +14,7 @@ export const ColHeader = styled(Col)`
   cursor: pointer;
   padding: 0.75rem 0;
   font-weight: bold;
-  color: lightgray;
+  color: ${(props) => props.theme.info};
 `;
 
 export const Centered = styled.div`
@@ -26,34 +26,30 @@ export const Centered = styled.div`
   height: 100%;
 `;
 
-export const Right = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-`;
-
 export const Select = styled.select`
-  color: ${(props) => props.categoryColor};
-  background: #191320;
+  color: white;
+  background: ${(props) => props.categoryColor};
   border-radius: 0.25rem;
   border: none;
-  margin: 0.2rem;
+  padding: 0.2rem 0.1rem;
+  margin: 0 0.5rem;
   :focus {
     outline: none;
   }
   option {
-    color: #5b486a;
+    color: white;
   }
 `;
 
 export const Page = styled.div`
+  cursor: default;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: normal;
   border-radius: 25rem;
-  background: #262335;
+  color: white;
+  background: ${(props) => props.categoryColor};
   height: 1.5rem;
   width: 1.5rem;
 `;

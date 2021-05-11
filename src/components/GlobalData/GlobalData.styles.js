@@ -2,13 +2,19 @@ import { Col } from "antd";
 import styled, { css } from "styled-components";
 
 export const GlobalDataBar = styled.div`
-  background-color: #191320;
+  background-color: ${(props) => props.theme.cardSecondary};
+  height: 2.5rem;
   cursor: default;
+  display: flex;
+  align-items: center;
 `;
 
 export const Container = styled.div`
-  margin: 0 5% 0 5%;
-  padding: 0.5rem 0 0.5rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 5%;
   font-size: 0.8rem;
 `;
 
@@ -18,17 +24,17 @@ export const ETHGasPriceCol = styled(Col)`
 `;
 
 export const Description = styled.span`
-  color: #5b486a;
+  color: ${(props) => props.theme.info};
 `;
 
 export const Value = styled.span`
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
   padding-left: 0.2rem;
 `;
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
   padding-right: 0.1rem;
 `;
 
@@ -44,9 +50,18 @@ export const MarketCapChange = styled.div`
   ${(props) =>
     props.marketcapchange < 0
       ? css`
-          color: #ff7b7b;
+          color: ${(props) => props.theme.danger};
         `
       : css`
-          color: #a2f5a2;
+          color: ${(props) => props.theme.success};
         `}
+`;
+
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+  cursor: pointer;
+  color: ${(props) => props.theme.info};
 `;

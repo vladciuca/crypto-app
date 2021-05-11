@@ -17,8 +17,7 @@ export const Background = styled(Row)`
 `;
 
 export const Card = styled.div`
-  height: 20rem;
-  background: #241b2f;
+  background: ${(props) => props.theme.cardPrimary};
   border-radius: 0.5rem;
   padding: 1rem 1.5rem;
 `;

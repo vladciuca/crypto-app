@@ -1,53 +1,78 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React from "react";
-import CoinList from "./pages/CoinList";
-import CoinPage from "./pages/CoinPage";
-import Portfolio from "./pages/Portfolio";
-import GlobalData from "./components/GlobalData";
-import { NavBar } from "./components/NavBar";
+import { ThemeProvider } from "styled-components";
+import { CoinList, CoinPage, Portfolio } from "pages";
+import { NavBar, GlobalData } from "components";
+import { storage } from "utils";
+import { lightTheme, darkTheme } from "./theme";
+import { GlobalStyle } from "./GlobalStyle";
 import "antd/dist/antd.css";
-import "./App.css";
+
 class App extends React.Component {
   state = {
+    theme: null,
     currency: null,
+    homePageLink: "",
+  };
+  handleTheme = () => {
+    const theme = !this.state.theme;
+    storage("set", "theme", theme);
+    this.setState({ theme });
   };
   handleCurrencyChange = (e) => {
     const currency = e.target.value;
+    storage("set", "currency", currency);
     this.setState({ currency });
-    localStorage.setItem("currency", JSON.stringify(currency));
+  };
+  handleHomeLink = (link) => {
+    this.setState({ homePageLink: link });
   };
   componentDidMount() {
     this.setState({
-      currency: JSON.parse(localStorage.getItem("currency")) || "usd",
+      theme: storage("get", "theme") || true,
+      currency: storage("get", "currency") || "usd",
     });
   }
   render() {
-    const { currency } = this.state;
+    const { currency, theme } = this.state;
     return (
-      <Router>
-        <div>
-          <GlobalData
-            currency={currency}
-            handleCurrencyChange={this.handleCurrencyChange}
-          ></GlobalData>
-          <NavBar />
-          <Switch>
-            <Route
-              exact
-              path="/"
-              component={(props) => <CoinList {...props} currency={currency} />}
-            ></Route>
-            <Route
-              exact
-              path="/coin/:id"
-              component={(props) => <CoinPage {...props} currency={currency} />}
-            ></Route>
-            <Route exact path="/dashboard">
-              <Portfolio />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
+      <ThemeProvider theme={this.state.theme ? lightTheme : darkTheme}>
+        <Router>
+          <GlobalStyle />
+          <div>
+            <GlobalData
+              currency={currency}
+              handleCurrencyChange={this.handleCurrencyChange}
+              theme={theme}
+              handleTheme={this.handleTheme}
+            ></GlobalData>
+            <NavBar homePageLink={this.state.homePageLink} />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                component={(props) => (
+                  <CoinList
+                    {...props}
+                    handleHomeLink={this.handleHomeLink}
+                    currency={currency}
+                  />
+                )}
+              ></Route>
+              <Route
+                exact
+                path="/coins/:id"
+                component={(props) => (
+                  <CoinPage {...props} currency={currency} />
+                )}
+              ></Route>
+              <Route exact path="/dashboard">
+                <Portfolio />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
     );
   }
 }

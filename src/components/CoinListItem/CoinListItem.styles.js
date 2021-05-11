@@ -3,10 +3,10 @@ import { Row, Col } from "antd";
 import styled, { css } from "styled-components";
 
 export const StyledLink = styled(Link)`
-  color: white;
+  color: ${(props) => props.theme.text};
   text-decoration: none;
   :hover {
-    color: white;
+    color: ${(props) => props.theme.primary};
   }
 `;
 
@@ -14,7 +14,7 @@ export const Ticker = styled.span`
   font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: bold;
-  color: #5b486a;
+  color: ${(props) => props.theme.secondary};
   padding-left: 0.2rem;
 `;
 
@@ -22,10 +22,10 @@ export const ListItemRow = styled(Row)`
   cursor: default;
   align-items: center;
   border-radius: 0.5rem;
-  background-color: #241b2f;
+  background-color: ${(props) => props.theme.cardPrimary};
   margin: 0.2rem 0;
   :hover {
-    background-color: #191320;
+    background-color: ${(props) => props.theme.cardSecondary};
   }
 `;
 
@@ -43,7 +43,7 @@ export const RankCol = styled(Col)`
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
 `;
 
 export const ImgCol = styled(Col)`
@@ -60,7 +60,7 @@ export const ImgCol = styled(Col)`
 
 export const NameCol = styled(Col)`
   font-size: 0.9rem;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
   ${Ticker} {
     padding-left: 0;
   }
@@ -68,9 +68,8 @@ export const NameCol = styled(Col)`
 
 export const CurrentPriceCol = styled(Col)`
   display: flex;
-  justify-content: flex-end;
   align-items: center;
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
   padding-right: 1rem;
 `;
 
@@ -80,10 +79,10 @@ export const PriceChangeCol = styled(Col)`
   ${(props) =>
     props.pricechange < 0
       ? css`
-          color: #ff7b7b;
+          color: ${(props) => props.theme.danger};
         `
       : css`
-          color: #a2f5a2;
+          color: ${(props) => props.theme.success};
         `}
 `;
 
@@ -93,7 +92,7 @@ export const NotAvailable = styled(Col)`
   align-items: center;
   font-size: 1rem;
   font-weight: bold;
-  color: #5b486a;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const DoubleSlotCol = styled(Col)`
@@ -103,9 +102,9 @@ export const DoubleSlotCol = styled(Col)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: #a487c3;
+    color: ${(props) => props.theme.primary};
     padding-bottom: 0.2rem;
-    border-bottom: 0.2rem solid #262335;
+    border-bottom: 0.2rem solid ${(props) => props.theme.bgPrimary};
   }
   div:nth-child(2) {
     display: flex;
@@ -123,7 +122,7 @@ export const ChartCol = styled(Col)`
 
 export const InfoText = styled.span`
   font-size: 0.8rem;
-  color: #5b486a;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const ChartContainer = styled.div`

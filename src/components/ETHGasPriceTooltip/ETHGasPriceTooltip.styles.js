@@ -6,15 +6,15 @@ export const GasPriceCol = styled(Col)`
 `;
 
 export const Speed = styled.span`
-  color: gray;
+  color: lightgray;
 `;
 
 export const GasPrice = styled.span`
-  color: #a487c3;
+  color: ${(props) => props.theme.primary};
 `;
 
 export const Ticker = styled.span`
   font-weight: bold;
-  color: #5b486a;
+  color: ${(props) => props.theme.primary};
   padding-left: 0.2rem;
 `;
