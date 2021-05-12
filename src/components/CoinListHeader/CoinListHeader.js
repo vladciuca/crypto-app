@@ -71,7 +71,7 @@ const CoinListHeader = ({
         );
       })}
       <ColHeader lg={{ span: 4 }} onClick={() => handleSort("totalVolume")}>
-        24h Volume
+        24h Volume/Market Cap
         {sortBy === "totalVolume" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
       <ColHeader lg={{ span: 4 }}>
@@ -101,17 +101,21 @@ const CoinListHeader = ({
         )}
       </ColHeader>
       <ColHeader lg={{ span: 2 }}>
-        <Centered onClick={handlePrevPage}>
-          <FaCaretLeft />
-        </Centered>
-        <Centered>
-          <Page categoryColor={categoryColor}>
-            {showFavorites ? favoritePage : page}
-          </Page>
-        </Centered>
-        <Centered onClick={handleNextPage}>
-          <FaCaretRight />
-        </Centered>
+        {!showFavorites && (
+          <>
+            <Centered onClick={handlePrevPage}>
+              <FaCaretLeft />
+            </Centered>
+            <Centered>
+              <Page categoryColor={categoryColor}>
+                {showFavorites ? favoritePage : page}
+              </Page>
+            </Centered>
+            <Centered onClick={handleNextPage}>
+              <FaCaretRight />
+            </Centered>
+          </>
+        )}
       </ColHeader>
     </RowHeader>
   );

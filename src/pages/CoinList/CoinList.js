@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { connect } from "react-redux";
 import queryString from "query-string";
 import LoadingBar from "react-top-loading-bar";
 import {
@@ -238,6 +239,7 @@ class CoinList extends React.Component {
     }
   }
   render() {
+    console.log(this.props);
     const favoriteCoins = storage("get", "favoriteList");
     const favoriteCoinsLength = () => {
       if (favoriteCoins) {
@@ -319,4 +321,8 @@ class CoinList extends React.Component {
   }
 }
 
-export default CoinList;
+const mapStateToProps = (state) => ({
+  list: state.list,
+});
+
+export default connect(mapStateToProps)(CoinList);

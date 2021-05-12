@@ -50,7 +50,7 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
 
   return (
     <Container>
-      {loading && <SkeletonText width="100%" height="0.5rem" />}
+      {loading && <SkeletonText width="70%" height="0.5rem" />}
       {error && "has ERROR"}
       {hasData && (
         <StyledRow gutter={[8]}>
@@ -189,21 +189,14 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
           </StyledCol>
         </StyledRow>
       )}
-      {loading && <SkeletonText width="100%" height="0.5rem" />}
-      {error && "has ERROR"}
-      {hasData && (
-        <StyledRow gutter={[8]}>
-          <StyledCol>
-            <CurrencySelect
-              currency={currency}
-              handleCurrency={handleCurrency}
-            />
-          </StyledCol>
-          <StyledCol>
-            <ThemeSwitch theme={theme} handleTheme={handleTheme} />
-          </StyledCol>
-        </StyledRow>
-      )}
+      <StyledRow gutter={[8]}>
+        <StyledCol>
+          <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
+        </StyledCol>
+        <StyledCol>
+          <ThemeSwitch theme={theme} handleTheme={handleTheme} />
+        </StyledCol>
+      </StyledRow>
     </Container>
   );
 };
