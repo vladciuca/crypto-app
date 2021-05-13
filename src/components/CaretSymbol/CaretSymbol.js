@@ -1,4 +1,4 @@
-import { FaCaretUp, FaCaretDown } from "react-icons/fa";
+import { FaCaretUp, FaCaretDown } from "react-icons/all";
 
 const CaretSymbol = (props) => {
   const { value } = props;

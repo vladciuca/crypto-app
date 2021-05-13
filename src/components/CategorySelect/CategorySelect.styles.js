@@ -1,27 +1,8 @@
 import styled from "styled-components";
 import { Menu } from "antd";
 
-export const Icon = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 0.3rem;
-  color: ${(props) => props.theme.primary};
-  font-size: 0.9rem;
-`;
-
-export const MenuIcon = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.secondary};
-`;
-
-export const Currency = styled.span`
-  margin-right: 0.2rem;
-  font-weight: bold;
-  font-size: 0.9rem;
-`;
-
 export const DropdownContent = styled.div`
+  padding: 0 0.8rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -37,6 +18,12 @@ export const DropdownContent = styled.div`
     color: ${(props) => props.theme.text};
     background: transparent;
   }
+`;
+
+export const MenuIcon = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.secondary};
 `;
 
 export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`

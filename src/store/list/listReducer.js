@@ -6,7 +6,7 @@ const initialState = {
   queryConfig: {
     listOrder: "marketCapDesc",
     page: null,
-    coinsPerPage: 50,
+    coinsPerPage: 10,
     category: "all",
     sortOrder: true,
     sortBy: "marketCapRank",

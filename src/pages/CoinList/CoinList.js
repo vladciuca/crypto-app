@@ -93,19 +93,14 @@ class CoinList extends React.Component {
   toggleFavoriteList = () => {
     this.setState({ showFavorites: !this.state.showFavorites });
   };
-  handleListTop = () => {
+  handleList = (key) => {
     if (this.state.isLoading) return;
     this.setState((prevState) => ({
-      queryConfig: { ...prevState.queryConfig, listOrder: "marketCapDesc" },
-    }));
-  };
-  handleListBottom = () => {
-    this.setState((prevState) => ({
-      queryConfig: { ...prevState.queryConfig, listOrder: "marketCapAsc" },
+      queryConfig: { ...prevState.queryConfig, listOrder: key },
     }));
   };
   handleCategory = (e) => {
-    const category = e.target.value;
+    const category = e.key;
     this.setState((prevState) => ({
       queryConfig: { ...prevState.queryConfig, page: 1, category },
     }));
@@ -115,23 +110,8 @@ class CoinList extends React.Component {
       }));
     }
   };
-  getCategoryColor = (type) => {
-    const { showFavorites, categoryColor } = this.state;
-    const { category } = this.state.queryConfig;
-    if (showFavorites) {
-      return categoryColor.favoriteCoins[type];
-    } else {
-      if (category === "decentralizedFinanceDefi") {
-        return categoryColor.defiCoins[type];
-      } else if (category === "stablecoins") {
-        return categoryColor.stableCoins[type];
-      } else {
-        return categoryColor.allCoins[type];
-      }
-    }
-  };
   handleCoinsPerPage = (e) => {
-    const coinsPerPage = e.target.value;
+    const coinsPerPage = e.key;
     this.setState((prevState) => ({
       queryConfig: { ...prevState.queryConfig, coinsPerPage },
     }));
@@ -239,7 +219,7 @@ class CoinList extends React.Component {
     }
   }
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const favoriteCoins = storage("get", "favoriteList");
     const favoriteCoinsLength = () => {
       if (favoriteCoins) {
@@ -266,12 +246,15 @@ class CoinList extends React.Component {
           showFavorites={showFavorites}
           favoriteCoinsLength={favoriteCoinsLength()}
           coinsPerPage={coinsPerPage}
+          handleCoinsPerPage={this.handleCoinsPerPage}
           page={page}
           listOrder={listOrder}
-          handleListTop={this.handleListTop}
-          handleListBottom={this.handleListBottom}
+          handleList={this.handleList}
+          // handleListBottom={this.handleListBottom}
           category={category}
-          // categoryColor={this.getCategoryColor("hex")}
+          handleCategory={this.handleCategory}
+          handleNextPage={this.handleNextPage}
+          handlePrevPage={this.handlePrevPage}
         />
         <CoinListHeader
           showFavorites={showFavorites}
@@ -279,15 +262,9 @@ class CoinList extends React.Component {
           sortOrder={sortOrder}
           sortBy={sortBy}
           handleSort={this.handleSort}
-          category={category}
-          // categoryColor={this.getCategoryColor("hex")}
-          handleCategory={this.handleCategory}
           page={page}
           favoritePage={favoritePage}
           coinsPerPage={coinsPerPage}
-          handleCoinsPerPage={this.handleCoinsPerPage}
-          handleNextPage={this.handleNextPage}
-          handlePrevPage={this.handlePrevPage}
         />
         {hasData && (
           <>

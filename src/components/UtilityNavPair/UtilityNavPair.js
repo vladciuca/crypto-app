@@ -1,7 +1,11 @@
 import React from "react";
-import { GiPlainCircle } from "react-icons/gi";
-import { FaBtc, FaEthereum } from "react-icons/fa";
-import { CaretSymbol } from "components";
+import {
+  GiPlainCircle,
+  FaBtc,
+  FaEthereum,
+  HiTrendingUp,
+  HiTrendingDown,
+} from "react-icons/all";
 import {
   TooltipContent,
   Key,
@@ -22,6 +26,12 @@ const UtilityNavPair = ({
   marketCapChange,
   wide,
 }) => {
+  const marketCapDirection =
+    marketCapChange > 0 ? (
+      <HiTrendingUp size="1rem" />
+    ) : (
+      <HiTrendingDown size="1rem" />
+    );
   const generateTooltip = () => {
     return (
       <>
@@ -64,8 +74,7 @@ const UtilityNavPair = ({
             24h Change:
             <TooltipValue>
               <MarketCapChange marketcapchange={marketCapChange}>
-                <CaretSymbol value={marketCapChange} />
-                {marketCapChange.toFixed(2)}%
+                {marketCapChange.toFixed(2)}%{marketCapDirection}
               </MarketCapChange>
             </TooltipValue>
           </TooltipRow>
@@ -101,8 +110,7 @@ const UtilityNavPair = ({
             {symbol === "%" && symbol}
             {marketCapChange && (
               <MarketCapChange marketcapchange={marketCapChange}>
-                <CaretSymbol value={marketCapChange} />
-                {marketCapChange.toFixed(0)}%
+                {marketCapDirection}
               </MarketCapChange>
             )}
           </Value>
