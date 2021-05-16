@@ -6,12 +6,13 @@ export const RowHeader = styled(Row)`
   align-items: center;
   background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.25rem;
+  font-size: 0.8rem;
 `;
 
 export const ColHeader = styled(Col)`
   display: flex;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0.6rem 0;
   font-weight: bold;
   color: ${(props) => props.theme.text};
 `;

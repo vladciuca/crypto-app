@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import { connect } from "react-redux";
 import queryString from "query-string";
 import LoadingBar from "react-top-loading-bar";
@@ -11,85 +11,87 @@ import {
   EmptyFavoriteList,
 } from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import { camelToSnake, keysToCamel, storage } from "utils";
+import { storage } from "utils";
 import { utilityColors } from "../../theme";
 import { Container } from "./CoinList.styles";
+import { getCoinList, sortCoinList } from "store/list/listActions";
+import { getList } from "store/list/listReducer";
 
 class CoinList extends React.Component {
-  state = {
-    coinList: [],
-    coinListLength: null,
-    showFavorites: false,
-    favoritePage: 1,
-    queryConfig: {
-      listOrder: "marketCapDesc",
-      page: null,
-      coinsPerPage: 50,
-      category: "all",
-      sortOrder: true,
-      sortBy: "marketCapRank",
-    },
-    isLoading: false,
-    hasError: false,
-  };
+  // state = {
+  //   coinList: [],
+  //   coinListLength: null,
+  //   showFavorites: false,
+  //   favoritePage: 1,
+  //   queryConfig: {
+  //     listOrder: "marketCapDesc",
+  //     page: null,
+  //     coinsPerPage: 50,
+  //     category: "all",
+  //     sortOrder: true,
+  //     sortBy: "marketCapRank",
+  //   },
+  //   isLoading: false,
+  //   hasError: false,
+  // };
   loadingBar = React.createRef();
-  getCoinList = async () => {
-    this.setState({ isLoading: true });
-    try {
-      const { currency } = this.props;
-      const { favoritePage } = this.state;
-      const { page, coinsPerPage } = this.state.queryConfig;
-      const category = camelToSnake(this.state.queryConfig.category);
-      let categoryQuery;
-      if (category === "all") {
-        categoryQuery = "";
-      } else {
-        categoryQuery = `&category=${category}`;
-      }
-      const listOrder = camelToSnake(this.state.queryConfig.listOrder);
-      const base = process.env.REACT_APP_ENDPOINT;
-      this.loadingBar.current.continuousStart();
-      if (!this.state.showFavorites) {
-        const { data } = await axios(
-          `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-        );
-        this.setState({
-          coinList: keysToCamel(data),
-          coinListLength: data.length,
-          isLoading: false,
-          hasError: false,
-        });
-      } else {
-        const storageFavoriteList = storage("get", "favoriteList");
-        if (!storageFavoriteList) {
-          return;
-        }
-        if (Object.values(storageFavoriteList).length === 0) return;
-        //put it in utils
-        const favoriteList = Object.values(storageFavoriteList).reduce(
-          (acc, current, index, array) => {
-            if (index === array.length - 1) {
-              return acc + `${current}`;
-            }
-            return acc + `${current}%2C%20`;
-          },
-          ""
-        );
-        const { data } = await axios(
-          `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${favoritePage}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-        );
-        this.setState({
-          coinList: keysToCamel(data),
-          coinListLength: data.length,
-          isLoading: false,
-          hasError: false,
-        });
-      }
-      this.loadingBar.current.complete();
-    } catch (error) {
-      this.setState({ isLoading: false, hasError: true });
-    }
-  };
+  // getCoinList = async () => {
+  //   this.setState({ isLoading: true });
+  //   try {
+  //     const { currency } = this.props;
+  //     const { favoritePage } = this.state;
+  //     const { page, coinsPerPage } = this.state.queryConfig;
+  //     const category = camelToSnake(this.state.queryConfig.category);
+  //     let categoryQuery;
+  //     if (category === "all") {
+  //       categoryQuery = "";
+  //     } else {
+  //       categoryQuery = `&category=${category}`;
+  //     }
+  //     const listOrder = camelToSnake(this.state.queryConfig.listOrder);
+  //     const base = process.env.REACT_APP_ENDPOINT;
+  //     this.loadingBar.current.continuousStart();
+  //     if (!this.state.showFavorites) {
+  //       const { data } = await axios(
+  //         `${base}/coins/markets?vs_currency=${currency}${categoryQuery}&order=${listOrder}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+  //       );
+  //       this.setState({
+  //         coinList: keysToCamel(data),
+  //         coinListLength: data.length,
+  //         isLoading: false,
+  //         hasError: false,
+  //       });
+  //     } else {
+  //       const storageFavoriteList = storage("get", "favoriteList");
+  //       if (!storageFavoriteList) {
+  //         return;
+  //       }
+  //       if (Object.values(storageFavoriteList).length === 0) return;
+  //       //put it in utils
+  //       const favoriteList = Object.values(storageFavoriteList).reduce(
+  //         (acc, current, index, array) => {
+  //           if (index === array.length - 1) {
+  //             return acc + `${current}`;
+  //           }
+  //           return acc + `${current}%2C%20`;
+  //         },
+  //         ""
+  //       );
+  //       const { data } = await axios(
+  //         `${base}/coins/markets?vs_currency=${currency}&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${favoritePage}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+  //       );
+  //       this.setState({
+  //         coinList: keysToCamel(data),
+  //         coinListLength: data.length,
+  //         isLoading: false,
+  //         hasError: false,
+  //       });
+  //     }
+  //     this.loadingBar.current.complete();
+  //   } catch (error) {
+  //     this.setState({ isLoading: false, hasError: true });
+  //   }
+  // };
   toggleFavoriteList = () => {
     this.setState({ showFavorites: !this.state.showFavorites });
   };
@@ -135,27 +137,31 @@ class CoinList extends React.Component {
       },
     }));
   };
+
+  // added to redux
   sortCoinList = (sortBy) => {
-    if (!this.state.coinList) {
+    if (!this.props.list.coinList) {
       return;
     } else {
-      return this.state.coinList.sort((a, b) => {
-        if (this.state.queryConfig.sortOrder === true) {
+      return this.props.list.coinList.sort((a, b) => {
+        if (this.props.list.queryConfig.sortOrder === true) {
           return a[sortBy] > b[sortBy] ? 1 : -1;
         }
         return a[sortBy] < b[sortBy] ? 1 : -1;
       });
     }
   };
+  //added to redux
   handleSort = (sortBy) => {
     this.setState((prevState) => ({
       queryConfig: {
-        ...prevState.queryConfig,
+        ...prevState.list.queryConfig,
         sortBy,
-        sortOrder: !this.state.queryConfig.sortOrder,
+        sortOrder: !this.props.list.queryConfig.sortOrder,
       },
     }));
   };
+
   getSearchQuery = () => {
     const {
       sortOrder,
@@ -164,7 +170,7 @@ class CoinList extends React.Component {
       page,
       coinsPerPage,
       listOrder,
-    } = this.state.queryConfig;
+    } = this.props.list.queryConfig;
     const query = queryString.stringify({
       sortOrder,
       sortBy,
@@ -176,26 +182,29 @@ class CoinList extends React.Component {
     this.props.history.push(`/?${query}`);
   };
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.currency !== this.props.currency && this.state.coinList) {
-      this.getSearchQuery();
-      this.getCoinList();
-    }
     if (
-      prevState.queryConfig !== this.state.queryConfig &&
-      this.state.coinList
+      prevProps.currency !== this.props.currency &&
+      this.props.list.coinList
     ) {
       this.getSearchQuery();
-      this.getCoinList();
+      // this.prop.getCoinList();
     }
-    if (prevState.showFavorites !== this.state.showFavorites) {
-      this.getCoinList();
-    }
-    if (!this.props.location.search) {
-      this.getSearchQuery();
-    }
+    // if (
+    //   prevState.list.queryConfig !== this.props.list.queryConfig &&
+    //   this.props.list.coinList
+    // ) {
+    //   this.getSearchQuery();
+    //   this.props.getCoinList();
+    // }
+    // if (prevState.list.showFavorites !== this.props.list.showFavorites) {
+    //   this.props.getCoinList();
+    // }
+    // if (!this.props.location.search) {
+    //   this.getSearchQuery();
+    // }
     if (
       this.props.location.search !== prevProps.location.search &&
-      this.state.showFavorites === false
+      this.props.list.showFavorites === false
     ) {
       this.props.handleHomeLink(this.props.location.search);
     }
@@ -207,9 +216,14 @@ class CoinList extends React.Component {
     return 15;
   };
   componentDidMount() {
-    this.setState((prevState) => ({
-      queryConfig: { ...prevState.queryConfig, page: 1 },
-    }));
+    // const { page } = this.props.list.queryConfig;
+
+    // this.setState((prevState) => ({
+    //   queryConfig: { ...prevState.list.queryConfig, page: 1 },
+    // }));
+
+    this.props.getCoinList();
+
     if (this.props.location.search) {
       const parsed = queryString.parse(this.props.location.search, {
         parseBooleans: true,
@@ -219,7 +233,6 @@ class CoinList extends React.Component {
     }
   }
   render() {
-    // console.log(this.props);
     const favoriteCoins = storage("get", "favoriteList");
     const favoriteCoinsLength = () => {
       if (favoriteCoins) {
@@ -227,10 +240,13 @@ class CoinList extends React.Component {
       }
       return 0;
     };
-    const noFavorites = this.state.showFavorites && favoriteCoinsLength() < 1;
-    const hasData = !!(!this.state.isLoading && this.state.coinList.length);
-    const sortedList = this.sortCoinList(this.state.queryConfig.sortBy);
-    const { showFavorites, favoritePage } = this.state;
+    const {
+      showFavorites,
+      favoritePage,
+      isLoading,
+      hasError,
+      coinList,
+    } = this.props.list;
     const {
       listOrder,
       category,
@@ -238,10 +254,18 @@ class CoinList extends React.Component {
       coinsPerPage,
       sortBy,
       sortOrder,
-    } = this.state.queryConfig;
+    } = this.props.list.queryConfig;
+    const noFavorites = showFavorites && favoriteCoinsLength() < 1;
+    const hasData = !!(!isLoading && coinList.length);
+    const sortedList = this.sortCoinList(sortBy);
+    // const noFavorites = this.state.showFavorites && favoriteCoinsLength() < 1;
+    // const hasData = !!(!this.state.isLoading && this.state.coinList.length);
+    // const sortedList = this.sortCoinList(this.state.queryConfig.sortBy);
+    // const { showFavorites, favoritePage } = this.state;
+    console.log(this.props.list.queryConfig.page);
     return (
       <Container>
-        <LoadingBar color={utilityColors.volume} ref={this.loadingBar} />
+        <LoadingBar color={utilityColors.mktCap} ref={this.loadingBar} />
         <CoinListTitle
           showFavorites={showFavorites}
           favoriteCoinsLength={favoriteCoinsLength()}
@@ -250,7 +274,6 @@ class CoinList extends React.Component {
           page={page}
           listOrder={listOrder}
           handleList={this.handleList}
-          // handleListBottom={this.handleListBottom}
           category={category}
           handleCategory={this.handleCategory}
           handleNextPage={this.handleNextPage}
@@ -281,17 +304,13 @@ class CoinList extends React.Component {
             })}
           </>
         )}
-        {!favoriteCoinsLength() && this.state.showFavorites && (
-          <EmptyFavoriteList />
-        )}
-        {this.state.isLoading && (
+        {!favoriteCoinsLength() && showFavorites && <EmptyFavoriteList />}
+        {isLoading && (
           <SkeletonCoinList
             coinsPerPage={noFavorites ? 0 : this.getScreenWidth()}
           />
         )}
-        {this.state.hasError && (
-          <div>There was a problem fetching your data..</div>
-        )}
+        {hasError && <div>There was a problem fetching your data..</div>}
         <CoinListFooter />
       </Container>
     );
@@ -299,7 +318,12 @@ class CoinList extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  list: state.list,
+  list: getList(state),
 });
 
-export default connect(mapStateToProps)(CoinList);
+const mapDispatchToProps = {
+  getCoinList,
+  sortCoinList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoinList);

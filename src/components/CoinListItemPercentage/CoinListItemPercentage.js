@@ -27,7 +27,7 @@ export const CoinListItemPercentage = ({
         <Spacer>
           <GiPlainCircle size="0.4rem" color={fillColor} />
         </Spacer>
-        {fillValue === 0 || fillValue === 0 ? (
+        {fillValue === 0 ? (
           "-"
         ) : (
           <Value>
@@ -60,7 +60,7 @@ export const CoinListItemPercentage = ({
         <Spacer>
           <GiPlainCircle size="0.4rem" color={baseColor} />
         </Spacer>
-        {baseValue === 0 || baseValue === 0 ? (
+        {baseValue === 0 ? (
           "-"
         ) : (
           <Value>

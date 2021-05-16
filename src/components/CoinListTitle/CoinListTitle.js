@@ -6,9 +6,9 @@ import {
   StyledCol,
   StyledColEnd,
   Arrows,
-  Arrow,
   Value,
   Title,
+  Text,
   Category,
   Page,
   PageContainer,
@@ -84,7 +84,7 @@ const CoinListTitle = ({
                 handleList(getOrder() ? "marketCapAsc" : "marketCapDesc")
               }
             >
-              <TiArrowUnsorted size="1.3rem" />
+              <TiArrowUnsorted size="1rem" />
             </Arrows>
           </StyledCol>
           <StyledCol lg={{ span: 17 }}>
@@ -97,22 +97,8 @@ const CoinListTitle = ({
                 handleSelect={handleCategory}
               />
             </Category>
-            {/* <Category>
-              <Select value={category} onChange={handleCategory}>
-                <option value="all">Coins</option>
-                <option value="stablecoins">Stablecoins</option>
-                <option value="decentralizedFinanceDefi">Defi Coins</option>
-              </Select>
-            </Category> */}
-            {/* <Category>
-              
-              <Select>
-                <option value="10">Market Cap</option>
-                <option value="20">24h Volume</option>
-              </Select>
-            </Category> */}
             <Category>
-              By
+              <Text>By</Text>
               <CategorySelect
                 obj={orderByObj}
                 label={"Market Cap"}
@@ -124,7 +110,7 @@ const CoinListTitle = ({
             <Category>
               {category === "all" && (
                 <>
-                  Show:
+                  <Text>Show:</Text>
                   <CategorySelect
                     obj={perPageObj}
                     label={coinsPerPage}
@@ -133,27 +119,12 @@ const CoinListTitle = ({
                 </>
               )}
             </Category>
-            {/* <Category>
-              Show:
-              <Select value={coinsPerPage} onChange={handleCoinsPerPage}>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </Select>
-            </Category> */}
-            <Category>
-              Page:
-              <PageContainer>
-                <Arrow>
-                  <FaCaretLeft size="1.2rem" onClick={handlePrevPage} />
-                </Arrow>
-                <Page>{page}</Page>
-                <Arrow>
-                  <FaCaretRight size="1.2rem" onClick={handleNextPage} />
-                </Arrow>
-              </PageContainer>
-            </Category>
+            <PageContainer>
+              <Text>Page:</Text>
+              <FaCaretLeft size="1rem" onClick={handlePrevPage} />
+              <Page>{page}</Page>
+              <FaCaretRight size="1rem" onClick={handleNextPage} />
+            </PageContainer>
           </StyledColEnd>
         </StyledRow>
       )}

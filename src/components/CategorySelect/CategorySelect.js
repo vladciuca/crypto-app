@@ -5,6 +5,7 @@ import {
   StyledMenu,
   StyledMenuItem,
   DropdownContent,
+  Spacer,
 } from "./CategorySelect.styles";
 
 const CategorySelect = ({ obj, label, handleSelect }) => {
@@ -23,7 +24,9 @@ const CategorySelect = ({ obj, label, handleSelect }) => {
     <Dropdown overlay={menu}>
       <DropdownContent>
         {label}
-        <FaCaretDown size="1.2rem" />
+        <Spacer>
+          <FaCaretDown size="1rem" />
+        </Spacer>
       </DropdownContent>
     </Dropdown>
   );

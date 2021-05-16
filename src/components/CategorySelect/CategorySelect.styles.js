@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Menu } from "antd";
 
 export const DropdownContent = styled.div`
-  padding: 0 0.8rem;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -30,12 +29,6 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.primary};
-  div {
-    width: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
   span {
     margin-top: 0.15rem;
     margin-left: 0.2rem;
@@ -50,4 +43,9 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
 export const StyledMenu = styled(Menu)`
   background: ${(props) => props.theme.cardPrimary};
   border-radius: 0.5rem;
+`;
+
+export const Spacer = styled.div`
+  display: flex;
+  margin-left: 0.2rem;
 `;
