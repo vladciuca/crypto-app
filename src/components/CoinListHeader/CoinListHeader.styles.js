@@ -5,14 +5,15 @@ export const RowHeader = styled(Row)`
   justify-content: space-between;
   align-items: center;
   background: ${(props) => props.theme.cardSecondary};
-  border-radius: 0.25rem;
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
   font-size: 0.8rem;
+  margin-top: -2rem;
 `;
 
 export const ColHeader = styled(Col)`
   display: flex;
   align-items: center;
-  padding: 0.6rem 0;
+  padding: 0.4rem 0;
   font-weight: bold;
   color: ${(props) => props.theme.text};
 `;
@@ -27,6 +28,7 @@ export const Centered = styled.div`
 
 export const Spacer = styled.span`
   margin-left: 1.2rem;
+  cursor: default;
 `;
 
 export const Value = styled.span`

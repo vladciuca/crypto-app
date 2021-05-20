@@ -1,6 +1,6 @@
 import React from "react";
 import { SearchForm, SearchInput, SearchBtn } from "./Search.styles";
-import { RiSearch2Line } from "react-icons/ri";
+import { RiSearch2Line } from "react-icons/all";
 
 export default class Search extends React.Component {
   state = {

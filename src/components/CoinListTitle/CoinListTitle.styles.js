@@ -2,17 +2,17 @@ import styled from "styled-components";
 import { Row, Col } from "antd";
 
 export const StyledRow = styled(Row)`
+  background-color: ${(props) => props.theme.cardPrimary};
+  border-radius: 0.75rem;
   display: flex;
   align-items: baseline;
-  background: ${(props) => props.theme.cardSecondary};
-  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
-  padding: 1.5rem 0;
+  padding-top: 0.7rem;
+  padding-bottom: 3.5rem;
   margin-bottom: 0.2rem;
   margin-top: 5%;
-  font-size: 1.7rem;
+  font-size: 1.8rem;
   text-transform: uppercase;
   color: ${(props) => props.theme.text};
-  font-weight: bold;
 `;
 
 export const StyledCol = styled(Col)`
@@ -21,6 +21,7 @@ export const StyledCol = styled(Col)`
 `;
 
 export const StyledColEnd = styled(Col)`
+  font-size: 1rem;
   display: flex;
   align-items: baseline;
   justify-content: flex-end;
@@ -35,20 +36,20 @@ export const Arrows = styled.div`
 
 export const Value = styled.span`
   font-weight: bold;
-  font-size: 1.7rem;
   padding: 0 0.5rem;
 `;
 
 export const Title = styled.span`
   padding-left: 0.5rem;
+  text-transform: uppercase;
 `;
 
 export const Category = styled.span`
   cursor: pointer;
   display: flex;
   align-items: baseline;
+  padding: 0 0.4rem;
   font-size: 1rem;
-  padding: 0 0.2rem;
 `;
 
 export const PageContainer = styled.div`
@@ -56,7 +57,6 @@ export const PageContainer = styled.div`
   margin-left: 0.5rem;
   display: flex;
   align-items: center;
-  font-size: 1rem;
 `;
 
 export const Page = styled.div`
@@ -66,5 +66,5 @@ export const Page = styled.div`
 
 export const Text = styled.span`
   cursor: default;
-  margin-right: 0.4rem;
+  margin-right: 0.3rem;
 `;

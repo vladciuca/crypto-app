@@ -24,8 +24,10 @@ export const ListItemRow = styled(Row)`
   border-radius: 0.5rem;
   background-color: ${(props) => props.theme.cardPrimary};
   margin: 0.2rem 0;
+  transition: ease-in-out 0.2s;
   :hover {
     background-color: ${(props) => props.theme.cardSecondary};
+    padding: 0.1rem 0;
   }
 `;
 

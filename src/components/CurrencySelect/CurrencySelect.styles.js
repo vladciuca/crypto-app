@@ -56,11 +56,11 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
     color: ${(props) => props.theme.text};
   }
   :hover {
-    background: ${(props) => props.theme.cardSecondary};
+    background: ${(props) => props.theme.bgSecondary};
   }
 `;
 
 export const StyledMenu = styled(Menu)`
-  background: ${(props) => props.theme.cardPrimary};
+  background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.5rem;
 `;

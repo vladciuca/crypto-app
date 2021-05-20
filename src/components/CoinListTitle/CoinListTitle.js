@@ -16,7 +16,9 @@ import {
 
 const CoinListTitle = ({
   listOrder,
-  handleList,
+  handleListOrder,
+  listBy,
+  handleListBy,
   showFavorites,
   favoriteCoinsLength,
   category,
@@ -48,13 +50,19 @@ const CoinListTitle = ({
       : category === "decentralizedFinanceDefi"
       ? "Defi coins"
       : "Coins";
-  const list =
-    listOrder === "marketCapDesc" ? <span>Top</span> : <span>Bottom</span>;
+  const list = listOrder === "Desc" ? <span>Top</span> : <span>Bottom</span>;
   const getOrder = () => {
-    if (listOrder === "marketCapDesc") {
+    if (listOrder === "Desc") {
       return true;
-    } else if (listOrder === "marketCapDesc") {
+    } else if (listOrder === "Asc") {
       return false;
+    }
+  };
+  const getListBy = () => {
+    if (listBy === "marketCap") {
+      return "Market Cap";
+    } else {
+      return listBy;
     }
   };
   return (
@@ -80,9 +88,7 @@ const CoinListTitle = ({
         <StyledRow>
           <StyledCol lg={{ span: 1 }}>
             <Arrows
-              onClick={() =>
-                handleList(getOrder() ? "marketCapAsc" : "marketCapDesc")
-              }
+              onClick={() => handleListOrder(getOrder() ? "Asc" : "Desc")}
             >
               <TiArrowUnsorted size="1rem" />
             </Arrows>
@@ -101,8 +107,8 @@ const CoinListTitle = ({
               <Text>By</Text>
               <CategorySelect
                 obj={orderByObj}
-                label={"Market Cap"}
-                handleSelect={""}
+                label={getListBy()}
+                handleSelect={handleListBy}
               />
             </Category>
           </StyledCol>

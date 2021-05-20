@@ -2,13 +2,12 @@ import styled from "styled-components";
 import { Menu } from "antd";
 
 export const DropdownContent = styled.div`
+  background: transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
-  background: transparent;
   border: none;
   color: ${(props) => props.theme.text};
-  text-transform: uppercase;
   :hover {
     color: ${(props) => props.theme.text};
     background: transparent;
@@ -36,12 +35,12 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
     color: ${(props) => props.theme.text};
   }
   :hover {
-    background: ${(props) => props.theme.cardSecondary};
+    background: ${(props) => props.theme.bgSecondary};
   }
 `;
 
 export const StyledMenu = styled(Menu)`
-  background: ${(props) => props.theme.cardPrimary};
+  background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.5rem;
 `;
 

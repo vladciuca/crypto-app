@@ -117,7 +117,7 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               fillPercentage={""}
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>
@@ -148,7 +148,7 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               }
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>
@@ -181,7 +181,7 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               }
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>

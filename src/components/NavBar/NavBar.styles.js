@@ -31,7 +31,6 @@ export const Icon = styled.div`
 
 export const StyledLink = styled(Link)`
   color: ${(props) => props.theme.text};
-  text-decoration: none;
   padding-right: 2rem;
   display: flex;
   align-items: center;

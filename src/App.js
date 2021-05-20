@@ -9,7 +9,7 @@ import { GlobalStyle } from "./GlobalStyle";
 import "antd/dist/antd.css";
 
 const Container = styled.div`
-  margin: 1rem 5%;
+  margin: 0 5%;
 `;
 class App extends React.Component {
   state = {
@@ -35,6 +35,7 @@ class App extends React.Component {
       theme: storage("get", "theme") || true,
       currency: storage("get", "currency") || "usd",
     });
+    // this.porps.setTheme
   }
   render() {
     const { currency, theme } = this.state;

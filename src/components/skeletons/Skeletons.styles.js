@@ -21,7 +21,7 @@ export const SkeletonRow = styled.div`
 `;
 
 export const SkeletonText = styled.div`
-  background: ${(props) => props.theme.bgPrimary};
+  background: ${(props) => props.theme.cardPrimary};
   width: ${({ width }) => width};
   height: ${({ height }) => height};
   margin: 0 5%;
@@ -43,7 +43,7 @@ export const SkeletonText = styled.div`
 `;
 
 export const SkeletonAvatar = styled.div`
-  background: ${(props) => props.theme.bgPrimary};
+  background: ${(props) => props.theme.cardPrimary};
   border-radius: 25rem;
   width: ${({ width }) => width};
   height: ${({ height }) => height};
