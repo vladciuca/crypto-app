@@ -1,10 +1,8 @@
 export const lightTheme = {
   bgPrimary: "#e0e0e0",
-  // bgSecondary: "transparent",
   bgSecondary: "rgb(228,205,225, 0.5)",
 
   cardPrimary: "rgb(255,255,255, 0.6)",
-  // cardSecondary: "#f4f4f4",
   cardSecondary: "#fff",
 
   text: "#333",
@@ -19,12 +17,9 @@ export const lightTheme = {
 };
 export const darkTheme = {
   bgPrimary: "#262335",
-  // bgSecondary: "transparent",
   bgSecondary: "#40384a",
 
-  // cardPrimary: "#241b2f",
   cardPrimary: "rgb(36,27,47, 0.6)",
-  // cardSecondary: "#40384a",
   cardSecondary: "#241b2f",
 
   text: "#fff",

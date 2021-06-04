@@ -24,25 +24,32 @@ import {
   handleListOrder,
   handleListBy,
 } from "store/list/listActions";
-import { getList } from "store/list/listReducer";
+import {
+  getFavoriteList,
+  toggleFavoriteList,
+} from "store/favorites/favoritesActions";
+import { getList, isListLoading } from "store/list/listReducer";
 
 const CoinList = (props) => {
-  // console.log(props);
-  const {
-    // showFavorites,
-    // favoritePage,
-    coinList,
-    isLoading,
-    hasError,
-  } = props.list;
+  // console.log(toggleFavoriteList);
+  const { getCoinList, getFavoriteList, isLoading } = props;
+  const { coinList, hasError } = props.list;
   const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =
     props.list.queryConfig;
+  const {
+    showFavorites,
+    // favoritePage,
+    coinList: favoriteList,
+  } = props.favorites;
+  const list = showFavorites ? favoriteList : coinList;
+
+  // console.log(showFavorites);
 
   const sortCoinList = () => {
-    if (!coinList) {
+    if (!list) {
       return;
     } else {
-      return coinList.sort((a, b) => {
+      return list.sort((a, b) => {
         if (sortOrder === true) {
           return a[sortBy] > b[sortBy] ? 1 : -1;
         }
@@ -58,19 +65,32 @@ const CoinList = (props) => {
     return 15;
   };
 
-  const hasData = !!(!isLoading && coinList.length);
+  const hasData = !!(!isLoading && list.length);
   const sortedList = sortCoinList();
 
   useEffect(() => {
-    props.getCoinList();
-  }, [props.list.queryConfig]);
-
+    if (showFavorites) {
+      getFavoriteList();
+    } else {
+      getCoinList();
+    }
+  }, [
+    getCoinList,
+    getFavoriteList,
+    showFavorites,
+    listOrder,
+    listBy,
+    category,
+    page,
+    coinsPerPage,
+  ]);
+  // console.log(coinList.length);
   return (
     <Container>
       <CoinListTitle
         //FAV: TO DO! CONVERT TO REDUX------------------------------------------
-        // showFavorites={showFavorites}
-        // favoriteCoinsLength={favoriteCoinsLength()}
+        showFavorites={showFavorites}
+        favoriteCoinsLength={coinList.length}
         coinsPerPage={coinsPerPage}
         handleCoinsPerPage={props.handleCoinsPerPage}
         page={page}
@@ -84,8 +104,8 @@ const CoinList = (props) => {
         handlePrevPage={props.handlePrevPage}
       />
       <CoinListHeader
-        // showFavorites={showFavorites}
-        // toggleFavoriteList={this.toggleFavoriteList}
+        showFavorites={showFavorites}
+        toggleFavoriteList={props.toggleFavoriteList}
         sortOrder={sortOrder}
         sortBy={sortBy}
         handleSort={props.handleSort}
@@ -108,6 +128,21 @@ const CoinList = (props) => {
           })}
         </>
       )}
+      {/* {hasData && showFavorites && (
+        <>
+          {sortedList.map((coin) => {
+            return (
+              <CoinListItem
+                key={coin.id}
+                coin={coin}
+                currency={props.currency}
+                theme={props.theme}
+                utilityColors={utilityColors}
+              />
+            );
+          })}
+        </>
+      )} */}
       {isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
       {hasError && <div>There was a problem fetching your data..</div>}
       <CoinListFooter />
@@ -117,10 +152,14 @@ const CoinList = (props) => {
 
 const mapStateToProps = (state) => ({
   list: getList(state),
+  favorites: state.favorites,
+  isLoading: isListLoading(state),
 });
 
 const mapDispatchToProps = {
   getCoinList,
+  getFavoriteList,
+  toggleFavoriteList,
   handleSort,
   handleCategory,
   handleCoinsPerPage,
@@ -251,6 +290,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(CoinList);
 // toggleFavoriteList = () => {
 //   this.setState({ showFavorites: !this.state.showFavorites });
 // };
+
 // MOVED TO HOOK===========================================================================
 // DONE!--- MODIFIED WITH REDUX STORE-------------------------------------------------------
 //2: TO DO! CONVERT TO REDUX ACTION: HANDLE_LIST_DER----------------------------------

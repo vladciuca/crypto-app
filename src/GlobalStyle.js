@@ -16,9 +16,10 @@ body {
 }
 ::-webkit-scrollbar {
   width: 0.4rem;
+  background: transparent;
 }
 ::-webkit-scrollbar-track {
-  background: ${(props) => props.theme.cardPrimary};;
+  background: ${(props) => props.theme.bgSecondary};
 }
 ::-webkit-scrollbar-thumb {
   background: ${(props) => props.theme.cardSecondary};

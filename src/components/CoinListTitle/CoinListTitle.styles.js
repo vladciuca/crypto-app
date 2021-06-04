@@ -6,8 +6,8 @@ export const StyledRow = styled(Row)`
   border-radius: 0.75rem;
   display: flex;
   align-items: baseline;
-  padding-top: 0.7rem;
-  padding-bottom: 3.5rem;
+  padding-top: 1.2rem;
+  padding-bottom: 2.5rem;
   margin-bottom: 0.2rem;
   margin-top: 5%;
   font-size: 1.8rem;
@@ -60,7 +60,7 @@ export const PageContainer = styled.div`
 `;
 
 export const Page = styled.div`
-  padding: 0 0.6rem;
+  padding: 0 0.4rem;
   cursor: default;
 `;
 

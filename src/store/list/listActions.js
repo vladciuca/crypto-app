@@ -4,6 +4,10 @@ import {
   LIST_FETCH_COIN_LIST_PENDING,
   LIST_FETCH_COIN_LIST_SUCCESS,
   LIST_FETCH_COIN_LIST_ERROR,
+  // LIST_FETCH_FAVORITE_LIST_PENDING,
+  // LIST_FETCH_FAVORITE_LIST_SUCCESS,
+  // LIST_FETCH_FAVORITE_LIST_ERROR,
+  // TOGGLE_FAVORITE_LIST,
   HANDLE_SORT,
   HANDLE_CATEGORY,
   HANDLE_COINS_PER_PAGE,
@@ -42,12 +46,6 @@ export const handleCategory = (category) => (dispatch, getState) => {
     };
     dispatch({ type: HANDLE_CATEGORY, payload: newCategory });
   }
-  // const newCategory = {
-  //   ...state.list.queryConfig,
-  //   category: category ? category.key : state.list.queryConfig.category,
-  //   page: 1,
-  // };
-  // dispatch({ type: HANDLE_CATEGORY, payload: newCategory });
 };
 
 export const handleCoinsPerPage = (coinsPerPage) => (dispatch, getState) => {
@@ -125,6 +123,58 @@ export const getCoinList = () => async (dispatch, getState) => {
     dispatch({ type: LIST_FETCH_COIN_LIST_ERROR });
   }
 };
+// WORK HERE================================================================================
+
+// export const toggleFavoriteList = () => ({ type: TOGGLE_FAVORITE_LIST });
+
+// export const getFavoriteList = () => async (dispatch, getState) => {
+//   try {
+//     dispatch({ type: LIST_FETCH_FAVORITE_LIST_PENDING });
+//     const state = getState();
+//     const { listOrder, coinsPerPage, favoritePage } = getQueryConfig(state);
+//     // const list = camelToSnake(listBy + listOrder);
+//     // let categoryQuery;
+//     // if (category === "all") {
+//     //   categoryQuery = "";
+//     // } else {
+//     //   categoryQuery = `&category=${camelToSnake(category)}`;
+//     // }
+//     const base = process.env.REACT_APP_ENDPOINT;
+//     // // add ${currency}
+//     // const { data } = await axios(
+//     //   `${base}/coins/markets?vs_currency=usd${categoryQuery}&order=${list}&per_page=${coinsPerPage}&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+//     // );
+
+//     const storageFavoriteList = storage("get", "favoriteList");
+//     if (!storageFavoriteList) {
+//       return;
+//     }
+//     // console.log(storageFavoriteList);
+//     if (Object.values(storageFavoriteList).length === 0) return;
+//     //put it in utils
+//     const favoriteList = Object.values(storageFavoriteList).reduce(
+//       (acc, current, index, array) => {
+//         if (index === array.length - 1) {
+//           return acc + `${current}`;
+//         }
+//         return acc + `${current}%2C%20`;
+//       },
+//       ""
+//     );
+//     // console.log(favoriteList);
+//     // add ${currency}
+//     // add ${favoritePage}
+//     const { data } = await axios(
+//       `${base}/coins/markets?vs_currency=usd&ids=${favoriteList}&order=${listOrder}&per_page=${coinsPerPage}&page=${favoritePage}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+//     );
+//     dispatch({
+//       type: LIST_FETCH_FAVORITE_LIST_SUCCESS,
+//       payload: keysToCamel(data),
+//     });
+//   } catch (error) {
+//     dispatch({ type: LIST_FETCH_FAVORITE_LIST_ERROR });
+//   }
+// };
 
 //TO CONVERT!--- OLD API CALL WITH TURNERY
 // getCoinList = async () => {
