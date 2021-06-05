@@ -1,8 +1,6 @@
 const initialState = {
   coinList: [],
   coinListLength: null,
-  // showFavorites: false,
-  // favoritePage: 1,
   queryConfig: {
     listOrder: "Desc",
     listBy: "marketCap",
@@ -19,11 +17,6 @@ const initialState = {
 export const LIST_FETCH_COIN_LIST_PENDING = "LIST_FETCH_COIN_LIST_PENDING";
 export const LIST_FETCH_COIN_LIST_SUCCESS = "LIST_FETCH_COIN_LIST_SUCCESS";
 export const LIST_FETCH_COIN_LIST_ERROR = "LIST_FETCH_COIN_LIST_ERROR";
-// export const LIST_FETCH_FAVORITE_LIST_PENDING =
-//   "LIST_FETCH_FAVORITE_LIST_PENDING";
-// export const LIST_FETCH_FAVORITE_LIST_SUCCESS =
-//   "LIST_FETCH_FAVORITE_LIST_SUCCESS";
-// export const LIST_FETCH_FAVORITE_LIST_ERROR = "LIST_FETCH_FAVORITE_LIST_ERROR";
 export const HANDLE_SORT = "HANDLE_SORT";
 export const HANDLE_CATEGORY = "HANDLE_CATEGORY";
 export const HANDLE_COINS_PER_PAGE = "HANDLE_COINS_PER_PAGE";
@@ -32,7 +25,6 @@ export const HANDLE_PREV_PAGE = "HANDLE_PREV_PAGE";
 export const HANDLE_LIST_ORDER = "HANDLE_LIST_ORDER";
 export const HANDLE_LIST_BY = "HANDLE_LIST_BY";
 export const FLUSH_COIN_LIST = " FLUSH_COIN_LIST";
-// export const TOGGLE_FAVORITE_LIST = "TOGGLE_FAVORITE_LIST";
 
 function listReducer(state = initialState, action) {
   switch (action.type) {
@@ -60,30 +52,6 @@ function listReducer(state = initialState, action) {
         ...state,
         coinList: [],
       };
-    // case LIST_FETCH_FAVORITE_LIST_PENDING:
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //     hasError: false,
-    //   };
-    // case LIST_FETCH_FAVORITE_LIST_SUCCESS:
-    //   return {
-    //     ...state,
-    //     coinList: action.payload,
-    //     isLoading: false,
-    //     hasError: false,
-    //   };
-    // case LIST_FETCH_FAVORITE_LIST_ERROR:
-    //   return {
-    //     ...state,
-    //     isLoading: false,
-    //     hasError: true,
-    //   };
-    // case TOGGLE_FAVORITE_LIST:
-    //   return {
-    //     ...state,
-    //     showFavorites: !state.showFavorites,
-    //   };
     //QUERY CONFIG STORE
     case HANDLE_SORT:
       return {

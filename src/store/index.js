@@ -15,7 +15,11 @@ const history = createBrowserHistory();
 
 const paramSetup = {
   "/": {
-    listOrder: {
+    by: {
+      stateKey: "list.queryConfig.listBy",
+      options: { shouldPush: true },
+    },
+    order: {
       stateKey: "list.queryConfig.listOrder",
       options: { shouldPush: true },
     },

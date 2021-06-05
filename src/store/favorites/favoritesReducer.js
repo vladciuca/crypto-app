@@ -1,8 +1,6 @@
 const initialState = {
   coinList: [],
-  // coinListLength: null,
   showFavorites: false,
-  // favoritePage: 1,
   favoritesList: {},
 };
 
@@ -41,7 +39,6 @@ function favoritesReducer(state = initialState, action) {
         showFavorites: !state.showFavorites,
       };
     case TOGGLE_FAVORITE_COIN:
-      console.log(action.payload);
       return {
         ...state,
         favoritesList: action.payload,
