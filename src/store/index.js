@@ -10,17 +10,37 @@ import createBrowserHistory from "history/createBrowserHistory";
 import storage from "redux-persist/lib/storage";
 import list from "./list/listReducer";
 import favorites from "./favorites/favoritesReducer";
+import utility from "./utility/utilityReducer";
+import settings from "./settings/settingsReducer";
 
 const history = createBrowserHistory();
 
 const paramSetup = {
   "/": {
+    category: {
+      stateKey: "list.queryConfig.category",
+      options: { shouldPush: true },
+    },
+    page: {
+      stateKey: "list.queryConfig.page",
+      options: { shouldPush: true },
+      type: "number",
+    },
+    perPage: {
+      stateKey: "list.queryConfig.coinsPerPage",
+      options: { shouldPush: true },
+      type: "number",
+    },
     by: {
       stateKey: "list.queryConfig.listBy",
       options: { shouldPush: true },
     },
     order: {
       stateKey: "list.queryConfig.listOrder",
+      options: { shouldPush: true },
+    },
+    sortBy: {
+      stateKey: "list.queryConfig.sortBy",
       options: { shouldPush: true },
     },
   },
@@ -36,18 +56,26 @@ function mapLocationToState(state, location) {
   }
 }
 
-const persistConfig = {
+const favoritesPersistConfig = {
   key: "favorites",
   storage,
   whitelist: ["favoritesList"],
 };
 
+const rootPersistConfig = {
+  key: "root",
+  storage: storage,
+  whitelist: ["settings"],
+};
+
 const reducers = combineReducers({
   list,
-  favorites,
+  favorites: persistReducer(favoritesPersistConfig, favorites),
+  utility,
+  settings,
 });
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = persistReducer(rootPersistConfig, reducers);
 
 const { locationMiddleware, reducersWithLocation } = createReduxLocationActions(
   paramSetup,
@@ -64,8 +92,6 @@ const composeEnhancers =
 export const store = composeEnhancers(
   applyMiddleware(thunk, locationMiddleware)
 )(createStore)(reducersWithLocation);
-
-//const store = compose(applyMiddleware([locationMiddleware]))(createStore)(reducersWithLocation);
 
 export const persistor = persistStore(store);
 listenForHistoryChange(store, history);

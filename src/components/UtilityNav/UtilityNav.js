@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import {
   PercentageBarTooltip,
   UtilityNavPair,
@@ -7,36 +7,24 @@ import {
   CurrencySelect,
   ThemeSwitch,
 } from "components";
-import {
-  getCurrencySymbol,
-  keysToCamel,
-  convertLongNumber,
-  formatNumber,
-} from "utils";
+import { getCurrencySymbol, convertLongNumber, formatNumber } from "utils";
+import { getGlobalData } from "store/utility/utilityActions";
 import { utilityColors } from "../../theme";
 import { Container, StyledRow, StyledCol } from "./UtilityNav.styles";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
 
-const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
-  const [globalData, setGlobalData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const getGlobalData = async () => {
-    try {
-      setError(false);
-      setLoading(true);
-      const base = process.env.REACT_APP_ENDPOINT;
-      const { data } = await axios(`${base}/global`);
-      setLoading(false);
-      setGlobalData(keysToCamel(data.data));
-    } catch (error) {
-      setLoading(false);
-      setError(true);
-    }
-  };
-
+const UtilityNav = ({
+  currency,
+  handleCurrency,
+  theme,
+  handleTheme,
+  globalData,
+  getGlobalData,
+  isLoading,
+  hasError,
+}) => {
   const getCurrencyValue = (key) => {
+    if (globalData === null) return;
     return globalData[key][currency];
   };
 
@@ -44,14 +32,14 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
 
   useEffect(() => {
     getGlobalData();
-  }, []);
+  }, [getGlobalData]);
 
-  const hasData = !loading && globalData;
+  const hasData = !isLoading && globalData;
 
   return (
     <Container>
-      {loading && <SkeletonText width="70%" height="0.5rem" />}
-      {error && "has ERROR"}
+      {isLoading && <SkeletonText width="70%" height="0.5rem" />}
+      {hasError && "has ERROR"}
       {hasData && (
         <StyledRow gutter={[8]}>
           <StyledCol>
@@ -201,4 +189,14 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
   );
 };
 
-export default UtilityNav;
+const mapStateToProps = (state) => ({
+  globalData: state.utility.globalData,
+  isLoading: state.utility.isLoadingGlobalData,
+  hasError: state.utility.hasErrorGlobalData,
+});
+
+const mapDispatchToProps = {
+  getGlobalData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UtilityNav);

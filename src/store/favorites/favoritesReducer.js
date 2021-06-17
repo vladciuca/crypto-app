@@ -2,6 +2,8 @@ const initialState = {
   coinList: [],
   showFavorites: false,
   favoritesList: {},
+  isLoading: false,
+  hasError: false,
 };
 
 export const LIST_FETCH_FAVORITE_LIST_PENDING =

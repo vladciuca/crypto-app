@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import LoadingBar from "react-top-loading-bar";
 import {
   CoinListTitle,
   CoinListHeader,
@@ -27,12 +28,28 @@ import {
 import { getList, isListLoading } from "store/list/listReducer";
 
 const CoinList = (props) => {
-  const { getCoinList, getFavoriteList, isLoading } = props;
+  const {
+    getCoinList,
+    getFavoriteList,
+    isLoading,
+    handleCoinsPerPage,
+    handleListBy,
+    handleListOrder,
+    handleCategory,
+    handleNextPage,
+    handlePrevPage,
+    toggleFavoriteList,
+    handleSort,
+  } = props;
   const { coinList, hasError } = props.list;
   const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =
     props.list.queryConfig;
   const { showFavorites, coinList: favoriteList } = props.favorites;
+  const { theme, currency } = props.settings;
   const list = showFavorites ? favoriteList : coinList;
+  const loadingBar = React.createRef();
+
+  console.log(utilityColors);
 
   const sortCoinList = () => {
     if (!list) {
@@ -59,12 +76,21 @@ const CoinList = (props) => {
   const sortedList = sortCoinList();
 
   useEffect(() => {
+    if (isLoading) {
+      loadingBar.current.continuousStart();
+    } else {
+      loadingBar.current.complete();
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
     if (showFavorites) {
       getFavoriteList();
     } else {
       getCoinList();
     }
   }, [
+    currency,
     getCoinList,
     getFavoriteList,
     showFavorites,
@@ -77,27 +103,28 @@ const CoinList = (props) => {
 
   return (
     <Container>
+      <LoadingBar color={utilityColors.volume} ref={loadingBar} />
       <CoinListTitle
         showFavorites={showFavorites}
         favoriteCoinsLength={list.length}
         coinsPerPage={coinsPerPage}
-        handleCoinsPerPage={props.handleCoinsPerPage}
+        handleCoinsPerPage={handleCoinsPerPage}
         page={page}
         listOrder={listOrder}
         listBy={listBy}
-        handleListBy={props.handleListBy}
-        handleListOrder={props.handleListOrder}
+        handleListBy={handleListBy}
+        handleListOrder={handleListOrder}
         category={category}
-        handleCategory={props.handleCategory}
-        handleNextPage={props.handleNextPage}
-        handlePrevPage={props.handlePrevPage}
+        handleCategory={handleCategory}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
       />
       <CoinListHeader
         showFavorites={showFavorites}
-        toggleFavoriteList={props.toggleFavoriteList}
+        toggleFavoriteList={toggleFavoriteList}
         sortOrder={sortOrder}
         sortBy={sortBy}
-        handleSort={props.handleSort}
+        handleSort={handleSort}
         page={page}
         coinsPerPage={coinsPerPage}
       />
@@ -108,8 +135,8 @@ const CoinList = (props) => {
               <CoinListItem
                 key={coin.id}
                 coin={coin}
-                currency={props.currency}
-                theme={props.theme}
+                currency={currency}
+                theme={theme}
                 utilityColors={utilityColors}
               />
             );
@@ -125,6 +152,7 @@ const CoinList = (props) => {
 };
 
 const mapStateToProps = (state) => ({
+  settings: state.settings,
   list: getList(state),
   favorites: state.favorites,
   isLoading: isListLoading(state),

@@ -13,7 +13,7 @@ export const RowHeader = styled(Row)`
 export const ColHeader = styled(Col)`
   display: flex;
   align-items: center;
-  padding: 0.4rem 0;
+  padding: 0.5rem 0;
   font-weight: bold;
   color: ${(props) => props.theme.text};
 `;

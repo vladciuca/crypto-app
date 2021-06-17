@@ -10,7 +10,7 @@ const NavBar = ({ homePageLink, ...props }) => {
       <Container>
         <ul>
           <li>
-            <StyledLink to={`/${homePageLink}`}>
+            <StyledLink to={"/"}>
               <Icon>
                 <FaCoins size="1.3rem" />
               </Icon>

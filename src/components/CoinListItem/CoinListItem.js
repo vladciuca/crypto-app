@@ -22,7 +22,7 @@ import {
 
 import { Col } from "antd";
 
-const CoinListItem = ({ coin, currency, theme, utilityColors }) => {
+const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
   const currencySymbol = getCurrencySymbol(currency);
   const {
     id,
