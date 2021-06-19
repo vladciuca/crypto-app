@@ -5,7 +5,7 @@ const initialState = {
     listOrder: "Desc",
     listBy: "marketCap",
     page: 1,
-    coinsPerPage: 50,
+    coinsPerPage: 10,
     category: "all",
     sortOrder: true,
     sortBy: "marketCapRank",
