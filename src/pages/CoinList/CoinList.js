@@ -49,8 +49,6 @@ const CoinList = (props) => {
   const list = showFavorites ? favoriteList : coinList;
   const loadingBar = React.createRef();
 
-  console.log(utilityColors);
-
   const sortCoinList = () => {
     if (!list) {
       return;
