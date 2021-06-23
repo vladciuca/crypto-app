@@ -1,4 +1,9 @@
 import styled from "styled-components";
+import Select from "react-select";
+
+export const StyledSelect = styled(Select)`
+  width: 200px;
+`;
 
 export const SearchForm = styled.form`
   cursor: pointer;
@@ -8,7 +13,7 @@ export const SearchForm = styled.form`
 
 export const SearchBtn = styled.span`
   margin-left: 0.6rem;
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.primary};
   background-color: ${(props) => props.theme.cardSecondary};
   height: 2.5rem;
   border-radius: 0rem 0.5rem 0.5rem 0rem;
@@ -17,9 +22,6 @@ export const SearchBtn = styled.span`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  :hover {
-    color: ${(props) => props.theme.primary};
-  }
 `;
 
 export const SearchInput = styled.input`

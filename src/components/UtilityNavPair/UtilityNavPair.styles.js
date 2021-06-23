@@ -49,7 +49,6 @@ export const TooltipValue = styled.div`
 export const MarketCapChange = styled.div`
   display: flex;
   align-items: center;
-  padding-left: 0.1rem;
   ${(props) =>
     props.marketcapchange < 0
       ? css`

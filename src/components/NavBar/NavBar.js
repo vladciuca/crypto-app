@@ -1,35 +1,42 @@
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { FaCoins } from "react-icons/all";
 import { Search } from "components";
-import { FaCoins } from "react-icons/fa";
-import { GiPieChart } from "react-icons/gi";
 import { Nav, Container, StyledLink, Icon } from "./NavBar.styles";
+import { hideFavoriteList } from "store/favorites/favoritesActions";
 
-const NavBar = ({ homePageLink, ...props }) => {
+const NavBar = ({ history, hideFavoriteList }) => {
   return (
     <Nav>
       <Container>
         <ul>
           <li>
-            <StyledLink to={`/${homePageLink}`}>
+            <StyledLink to={"/"} onClick={hideFavoriteList}>
               <Icon>
-                <FaCoins size="1.3rem" />
+                <FaCoins size="1.5rem" />
               </Icon>
-              <span>Coins</span>
+              <span>CoinBook</span>
             </StyledLink>
           </li>
-          <li>
+          {/* <li>
             <StyledLink to="/dashboard">
               <Icon>
                 <GiPieChart size="1.4rem" />
               </Icon>
               <span>Portfolio</span>
             </StyledLink>
-          </li>
+          </li> */}
         </ul>
-        <Search history={props.history} />
+        <Search history={history} />
       </Container>
     </Nav>
   );
 };
 
-export default withRouter(NavBar);
+const mapStateToProps = (state) => ({
+  // showFavorites: state.favorites.showFavorites,
+});
+const mapDispatchToProps = { hideFavoriteList };
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(NavBar));
+//withRouter

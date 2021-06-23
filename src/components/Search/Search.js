@@ -1,39 +1,75 @@
-import React from "react";
-import { SearchForm, SearchInput, SearchBtn } from "./Search.styles";
-import { RiSearch2Line } from "react-icons/ri";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import {
+  SearchForm,
+  SearchInput,
+  SearchBtn,
+  StyledSelect,
+} from "./Search.styles";
+import { RiSearch2Line } from "react-icons/all";
+import { getAllCoins } from "store/search/searchActions";
+import { getCoin } from "store/coin/coinActions";
 
-export default class Search extends React.Component {
-  state = {
-    value: this.props.value,
+const Search = ({ getCoin, allCoins, getAllCoins, history }) => {
+  const [value, setValue] = useState("");
+  const input = React.createRef();
+  const handleClick = () => {
+    input.current.focus();
   };
-  input = React.createRef();
-  handleClick = () => {
-    this.input.current.focus();
-  };
-  handleChange = (e) => {
+  const handleChange = (e) => {
     const searchTerm = e.target.value;
-    this.props.history.push(`/coins/${searchTerm}`);
-    this.setState({ value: searchTerm });
+    console.log(searchTerm);
+    history.push(`/search/${searchTerm}`);
+    setValue(searchTerm);
   };
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.setState({ value: "" });
+    setValue("");
   };
-  render() {
-    return (
-      <SearchForm onSubmit={this.handleSubmit}>
+  useEffect(() => {
+    getAllCoins();
+  }, []);
+
+  const searchList = allCoins.map((item) => {
+    return { value: item.symbol, label: item.name, id: item.id };
+  });
+
+  const selectCoin = (coin) => {
+    if (!coin) return;
+    history.push(`/coins/${coin.id}`);
+  };
+
+  return (
+    <>
+      <StyledSelect
+        isClearable={true}
+        onChange={selectCoin}
+        isSearchable={true}
+        name="Coins"
+        options={searchList}
+        placeholder="Search..."
+      />
+      <SearchForm onSubmit={handleSubmit}>
         <SearchInput
           type="text"
           placeholder="Search"
-          ref={this.input}
-          value={this.state.value}
-          onChange={this.handleChange}
-          onBlur={this.handleSubmit}
+          ref={input}
+          value={value}
+          onChange={handleChange}
+          onBlur={handleSubmit}
         />
-        <SearchBtn onClick={this.handleClick}>
+        <SearchBtn onClick={handleClick}>
           <RiSearch2Line size="1.4rem" />
         </SearchBtn>
       </SearchForm>
-    );
-  }
-}
+    </>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  allCoins: state.search.allCoins,
+});
+
+const mapDispatchToProps = { getCoin, getAllCoins };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

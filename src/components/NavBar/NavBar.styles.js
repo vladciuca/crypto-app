@@ -19,8 +19,8 @@ export const Container = styled.div`
   justify-content: space-between;
   padding: 0 1.5rem;
   border-radius: 0.75rem;
-  padding-top: 2.5rem;
-  padding-bottom: 0.5rem;
+  padding-top: 2rem;
+  padding-bottom: 0.3rem;
 `;
 
 export const Icon = styled.div`
@@ -31,8 +31,7 @@ export const Icon = styled.div`
 
 export const StyledLink = styled(Link)`
   color: ${(props) => props.theme.text};
-  text-decoration: none;
-  padding-right: 2rem;
+  padding-right: 1.5rem;
   display: flex;
   align-items: center;
   span {

@@ -15,6 +15,7 @@ export { default as PercentageBar } from "./PercentageBar";
 //CoinList Components
 export { default as EmptyFavoriteList } from "./EmptyFavoriteList";
 export { default as CoinListTitle } from "./CoinListTitle";
+export { default as CategorySelect } from "./CategorySelect";
 export { default as CoinListHeader } from "./CoinListHeader";
 export { default as CoinListFooter } from "./CoinListFooter";
 export { default as CoinListItem } from "./CoinListItem";

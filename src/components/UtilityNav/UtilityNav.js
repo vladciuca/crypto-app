@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import {
   PercentageBarTooltip,
   UtilityNavPair,
@@ -7,36 +7,32 @@ import {
   CurrencySelect,
   ThemeSwitch,
 } from "components";
+import { getCurrencySymbol, convertLongNumber, formatNumber } from "utils";
 import {
-  getCurrencySymbol,
-  keysToCamel,
-  convertLongNumber,
-  formatNumber,
-} from "utils";
+  getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
+} from "store/utility/utilityActions";
 import { utilityColors } from "../../theme";
 import { Container, StyledRow, StyledCol } from "./UtilityNav.styles";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
 
-const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
-  const [globalData, setGlobalData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-
-  const getGlobalData = async () => {
-    try {
-      setError(false);
-      setLoading(true);
-      const base = process.env.REACT_APP_ENDPOINT;
-      const { data } = await axios(`${base}/global`);
-      setLoading(false);
-      setGlobalData(keysToCamel(data.data));
-    } catch (error) {
-      setLoading(false);
-      setError(true);
-    }
-  };
-
+const UtilityNav = ({
+  currency,
+  handleCurrency,
+  theme,
+  handleTheme,
+  globalData,
+  getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
+  btcMarketCap,
+  ethMarketCap,
+  isLoading,
+  hasError,
+}) => {
   const getCurrencyValue = (key) => {
+    if (globalData === null) return;
     return globalData[key][currency];
   };
 
@@ -44,14 +40,16 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
 
   useEffect(() => {
     getGlobalData();
-  }, []);
+    getBtcMarketCap();
+    getEthMarketCap();
+  }, [getGlobalData, getBtcMarketCap, getEthMarketCap]);
 
-  const hasData = !loading && globalData;
+  const hasData = !isLoading && globalData;
 
   return (
     <Container>
-      {loading && <SkeletonText width="100%" height="0.5rem" />}
-      {error && "has ERROR"}
+      {isLoading && <SkeletonText width="70%" height="0.5rem" />}
+      {hasError && "has ERROR"}
       {hasData && (
         <StyledRow gutter={[8]}>
           <StyledCol>
@@ -117,7 +115,7 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               fillPercentage={""}
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>
@@ -141,14 +139,14 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"BTC Market Cap"}
-              fillValue={"placeholder"}
+              fillValue={btcMarketCap && btcMarketCap[currency]}
               fillColor={utilityColors.btc}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.btc.toFixed(2)
               }
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>
@@ -174,14 +172,14 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"ETH Market Cap"}
-              fillValue={"placeholder"}
+              fillValue={ethMarketCap && ethMarketCap[currency]}
               fillColor={utilityColors.eth}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.eth.toFixed(2)
               }
               wide={true}
               width={"2.5rem"}
-              height={"0.5rem"}
+              height={"0.4rem"}
             />
           </StyledCol>
           <StyledCol>
@@ -189,23 +187,30 @@ const UtilityNav = ({ currency, handleCurrency, theme, handleTheme }) => {
           </StyledCol>
         </StyledRow>
       )}
-      {loading && <SkeletonText width="100%" height="0.5rem" />}
-      {error && "has ERROR"}
-      {hasData && (
-        <StyledRow gutter={[8]}>
-          <StyledCol>
-            <CurrencySelect
-              currency={currency}
-              handleCurrency={handleCurrency}
-            />
-          </StyledCol>
-          <StyledCol>
-            <ThemeSwitch theme={theme} handleTheme={handleTheme} />
-          </StyledCol>
-        </StyledRow>
-      )}
+      <StyledRow>
+        <StyledCol>
+          <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
+        </StyledCol>
+        <StyledCol>
+          <ThemeSwitch theme={theme} handleTheme={handleTheme} />
+        </StyledCol>
+      </StyledRow>
     </Container>
   );
 };
 
-export default UtilityNav;
+const mapStateToProps = (state) => ({
+  globalData: state.utility.globalData,
+  btcMarketCap: state.utility.btcMarketCap,
+  ethMarketCap: state.utility.ethMarketCap,
+  isLoading: state.utility.isLoadingGlobalData,
+  hasError: state.utility.hasErrorGlobalData,
+});
+
+const mapDispatchToProps = {
+  getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UtilityNav);

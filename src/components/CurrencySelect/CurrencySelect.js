@@ -3,8 +3,10 @@ import {
   AiFillDollarCircle,
   AiFillEuroCircle,
   AiFillPoundCircle,
-} from "react-icons/ai";
-import { FaBitcoin, FaEthereum } from "react-icons/fa";
+  FaBitcoin,
+  FaEthereum,
+  FaCaretDown,
+} from "react-icons/all";
 import {
   Icon,
   Currency,
@@ -12,7 +14,6 @@ import {
   StyledMenuItem,
   StyledMenu,
 } from "./CurrencySelect.styles";
-import { DownOutlined } from "@ant-design/icons";
 
 const CurrencySelect = ({ currency, handleCurrency }) => {
   const currencyIcon = () => {
@@ -68,7 +69,7 @@ const CurrencySelect = ({ currency, handleCurrency }) => {
       <DropdownContent>
         <Icon>{currencyIcon()}</Icon>
         <Currency>{currency}</Currency>
-        <DownOutlined />
+        <FaCaretDown />
       </DropdownContent>
     </Dropdown>
   );
