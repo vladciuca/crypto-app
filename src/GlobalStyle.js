@@ -1,16 +1,19 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Exo', sans-serif;
   margin: 0;
   padding: 0;
 }
 body {
   background-color:  ${(props) => props.theme.bgPrimary};
-  background-image: radial-gradient(circle at top left, ${(props) =>
-    props.theme.bgSecondary},  ${(props) => props.theme.bgPrimary} 50%);
+  background-image: radial-gradient( circle farthest-corner at -10% -30%,  
+    ${(props) => props.theme.bgComplementary} 0%, 
+    ${(props) => props.theme.bgSecondary} 30%,
+    ${(props) => props.theme.bgPrimary} 60%,
+    ${(props) => props.theme.bgSecondary} 80%, 
+    ${(props) => props.theme.bgComplementary} 130% );  
   background-attachment: fixed;
   background-repeat: no-repeat;
   color: ${(props) => props.theme.text};

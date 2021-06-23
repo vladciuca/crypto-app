@@ -8,7 +8,8 @@ import {
   Select,
   Centered,
   Page,
-} from "./CoinHeader.styles";
+  Name,
+} from "./CoinListHeader.styles";
 
 const CoinListHeader = ({
   showFavorites,
@@ -50,7 +51,7 @@ const CoinListHeader = ({
         </Centered>
       </ColHeader>
       <ColHeader lg={{ span: 4 }} onClick={() => handleSort("name")}>
-        Name
+        <Name>Name</Name>
         {sortBy === "name" && <CaretSymbol value={sortOrder} />}
       </ColHeader>
       <ColHeader lg={{ span: 2 }} onClick={() => handleSort("currentPrice")}>

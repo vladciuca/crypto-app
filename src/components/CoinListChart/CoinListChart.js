@@ -1,6 +1,15 @@
 import { Line } from "react-chartjs-2";
+import { lightTheme, darkTheme } from "../../theme";
 
-const CoinListChart = ({ categoryColor, priceData }) => {
+const CoinListChart = ({ priceChange, priceData, theme }) => {
+  const themeColor = theme ? lightTheme : darkTheme;
+  const chartColor = () => {
+    if (priceChange > 0) {
+      return themeColor.success;
+    } else {
+      return themeColor.danger;
+    }
+  };
   return (
     <Line
       data={{
@@ -9,8 +18,9 @@ const CoinListChart = ({ categoryColor, priceData }) => {
           {
             label: `Price Chart`,
             data: priceData,
-            backgroundColor: categoryColor,
-            borderColor: categoryColor,
+            backgroundColor: `transparent`,
+            borderWidth: 1,
+            borderColor: chartColor(),
             borderJoinStyle: "round",
             pointRadius: 0,
           },

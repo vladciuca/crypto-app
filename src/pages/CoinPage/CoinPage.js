@@ -55,7 +55,11 @@ export default class CoinPage extends React.Component {
               <Col span={12}>
                 <Card>
                   <div>Description:</div>
-                  {coinData.description.en || ""}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: coinData.description.en || "",
+                    }}
+                  ></div>
                 </Card>
               </Col>
               <Col span={1}></Col>

@@ -1,9 +1,11 @@
 import { Row } from "antd";
+import { GiPlainCircle } from "react-icons/gi";
 import {
   GasPriceCol,
-  GasPrice,
-  Speed,
-  Ticker,
+  TooltipKey,
+  TooltipRow,
+  TooltipSpacer,
+  TooltipValue,
 } from "./ETHGasPriceTooltip.styles";
 
 const ETHGasPriceTooltip = (props) => {
@@ -27,18 +29,24 @@ const ETHGasPriceTooltip = (props) => {
   ];
   return (
     <>
+      <TooltipRow>
+        <TooltipSpacer>
+          <GiPlainCircle size="1rem" color="gray" />
+        </TooltipSpacer>
+        Eth Gas Fees:
+      </TooltipRow>
       {ethGasPriceRange.map((item) => {
         return (
           <Row key={item.speed}>
             <GasPriceCol span={8}>
-              <Speed>{item.speed}:</Speed>
+              <TooltipKey>{item.speed}:</TooltipKey>
             </GasPriceCol>
             <GasPriceCol span={8}>
-              <GasPrice>{item.gasPrice}</GasPrice>
-              <Ticker>Gwei</Ticker>
+              <TooltipValue>{item.gasPrice}</TooltipValue>
+              Gwei
             </GasPriceCol>
             <GasPriceCol span={8}>
-              <span>~{item.time} s</span>
+              <TooltipKey>~{item.time} s</TooltipKey>
             </GasPriceCol>
           </Row>
         );

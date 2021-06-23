@@ -2,17 +2,10 @@ import React from "react";
 import axios from "axios";
 import { Tooltip } from "antd";
 import { FaGasPump } from "react-icons/fa";
-import { BiInfoCircle } from "react-icons/bi";
 import { ETHGasPriceTooltip } from "components";
+import { utilityColors } from "../../theme";
+import { Container, Value, Ticker } from "./ETHGasPrice.styles";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
-import {
-  GasPriceContainer,
-  Description,
-  Value,
-  Ticker,
-  Icon,
-} from "./ETHGasPrice.styles";
-
 export default class ETHGasPrice extends React.Component {
   state = {
     ethGasData: null,
@@ -48,17 +41,11 @@ export default class ETHGasPrice extends React.Component {
             placement="bottomRight"
             title={() => <ETHGasPriceTooltip ethGasData={ethGasData} />}
           >
-            <GasPriceContainer>
-              <Icon>
-                <FaGasPump />
-              </Icon>
-              <Description>ETH Gas:</Description>
+            <Container>
+              <FaGasPump size="0.7rem" color={utilityColors.eth} />
               <Value>{ethGasData.fast / 10}</Value>
               <Ticker>Gwei</Ticker>
-              <Icon>
-                <BiInfoCircle />
-              </Icon>
-            </GasPriceContainer>
+            </Container>
           </Tooltip>
         )}
       </>

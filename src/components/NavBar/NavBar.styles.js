@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const Nav = styled.nav`
-  background-color: ${(props) => props.theme.cardPrimary};
   ul {
     margin: 1.5rem 0;
     list-style-type: none;
@@ -10,13 +9,18 @@ export const Nav = styled.nav`
     align-items: center;
     font-size: 1rem;
   }
+  margin-top: -2rem;
 `;
 
-export const NavContainer = styled.div`
+export const Container = styled.div`
+  background-color: ${(props) => props.theme.cardPrimary};
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 5%;
+  padding: 0 1.5rem;
+  border-radius: 0.75rem;
+  padding-top: 2.5rem;
+  padding-bottom: 0.5rem;
 `;
 
 export const Icon = styled.div`

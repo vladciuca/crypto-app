@@ -11,7 +11,9 @@ export default class Search extends React.Component {
     this.input.current.focus();
   };
   handleChange = (e) => {
-    this.setState({ value: e.target.value });
+    const searchTerm = e.target.value;
+    this.props.history.push(`/coins/${searchTerm}`);
+    this.setState({ value: searchTerm });
   };
   handleSubmit = (e) => {
     e.preventDefault();

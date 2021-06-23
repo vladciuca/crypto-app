@@ -1,31 +1,20 @@
 import styled from "styled-components";
 
-export const GasPriceContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 0.8rem;
+  margin-left: 0.2rem;
   cursor: pointer;
 `;
 
-export const Description = styled.div`
-  color: ${(props) => props.theme.info};
-  padding-left: 0.1rem;
-`;
-
 export const Value = styled.div`
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.text};
   padding-left: 0.2rem;
+  font-weight: bold;
 `;
 
 export const Ticker = styled.div`
-  font-weight: bold;
-  color: ${(props) => props.theme.primary};
-  padding-left: 0.1rem;
-`;
-
-export const Icon = styled.div`
-  color: ${(props) => props.theme.info};
-  display: flex;
-  align-items: center;
+  font-weight: normal;
+  color: ${(props) => props.theme.text};
   padding-left: 0.1rem;
 `;

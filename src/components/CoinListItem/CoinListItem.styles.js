@@ -14,7 +14,7 @@ export const Ticker = styled.span`
   font-size: 0.8rem;
   text-transform: uppercase;
   font-weight: bold;
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.info};
   padding-left: 0.2rem;
 `;
 
@@ -43,7 +43,7 @@ export const RankCol = styled(Col)`
   justify-content: center;
   align-items: center;
   font-size: 0.8rem;
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.text};
 `;
 
 export const ImgCol = styled(Col)`
@@ -69,7 +69,8 @@ export const NameCol = styled(Col)`
 export const CurrentPriceCol = styled(Col)`
   display: flex;
   align-items: center;
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.text};
+  font-weight: bold;
   padding-right: 1rem;
 `;
 
@@ -88,32 +89,9 @@ export const PriceChangeCol = styled(Col)`
 
 export const NotAvailable = styled(Col)`
   display: flex;
-  justify-content: center;
+  padding-left: 1.5rem;
   align-items: center;
-  font-size: 1rem;
-  font-weight: bold;
-  color: ${(props) => props.theme.secondary};
-`;
-
-export const DoubleSlotCol = styled(Col)`
-  text-align: right;
-  padding: 0.5rem 1rem;
-  div:first-child {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: ${(props) => props.theme.primary};
-    padding-bottom: 0.2rem;
-    border-bottom: 0.2rem solid ${(props) => props.theme.bgPrimary};
-  }
-  div:nth-child(2) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.8rem;
-    align-items: center;
-    padding-top: 0.2rem;
-  }
+  font-size: 0.7rem;
 `;
 
 export const ChartCol = styled(Col)`
@@ -126,14 +104,6 @@ export const InfoText = styled.span`
 `;
 
 export const ChartContainer = styled.div`
-  height: 2.75rem;
-`;
-
-export const BottomChartBorder = styled.div`
-  height: 1rem;
-  background: linear-gradient(
-    to top,
-    transparent 10%,
-    ${(props) => props.categoryColor} 90%
-  );
+  height: 3rem;
+  margin-right: 0.5rem;
 `;
