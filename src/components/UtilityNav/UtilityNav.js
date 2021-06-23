@@ -8,7 +8,11 @@ import {
   ThemeSwitch,
 } from "components";
 import { getCurrencySymbol, convertLongNumber, formatNumber } from "utils";
-import { getGlobalData } from "store/utility/utilityActions";
+import {
+  getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
+} from "store/utility/utilityActions";
 import { utilityColors } from "../../theme";
 import { Container, StyledRow, StyledCol } from "./UtilityNav.styles";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
@@ -20,6 +24,10 @@ const UtilityNav = ({
   handleTheme,
   globalData,
   getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
+  btcMarketCap,
+  ethMarketCap,
   isLoading,
   hasError,
 }) => {
@@ -32,7 +40,9 @@ const UtilityNav = ({
 
   useEffect(() => {
     getGlobalData();
-  }, [getGlobalData]);
+    getBtcMarketCap();
+    getEthMarketCap();
+  }, [getGlobalData, getBtcMarketCap, getEthMarketCap]);
 
   const hasData = !isLoading && globalData;
 
@@ -129,7 +139,7 @@ const UtilityNav = ({
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"BTC Market Cap"}
-              fillValue={"placeholder"}
+              fillValue={btcMarketCap && btcMarketCap[currency]}
               fillColor={utilityColors.btc}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.btc.toFixed(2)
@@ -162,7 +172,7 @@ const UtilityNav = ({
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"ETH Market Cap"}
-              fillValue={"placeholder"}
+              fillValue={ethMarketCap && ethMarketCap[currency]}
               fillColor={utilityColors.eth}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.eth.toFixed(2)
@@ -177,7 +187,7 @@ const UtilityNav = ({
           </StyledCol>
         </StyledRow>
       )}
-      <StyledRow gutter={[8]}>
+      <StyledRow>
         <StyledCol>
           <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
         </StyledCol>
@@ -191,12 +201,16 @@ const UtilityNav = ({
 
 const mapStateToProps = (state) => ({
   globalData: state.utility.globalData,
+  btcMarketCap: state.utility.btcMarketCap,
+  ethMarketCap: state.utility.ethMarketCap,
   isLoading: state.utility.isLoadingGlobalData,
   hasError: state.utility.hasErrorGlobalData,
 });
 
 const mapDispatchToProps = {
   getGlobalData,
+  getBtcMarketCap,
+  getEthMarketCap,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UtilityNav);

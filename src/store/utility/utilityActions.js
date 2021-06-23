@@ -7,6 +7,12 @@ import {
   FETCH_ETH_GAS_DATA_PENDING,
   FETCH_ETH_GAS_DATA_SUCCESS,
   FETCH_ETH_GAS_DATA_ERROR,
+  FETCH_BTC_MARKET_CAP_PENDING,
+  FETCH_BTC_MARKET_CAP_SUCCESS,
+  FETCH_BTC_MARKET_CAP_ERROR,
+  FETCH_ETH_MARKET_CAP_PENDING,
+  FETCH_ETH_MARKET_CAP_SUCCESS,
+  FETCH_ETH_MARKET_CAP_ERROR,
 } from "./utilityReducer";
 
 export const getGlobalData = () => async (dispatch) => {
@@ -36,5 +42,35 @@ export const getEthGasData = () => async (dispatch) => {
     });
   } catch (error) {
     dispatch({ type: FETCH_ETH_GAS_DATA_ERROR });
+  }
+};
+
+export const getBtcMarketCap = () => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_BTC_MARKET_CAP_PENDING });
+    const id = "bitcoin";
+    const base = process.env.REACT_APP_ENDPOINT;
+    const { data } = await axios(`${base}/coins/${id}`);
+    dispatch({
+      type: FETCH_BTC_MARKET_CAP_SUCCESS,
+      payload: data.market_data.market_cap,
+    });
+  } catch (error) {
+    dispatch({ type: FETCH_BTC_MARKET_CAP_ERROR });
+  }
+};
+
+export const getEthMarketCap = () => async (dispatch) => {
+  try {
+    dispatch({ type: FETCH_ETH_MARKET_CAP_PENDING });
+    const id = "ethereum";
+    const base = process.env.REACT_APP_ENDPOINT;
+    const { data } = await axios(`${base}/coins/${id}`);
+    dispatch({
+      type: FETCH_ETH_MARKET_CAP_SUCCESS,
+      payload: data.market_data.market_cap,
+    });
+  } catch (error) {
+    dispatch({ type: FETCH_ETH_MARKET_CAP_ERROR });
   }
 };

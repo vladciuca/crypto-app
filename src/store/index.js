@@ -12,6 +12,8 @@ import list from "./list/listReducer";
 import favorites from "./favorites/favoritesReducer";
 import utility from "./utility/utilityReducer";
 import settings from "./settings/settingsReducer";
+import search from "./search/searchReducer";
+import coin from "./coin/coinReducer";
 
 const history = createBrowserHistory();
 
@@ -65,7 +67,7 @@ const favoritesPersistConfig = {
 const rootPersistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["settings"],
+  whitelist: ["settings", "search"],
 };
 
 const reducers = combineReducers({
@@ -73,6 +75,8 @@ const reducers = combineReducers({
   favorites: persistReducer(favoritesPersistConfig, favorites),
   utility,
   settings,
+  search,
+  coin,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, reducers);

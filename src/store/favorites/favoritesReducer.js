@@ -13,6 +13,7 @@ export const LIST_FETCH_FAVORITE_LIST_SUCCESS =
 export const LIST_FETCH_FAVORITE_LIST_ERROR = "LIST_FETCH_FAVORITE_LIST_ERROR";
 export const TOGGLE_FAVORITE_LIST = "TOGGLE_FAVORITE_LIST";
 export const TOGGLE_FAVORITE_COIN = "TOGGLE_FAVORITE_COIN";
+export const HIDE_FAVORITE_LIST = "HIDE_FAVORITE_LIST";
 
 function favoritesReducer(state = initialState, action) {
   switch (action.type) {
@@ -44,6 +45,11 @@ function favoritesReducer(state = initialState, action) {
       return {
         ...state,
         favoritesList: action.payload,
+      };
+    case HIDE_FAVORITE_LIST:
+      return {
+        ...state,
+        showFavorites: false,
       };
     default:
       return state;

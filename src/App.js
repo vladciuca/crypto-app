@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import { CoinList, CoinPage, Portfolio } from "pages";
+import { CoinList, CoinPage } from "pages";
 import { NavBar, UtilityNav } from "components";
 import { toggleTheme, changeCurrency } from "store/settings/settingsActions";
 import { lightTheme, darkTheme } from "./theme";
@@ -30,14 +30,10 @@ const App = (props) => {
         </Container>
         <Switch>
           <Route exact path="/" component={CoinList}></Route>
-          <Route
-            exact
-            path="/coins/:id"
-            component={(props) => <CoinPage {...props} currency={currency} />}
-          ></Route>
-          <Route exact path="/dashboard">
+          <Route exact path="/coins/:id" component={CoinPage}></Route>
+          {/* <Route exact path="/dashboard">
             <Portfolio />
-          </Route>
+          </Route> */}
         </Switch>
       </Router>
     </ThemeProvider>
