@@ -9,7 +9,7 @@ export const StyledRow = styled(Row)`
   padding-top: 1.2rem;
   padding-bottom: 2.5rem;
   margin-bottom: 0.2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
   font-size: 1.8rem;
   text-transform: uppercase;
   color: ${(props) => props.theme.text};

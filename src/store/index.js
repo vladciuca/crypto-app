@@ -14,6 +14,7 @@ import utility from "./utility/utilityReducer";
 import settings from "./settings/settingsReducer";
 import search from "./search/searchReducer";
 import coin from "./coin/coinReducer";
+import chart from "./chart/chartReducer";
 
 const history = createBrowserHistory();
 
@@ -77,6 +78,7 @@ const reducers = combineReducers({
   settings,
   search,
   coin,
+  chart,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, reducers);

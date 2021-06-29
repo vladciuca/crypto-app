@@ -101,7 +101,7 @@ const CoinList = (props) => {
 
   return (
     <Container>
-      <LoadingBar color={utilityColors.volume} ref={loadingBar} />
+      <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
       <CoinListTitle
         showFavorites={showFavorites}
         favoriteCoinsLength={list.length}

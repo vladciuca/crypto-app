@@ -1,52 +1,41 @@
 import styled, { css } from "styled-components";
+import { Row } from "antd";
+
+export const StyledRow = styled(Row)`
+  background-color: ${(props) => props.theme.cardPrimary};
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+  margin-bottom: 0.2rem;
+  padding: 1rem;
+`;
+
+export const BarRow = styled(Row)`
+  background-color: ${(props) => props.theme.cardPrimary};
+  border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
+  margin-bottom: 0.2rem;
+  padding: 1rem;
+`;
 
 export const Container = styled.div`
   display: flex;
   align-items: center;
 `;
 
-export const Spacer = styled.div`
-  margin-bottom: 0.5rem;
+export const Description = styled.span`
+  padding: 0.2rem 0.4rem;
+  color: ${(props) => props.theme.text};
+`;
+
+export const Value = styled.span`
   display: flex;
   align-items: center;
-`;
-
-export const AllTimeDate = styled.div`
-  padding-left: 0.2rem;
-  font-size: 0.8rem;
-  color: ${(props) => props.theme.textLight};
-`;
-
-export const Description = styled.span`
-  padding: 0.2rem;
   font-weight: bold;
-  color: ${(props) => props.theme.info};
 `;
 
 export const Ticker = styled.span`
+  color: ${(props) => props.theme.info};
   text-transform: uppercase;
   font-weight: bold;
   padding-left: 0.2rem;
-`;
-
-export const Price = styled.span`
-  font-size: 2.5rem;
-  font-weight: bold;
-`;
-
-export const PriceCurrencyChange = styled.span`
-  font-weight: bold;
-  border-radius: 0.25rem;
-  color: ${(props) => props.theme.bgPrimary};
-  padding: 0.1rem 0.2rem;
-  ${(props) =>
-    props.pricechange < 0
-      ? css`
-          background: ${(props) => props.theme.danger};
-        `
-      : css`
-          background: ${(props) => props.theme.success};
-        `}
 `;
 
 export const PriceChange = styled.div`
@@ -61,4 +50,9 @@ export const PriceChange = styled.div`
       : css`
           color: ${(props) => props.theme.success};
         `}
+`;
+
+export const BarContainer = styled.div`
+  padding-bottom: 0.5rem;
+  width: 100%;
 `;

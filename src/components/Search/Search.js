@@ -8,9 +8,8 @@ import {
 } from "./Search.styles";
 import { RiSearch2Line } from "react-icons/all";
 import { getAllCoins } from "store/search/searchActions";
-import { getCoin } from "store/coin/coinActions";
 
-const Search = ({ getCoin, allCoins, getAllCoins, history }) => {
+const Search = ({ allCoins, getAllCoins, history }) => {
   const [value, setValue] = useState("");
   const input = React.createRef();
   const handleClick = () => {
@@ -28,11 +27,13 @@ const Search = ({ getCoin, allCoins, getAllCoins, history }) => {
   };
   useEffect(() => {
     getAllCoins();
-  }, []);
+  }, [getAllCoins]);
 
-  const searchList = allCoins.map((item) => {
-    return { value: item.symbol, label: item.name, id: item.id };
-  });
+  const searchList =
+    allCoins &&
+    allCoins.map((item) => {
+      return { value: item.symbol, label: item.name, id: item.id };
+    });
 
   const selectCoin = (coin) => {
     if (!coin) return;
@@ -42,14 +43,15 @@ const Search = ({ getCoin, allCoins, getAllCoins, history }) => {
   return (
     <>
       <StyledSelect
+        defaultValue={""}
         isClearable={true}
-        onChange={selectCoin}
         isSearchable={true}
         name="Coins"
         options={searchList}
+        onChange={selectCoin}
         placeholder="Search..."
       />
-      <SearchForm onSubmit={handleSubmit}>
+      {/* <SearchForm onSubmit={handleSubmit}>
         <SearchInput
           type="text"
           placeholder="Search"
@@ -61,7 +63,7 @@ const Search = ({ getCoin, allCoins, getAllCoins, history }) => {
         <SearchBtn onClick={handleClick}>
           <RiSearch2Line size="1.4rem" />
         </SearchBtn>
-      </SearchForm>
+      </SearchForm> */}
     </>
   );
 };
@@ -70,6 +72,6 @@ const mapStateToProps = (state) => ({
   allCoins: state.search.allCoins,
 });
 
-const mapDispatchToProps = { getCoin, getAllCoins };
+const mapDispatchToProps = { getAllCoins };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

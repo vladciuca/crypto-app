@@ -24,8 +24,10 @@ export { default as CoinListChart } from "./CoinListChart";
 //CoinPage Components
 export { default as CoinPageHeader } from "./CoinPageHeader";
 export { default as CoinInfo } from "./CoinInfo";
+export { default as CoinPriceData } from "./CoinPriceData";
 export { default as CoinMarketData } from "./CoinMarketData";
+export { default as CoinDescription } from "./CoinDescription";
 export { default as CoinPageChart } from "./CoinPageChart";
+export { default as CoinPageChartOptions } from "./CoinPageChartOptions";
 export { default as ProgressBar } from "./ProgressBar";
 //Portfolio Components
-export { default as ComingSoon } from "./ComingSoon";

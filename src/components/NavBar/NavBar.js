@@ -15,7 +15,7 @@ const NavBar = ({ history, hideFavoriteList }) => {
               <Icon>
                 <FaCoins size="1.5rem" />
               </Icon>
-              <span>CoinBook</span>
+              <span>Coin Book</span>
             </StyledLink>
           </li>
           {/* <li>

@@ -1,4 +1,24 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle, css } from "styled-components";
+
+const radio = css`
+  .ant-radio-wrapper {
+    span {
+      color: ${(props) => props.theme.text};
+    }
+  }
+
+  .ant-radio-checked .ant-radio-inner {
+    border-color: ${(props) => props.theme.primary} !important ;
+  }
+
+  .ant-radio-checked .ant-radio-inner:after {
+    background-color: ${(props) => props.theme.primary};
+  }
+
+  .ant-radio:hover .ant-radio-inner {
+    border-color: ${(props) => props.theme.primary};
+  }
+`;
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -26,6 +46,8 @@ body {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: ${(props) => props.theme.secondary};
+  cursor: pointer;
 }
+
+${radio}
 `;

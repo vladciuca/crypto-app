@@ -8,7 +8,7 @@ export const Container = styled.div`
 export const Bar = styled.div`
   height: 0.5rem;
   width: 100%;
-  background-color: ${(props) => props.theme.secondary};
+  background-color: ${(props) => props.maxSupColor};
   border-radius: 25rem;
   margin: 0.5rem 0;
 `;
@@ -17,7 +17,7 @@ export const Filler = styled.div`
   text-align: right;
   height: 100%;
   width: ${(props) => props.circulatingpercentage}%;
-  background-color: ${(props) => props.theme.primary};
+  background-color: ${(props) => props.circSupColor};
   border-radius: inherit;
 `;
 
@@ -25,7 +25,7 @@ export const FillerTwo = styled.div`
   text-align: right;
   height: 100%;
   width: ${(props) => props.volumepercentage}%;
-  background-color: ${(props) => props.theme.success};
+  background-color: ${(props) => props.volColor};
   border-radius: inherit;
   margin-top: -0.5rem;
 `;

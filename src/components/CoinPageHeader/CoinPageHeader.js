@@ -1,6 +1,5 @@
-import { Col } from "antd";
-import { CoinInfo, CoinMarketData } from "components";
-import { CoinPageHeaderRow } from "./CoinPageHeader.styles";
+import { CoinInfo, CoinPriceData, CoinMarketData } from "components";
+import { CoinPageHeaderRow, StyledCol } from "./CoinPageHeader.styles";
 
 const CoinPageHeader = ({ coinData, currency }) => {
   const {
@@ -12,10 +11,12 @@ const CoinPageHeader = ({ coinData, currency }) => {
     links,
     contractAddress,
     categories,
+    marketData,
   } = coinData;
+
   return (
     <CoinPageHeaderRow>
-      <Col span={9}>
+      <StyledCol span={6}>
         <CoinInfo
           id={id}
           image={image.large}
@@ -26,14 +27,17 @@ const CoinPageHeader = ({ coinData, currency }) => {
           contractAddress={contractAddress}
           categories={categories}
         />
-      </Col>
-      <Col offset={1} span={14}>
+      </StyledCol>
+      <StyledCol offset={1} span={6}>
+        <CoinPriceData marketData={marketData} currency={currency} />
+      </StyledCol>
+      <StyledCol offset={1} span={10}>
         <CoinMarketData
           symbol={symbol}
-          marketData={coinData.marketData}
+          marketData={marketData}
           currency={currency}
         />
-      </Col>
+      </StyledCol>
     </CoinPageHeaderRow>
   );
 };

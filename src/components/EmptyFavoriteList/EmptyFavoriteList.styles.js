@@ -10,15 +10,10 @@ export const Container = styled.div`
 
 export const Paragraph = styled.div`
   font-size: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
   margin: 1rem;
 `;
 
-export const Icon = styled.div`
-  padding: 0 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const Icon = styled.span`
+  padding: 0 0.3rem;
 `;

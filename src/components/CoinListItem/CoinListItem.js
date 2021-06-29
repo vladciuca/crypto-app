@@ -1,3 +1,4 @@
+import { Col } from "antd";
 import {
   CaretSymbol,
   FavoriteCoins,
@@ -19,8 +20,6 @@ import {
   Ticker,
   NotAvailable,
 } from "./CoinListItem.styles";
-
-import { Col } from "antd";
 
 const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
   const currencySymbol = getCurrencySymbol(currency);
