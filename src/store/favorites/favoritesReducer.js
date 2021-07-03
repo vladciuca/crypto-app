@@ -4,6 +4,7 @@ const initialState = {
   favoritesList: {},
   isLoading: false,
   hasError: false,
+  errorMessage: null,
 };
 
 export const LIST_FETCH_FAVORITE_LIST_PENDING =
@@ -33,12 +34,14 @@ function favoritesReducer(state = initialState, action) {
     case LIST_FETCH_FAVORITE_LIST_ERROR:
       return {
         ...state,
+        errorMessage: action.payload,
         isLoading: false,
         hasError: true,
       };
     case TOGGLE_FAVORITE_LIST:
       return {
         ...state,
+        coinList: [],
         showFavorites: !state.showFavorites,
       };
     case TOGGLE_FAVORITE_COIN:
@@ -51,6 +54,7 @@ function favoritesReducer(state = initialState, action) {
         ...state,
         showFavorites: false,
       };
+
     default:
       return state;
   }

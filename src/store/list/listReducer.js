@@ -12,6 +12,7 @@ const initialState = {
   },
   isLoading: false,
   hasError: false,
+  errorMessage: null,
 };
 
 export const LIST_FETCH_COIN_LIST_PENDING = "LIST_FETCH_COIN_LIST_PENDING";
@@ -44,6 +45,7 @@ function listReducer(state = initialState, action) {
     case LIST_FETCH_COIN_LIST_ERROR:
       return {
         ...state,
+        errorMessage: action.payload,
         isLoading: false,
         hasError: true,
       };
@@ -100,6 +102,3 @@ export const getList = (state) => state.list;
 export const getQueryConfig = (state) => state.list.queryConfig;
 export const isListLoading = (state) =>
   state.list.isLoading || state.favorites.isLoading;
-// export const isNavLoading = (state) => state.nav.isLoading;
-// export const isAppLoading = (state) =>
-//   isListLoading(state) || isNavLoading(state);

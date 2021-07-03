@@ -4,7 +4,7 @@ import { Menu } from "antd";
 export const Icon = styled.div`
   display: flex;
   align-items: center;
-  margin-right: 0.3rem;
+  margin-right: 0.5rem;
   color: ${(props) => props.theme.primary};
   font-size: 0.9rem;
 `;
@@ -18,7 +18,7 @@ export const MenuIcon = styled.div`
 export const Currency = styled.span`
   margin-right: 0.2rem;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 1rem;
 `;
 
 export const DropdownContent = styled.div`
@@ -51,8 +51,7 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
   }
   span {
     margin-top: 0.15rem;
-    margin-left: 0.2rem;
-    text-transform: uppercase;
+    margin-left: 0.5rem;
     color: ${(props) => props.theme.text};
   }
   :hover {
@@ -63,4 +62,5 @@ export const StyledMenuItem = styled((props) => <Menu.Item {...props} />)`
 export const StyledMenu = styled(Menu)`
   background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.5rem;
+  width: 16rem;
 `;

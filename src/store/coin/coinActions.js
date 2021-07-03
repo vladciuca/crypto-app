@@ -15,6 +15,6 @@ export const getCoin = (id) => async (dispatch) => {
     );
     dispatch({ type: FETCH_COIN_SUCCESS, payload: keysToCamel(data) });
   } catch (error) {
-    dispatch({ type: FETCH_COIN_ERROR });
+    dispatch({ type: FETCH_COIN_ERROR, payload: error.message });
   }
 };

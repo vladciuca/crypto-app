@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { Row, Col } from "antd";
 
 const loading = keyframes`
   from {
@@ -63,4 +64,34 @@ export const SkeletonAvatar = styled.div`
       props.theme.bgSecondary} 50%, transparent 100%);
     animation: ${loading} 1.5s ease-in-out infinite;
   }
+`;
+
+export const CoinPageRow = styled(Row)`
+  margin: 2rem 5%;
+`;
+
+export const Spacer = styled.div`
+  margin-top: 1rem;
+`;
+
+export const Center = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const CoinPageCol = styled(Col)`
+  background-color: ${(props) => props.theme.cardPrimary};
+  border-radius: 0.75rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ChartBox = styled.div`
+  height: 150px;
+  width: 100%;
+  display: flex;
+  align-items: center;
 `;

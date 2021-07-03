@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const Background = styled(Row)`
   width: 100%;
   height: 100%;
-  padding-top: 3rem;
+  padding-top: 2rem;
   padding-bottom: 10%;
   background: linear-gradient(
     to top,
@@ -16,8 +16,11 @@ export const Background = styled(Row)`
   }
 `;
 
-export const Card = styled.div`
-  background: ${(props) => props.theme.cardPrimary};
-  border-radius: 0.5rem;
-  padding: 1rem 1.5rem;
+export const Container = styled.div`
+  margin: 2rem 5%;
+`;
+
+export const ChartContainer = styled.div`
+  width: 100%;
+  margin: 2rem 5%;
 `;

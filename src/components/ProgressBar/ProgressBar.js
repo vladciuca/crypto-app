@@ -1,11 +1,20 @@
 import React from "react";
 import { Container, Bar, Filler, FillerTwo, Label } from "./ProgressBar.styles";
 
-const ProgressBar = ({ circulatingPercentage, volumePercentage }) => {
+const ProgressBar = ({
+  circulatingPercentage,
+  volumePercentage,
+  maxSupColor,
+  circSupColor,
+  volColor,
+}) => {
   return (
     <Container>
-      <Bar>
-        <Filler circulatingpercentage={circulatingPercentage}>
+      <Bar maxSupColor={maxSupColor}>
+        <Filler
+          circulatingpercentage={circulatingPercentage}
+          circSupColor={circSupColor}
+        >
           <Label>{`${
             Number(circulatingPercentage) < Number(volumePercentage)
               ? ""
@@ -18,6 +27,7 @@ const ProgressBar = ({ circulatingPercentage, volumePercentage }) => {
               ? 100
               : volumePercentage
           }
+          volColor={volColor}
         >
           <Label>{`${volumePercentage}%`}</Label>
         </FillerTwo>

@@ -1,6 +1,10 @@
-import { Col } from "antd";
-import { CoinInfo, CoinMarketData } from "components";
-import { CoinPageHeaderRow } from "./CoinPageHeader.styles";
+import {
+  CoinInfo,
+  CoinPriceData,
+  CoinMarketData,
+  PriceConvertor,
+} from "components";
+import { CoinPageHeaderRow, StyledCol } from "./CoinPageHeader.styles";
 
 const CoinPageHeader = ({ coinData, currency }) => {
   const {
@@ -12,29 +16,41 @@ const CoinPageHeader = ({ coinData, currency }) => {
     links,
     contractAddress,
     categories,
+    marketData,
   } = coinData;
+
   return (
-    <CoinPageHeaderRow>
-      <Col span={9}>
-        <CoinInfo
-          id={id}
-          image={image.large}
-          marketCapRank={marketCapRank}
-          name={name}
-          symbol={symbol}
-          website={links.homepage[0]}
-          contractAddress={contractAddress}
-          categories={categories}
-        />
-      </Col>
-      <Col offset={1} span={14}>
-        <CoinMarketData
-          symbol={symbol}
-          marketData={coinData.marketData}
-          currency={currency}
-        />
-      </Col>
-    </CoinPageHeaderRow>
+    <>
+      <CoinPageHeaderRow>
+        <StyledCol span={6}>
+          <CoinInfo
+            id={id}
+            image={image.large}
+            marketCapRank={marketCapRank}
+            name={name}
+            symbol={symbol}
+            website={links.homepage[0]}
+            contractAddress={contractAddress}
+            categories={categories}
+          />
+        </StyledCol>
+        <StyledCol offset={1} span={6}>
+          <CoinPriceData marketData={marketData} currency={currency} />
+        </StyledCol>
+        <StyledCol offset={1} span={10}>
+          <CoinMarketData
+            symbol={symbol}
+            marketData={marketData}
+            currency={currency}
+          />
+        </StyledCol>
+      </CoinPageHeaderRow>
+      <PriceConvertor
+        symbol={symbol}
+        marketData={marketData}
+        currency={currency}
+      />
+    </>
   );
 };
 

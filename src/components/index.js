@@ -12,6 +12,8 @@ export { default as ThemeSwitch } from "./ThemeSwitch";
 export { default as FavoriteCoins } from "./FavoriteCoins";
 export { default as CaretSymbol } from "./CaretSymbol";
 export { default as PercentageBar } from "./PercentageBar";
+export { default as ErrorMessage } from "./ErrorMessage";
+export { default as ErrorTooltipMessage } from "./ErrorTooltipMessage";
 //CoinList Components
 export { default as EmptyFavoriteList } from "./EmptyFavoriteList";
 export { default as CoinListTitle } from "./CoinListTitle";
@@ -24,8 +26,11 @@ export { default as CoinListChart } from "./CoinListChart";
 //CoinPage Components
 export { default as CoinPageHeader } from "./CoinPageHeader";
 export { default as CoinInfo } from "./CoinInfo";
+export { default as CoinPriceData } from "./CoinPriceData";
 export { default as CoinMarketData } from "./CoinMarketData";
+export { default as CoinDescription } from "./CoinDescription";
 export { default as CoinPageChart } from "./CoinPageChart";
+export { default as CoinPageChartOptions } from "./CoinPageChartOptions";
 export { default as ProgressBar } from "./ProgressBar";
+export { default as PriceConvertor } from "./PriceConvertor";
 //Portfolio Components
-export { default as ComingSoon } from "./ComingSoon";

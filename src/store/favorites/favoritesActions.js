@@ -72,6 +72,7 @@ export const getFavoriteList = () => async (dispatch, getState) => {
       payload: keysToCamel(data),
     });
   } catch (error) {
-    dispatch({ type: LIST_FETCH_FAVORITE_LIST_ERROR });
+    console.log(error.message);
+    dispatch({ type: LIST_FETCH_FAVORITE_LIST_ERROR, payload: error.message });
   }
 };

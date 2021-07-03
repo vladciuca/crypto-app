@@ -4,21 +4,19 @@ export const Container = styled.div`
   background: ${(props) => props.theme.cardPrimary};
   color: ${(props) => props.theme.text};
   padding: 5%;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   margin: 0.2rem 0;
-`;
-
-export const Paragraph = styled.div`
-  font-size: 1rem;
+  height: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1rem;
 `;
 
-export const Icon = styled.div`
-  padding: 0 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+export const List = styled.div`
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+`;
+
+export const Center = styled.div`
+  text-align: center;
 `;

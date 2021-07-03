@@ -22,7 +22,10 @@ const CoinListChart = ({ priceChange, priceData, theme }) => {
             borderWidth: 1,
             borderColor: chartColor(),
             borderJoinStyle: "round",
+            pointHoverRadius: 5,
+            pointHoverBorderWidth: 0,
             pointRadius: 0,
+            pointHitRadius: 0,
           },
         ],
       }}

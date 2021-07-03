@@ -1,17 +1,16 @@
-import { Row, Col } from "antd";
-import { BiInfoCircle } from "react-icons/bi";
-import { CgInfinity } from "react-icons/cg";
+import { CgInfinity, GiPlainCircle } from "react-icons/all";
 import { CaretSymbol, ProgressBar } from "components";
-import { getCurrencySymbol, formatNumber, formatPrice } from "utils";
+import { getCurrencySymbol, formatNumber } from "utils";
+import { utilityColors } from "../../theme";
 import {
+  StyledRow,
   Container,
-  Spacer,
+  BarRow,
+  BarContainer,
   Description,
-  Price,
   PriceChange,
-  PriceCurrencyChange,
-  AllTimeDate,
   Ticker,
+  Value,
 } from "./CoinMarketData.styles";
 
 const CoinMarketData = ({ marketData, symbol, currency }) => {
@@ -19,12 +18,8 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
   const getCurrencyValue = (key) => {
     return marketData[key][currency];
   };
-  const {
-    priceChangePercentage24h,
-    marketCapChangePercentage24h,
-    circulatingSupply,
-    totalSupply,
-  } = marketData;
+  const { marketCapChangePercentage24h, circulatingSupply, totalSupply } =
+    marketData;
   const circulatingSupplyPercentage = (
     (circulatingSupply / totalSupply) *
     100
@@ -34,57 +29,22 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
   const totalVolumePercentage = totalSupply
     ? ((totalVolumeInCoins / totalSupply) * 100).toFixed(0)
     : ((totalVolumeInCoins / circulatingSupply) * 100).toFixed(0);
-  const getDate = (key) => {
-    return new Date(marketData[key][currency]).toUTCString();
-  };
   return (
     <>
-      <Row>
-        <Col span={10}>
-          <Price>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("currentPrice"))}
-          </Price>
-          <Spacer>
-            <PriceCurrencyChange
-              pricechange={getCurrencyValue("priceChange24hInCurrency")}
-            >
-              {getCurrencyValue("priceChange24hInCurrency")
-                ? `${currencySymbol}${formatPrice(
-                    getCurrencyValue("priceChange24hInCurrency")
+      <StyledRow>
+        <div>
+          <Container>
+            {/* <Bullet>
+              <GiPlainCircle size="0.7rem" />
+            </Bullet> */}
+            <Description>Market Cap:</Description>
+            <Value>
+              {getCurrencyValue("marketCap")
+                ? `${currencySymbol}${formatNumber(
+                    getCurrencyValue("marketCap")
                   )}`
                 : "N/A"}
-            </PriceCurrencyChange>
-            <PriceChange pricechange={priceChangePercentage24h}>
-              <CaretSymbol value={priceChangePercentage24h} />
-              {priceChangePercentage24h
-                ? priceChangePercentage24h.toFixed(2)
-                : "N/A"}
-              %
-            </PriceChange>
-          </Spacer>
-          <div>
-            <Description>All Time High:</Description>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("ath"))}
-            <AllTimeDate>{getDate("athDate")}</AllTimeDate>
-          </div>
-          <div>
-            <Description>All Time Low:</Description>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("atl"))}
-            <AllTimeDate>{getDate("atlDate")}</AllTimeDate>
-          </div>
-        </Col>
-        <Col span={14}>
-          <Container>
-            <BiInfoCircle />
-            <Description>Market Cap:</Description>
-            {getCurrencyValue("marketCap")
-              ? `${currencySymbol}${formatNumber(
-                  getCurrencyValue("marketCap")
-                )}`
-              : "N/A"}
+            </Value>
             <PriceChange pricechange={marketCapChangePercentage24h}>
               <CaretSymbol value={marketCapChangePercentage24h} />
               {getCurrencyValue("marketCap")
@@ -93,68 +53,86 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
               %
             </PriceChange>
           </Container>
+
           <Container>
-            <BiInfoCircle />
+            {/* <Bullet>
+              <GiPlainCircle size="0.7rem" />
+            </Bullet> */}
             <Description>Fully Diluted Valuation:</Description>
-            {getCurrencyValue("fullyDilutedValuation")
-              ? `${currencySymbol}${formatNumber(
-                  getCurrencyValue("fullyDilutedValuation")
-                )}`
-              : "N/A"}
+            <Value>
+              {getCurrencyValue("fullyDilutedValuation")
+                ? `${currencySymbol}${formatNumber(
+                    getCurrencyValue("fullyDilutedValuation")
+                  )}`
+                : "N/A"}
+            </Value>
           </Container>
           <Container>
-            <BiInfoCircle />
+            {/* <Bullet>
+              <GiPlainCircle size="0.7rem" />
+            </Bullet> */}
             <Description>Volume 24h:</Description>
-            {getCurrencyValue("totalVolume")
-              ? `${currencySymbol}${formatNumber(
-                  getCurrencyValue("totalVolume")
-                )}`
-              : "N/A"}
+            <Value>
+              {getCurrencyValue("totalVolume")
+                ? `${currencySymbol}${formatNumber(
+                    getCurrencyValue("totalVolume")
+                  )}`
+                : "N/A"}
+            </Value>
           </Container>
           <Container>
             <Description>Volume / Market:</Description>
-            {getCurrencyValue("totalVolume")
-              ? `${(
-                  getCurrencyValue("totalVolume") /
-                  getCurrencyValue("marketCap")
-                ).toFixed(5)}`
-              : "N/A"}
+            <Value>
+              {getCurrencyValue("totalVolume")
+                ? `${(
+                    getCurrencyValue("totalVolume") /
+                    getCurrencyValue("marketCap")
+                  ).toFixed(5)}`
+                : "N/A"}
+            </Value>
           </Container>
-        </Col>
-      </Row>
-      <Row>
-        <Col span={10}>Price Convertor:</Col>
-        <Col span={14}>
+        </div>
+      </StyledRow>
+
+      <BarRow>
+        <div>
           <Container>
-            <BiInfoCircle color="#0ac18e" />
+            <GiPlainCircle size="0.8rem" color={utilityColors.volume} />
             <Description>Total Volume:</Description>
-            {formatNumber(totalVolumeInCoins)}
+            <Value>{formatNumber(totalVolumeInCoins)}</Value>
             <Ticker>{symbol}</Ticker>
           </Container>
           <Container>
-            <BiInfoCircle color="#a487c3" />
+            <GiPlainCircle size="0.8rem" color={utilityColors.mktCap} />
             <Description>Circulating Supply:</Description>
-            {formatNumber(circulatingSupply)}
+            <Value>{formatNumber(circulatingSupply)}</Value>
             <Ticker>{symbol}</Ticker>
           </Container>
           <Container>
-            <BiInfoCircle color="#5b486a" />
+            <GiPlainCircle size="0.8rem" color={utilityColors.maxSupply} />
             <Description>Max Supply:</Description>
-            {totalSupply ? (
-              `${formatNumber(totalSupply)}`
-            ) : (
-              <CgInfinity size="1.1rem" />
-            )}
+            <Value>
+              {totalSupply ? (
+                `${formatNumber(totalSupply)}`
+              ) : (
+                <CgInfinity size="1.1rem" />
+              )}
+            </Value>
             <Ticker>{symbol}</Ticker>
           </Container>
+        </div>
+        <BarContainer>
           <ProgressBar
             circulatingPercentage={
               totalSupply ? circulatingSupplyPercentage : 100
             }
             volumePercentage={totalVolumePercentage}
+            maxSupColor={utilityColors.maxSupply}
+            circSupColor={utilityColors.mktCap}
+            volColor={utilityColors.volume}
           />
-        </Col>
-      </Row>
+        </BarContainer>
+      </BarRow>
     </>
   );
 };

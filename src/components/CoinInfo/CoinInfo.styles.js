@@ -1,16 +1,33 @@
 import styled from "styled-components";
-import { Col } from "antd";
+import { Row, Col } from "antd";
+
+export const StyledRow = styled(Row)`
+  background-color: ${(props) => props.theme.cardSecondary};
+  border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
+  margin-bottom: 0.2rem;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+  height: 85%;
+`;
+
+export const Center = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const Img = styled.img`
-  height: 4.5rem;
-  width: 4.5rem;
+  height: 4rem;
+  width: 4rem;
   border-radius: 25rem;
+  margin: 1rem 0;
 `;
 
 export const Rank = styled.span`
   font-size: 1.4rem;
   color: ${(props) => props.theme.primary};
-  padding-right: 0.4rem;
+  padding: 0 0.2rem;
 `;
 
 export const Name = styled.div`
@@ -23,38 +40,28 @@ export const Ticker = styled.span`
   font-weight: bold;
   font-size: 1.4rem;
   color: ${(props) => props.theme.primary};
+  padding: 0 0.2rem;
 `;
 
 export const Favorite = styled.span`
-  padding-left: 0.8rem;
-`;
-
-export const Category = styled.div`
-  display: inline-block;
-  font-size: 0.8rem;
-  background: ${(props) => props.theme.secondary};
-  color: white;
-  border-radius: 0.25rem;
-  padding: 0.3rem 0.6rem;
-  margin: 0.2rem;
-`;
-
-export const CategoryRow = styled(Col)`
-  padding: 0.8rem 0;
+  padding-left: 0.2rem;
 `;
 
 export const LinkRow = styled(Col)`
-  padding: 0.1rem 0;
+  overflow: hidden;
+  background-color: ${(props) => props.theme.cardPrimary};
+  border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
+  padding: 0.5rem;
+  text-overflow: ellipsis;
+  justify-content: center;
+  display: flex;
+  align-items: center;
   a {
     color: ${(props) => props.theme.primary};
     :hover {
       color: ${(props) => props.theme.primary};
     }
   }
-`;
-
-export const Icon = styled.span`
-  margin-right: 0.3rem;
 `;
 
 export const CopyText = styled.span`

@@ -12,7 +12,7 @@ const FavoriteCoins = (props) => {
   return (
     <Icon onClick={() => toggleFavoriteCoin(id)}>
       {favoritesList[id] ? (
-        <RiHeartFill size="1.3rem" color="#ff7b7b" />
+        <RiHeartFill size="1rem" color="#ff7b7b" />
       ) : (
         <RiHeartLine size="1rem" color="#ff7b7b" />
       )}

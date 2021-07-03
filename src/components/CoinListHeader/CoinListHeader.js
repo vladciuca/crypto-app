@@ -27,7 +27,7 @@ const CoinListHeader = ({
         <Centered onClick={toggleFavoriteList}>
           <Value>
             {showFavorites ? (
-              <RiHeartFill size="1.3rem" color="#ff7b7b" />
+              <RiHeartFill size="1rem" color="#ff7b7b" />
             ) : (
               <RiHeartLine size="1rem" color="#ff7b7b" />
             )}
@@ -57,12 +57,10 @@ const CoinListHeader = ({
       {priceChangeSorts.map((sort) => {
         return (
           <ColHeader key={sort.title} span={2}>
-            <Spacer>
-              <Value onClick={() => handleSort(sort.value)}>
-                {sort.title}
-                {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
-              </Value>
-            </Spacer>
+            <Value onClick={() => handleSort(sort.value)}>
+              {sort.title}
+              {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
+            </Value>
           </ColHeader>
         );
       })}
@@ -79,7 +77,7 @@ const CoinListHeader = ({
         </Value>
       </ColHeader>
       <ColHeader lg={{ span: 2 }}>
-        <Spacer>Last 7d</Spacer>
+        <Centered>Last 7d</Centered>
       </ColHeader>
     </RowHeader>
   );
