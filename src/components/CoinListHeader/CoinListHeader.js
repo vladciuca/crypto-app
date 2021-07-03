@@ -57,12 +57,10 @@ const CoinListHeader = ({
       {priceChangeSorts.map((sort) => {
         return (
           <ColHeader key={sort.title} span={2}>
-            <Spacer>
-              <Value onClick={() => handleSort(sort.value)}>
-                {sort.title}
-                {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
-              </Value>
-            </Spacer>
+            <Value onClick={() => handleSort(sort.value)}>
+              {sort.title}
+              {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
+            </Value>
           </ColHeader>
         );
       })}
@@ -79,7 +77,7 @@ const CoinListHeader = ({
         </Value>
       </ColHeader>
       <ColHeader lg={{ span: 2 }}>
-        <Spacer>Last 7d</Spacer>
+        <Centered>Last 7d</Centered>
       </ColHeader>
     </RowHeader>
   );

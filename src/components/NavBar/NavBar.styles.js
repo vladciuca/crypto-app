@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Row, Col } from "antd";
 
 export const Nav = styled.nav`
   ul {
@@ -12,7 +13,7 @@ export const Nav = styled.nav`
   margin-top: -2rem;
 `;
 
-export const Container = styled.div`
+export const Container = styled(Row)`
   background-color: ${(props) => props.theme.cardPrimary};
   display: flex;
   align-items: center;
@@ -23,6 +24,21 @@ export const Container = styled.div`
   padding-bottom: 0.3rem;
 `;
 
+export const SearchCol = styled(Col)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LinkCol = styled(Col)`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  span {
+    margin-left: 1rem;
+  }
+`;
+
 export const Icon = styled.div`
   display: flex;
   align-items: center;
@@ -31,12 +47,10 @@ export const Icon = styled.div`
 
 export const StyledLink = styled(Link)`
   color: ${(props) => props.theme.text};
-  padding-right: 1.5rem;
+  margin-left: 1.5rem;
   display: flex;
   align-items: center;
-  span {
-    margin-left: 0.75rem;
-  }
+
   :hover {
     color: ${(props) => props.theme.text};
     ${Icon} {

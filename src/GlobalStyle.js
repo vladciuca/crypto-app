@@ -50,4 +50,9 @@ body {
 }
 
 ${radio}
+.hide-sm {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
 `;

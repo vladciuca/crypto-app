@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 import { Col } from "antd";
 import {
   CaretSymbol,
@@ -20,8 +21,15 @@ import {
   Ticker,
   NotAvailable,
 } from "./CoinListItem.styles";
+import { hideFavoriteList } from "store/favorites/favoritesActions";
 
-const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
+const CoinListItem = ({
+  coin,
+  currency,
+  utilityColors,
+  theme,
+  hideFavoriteList,
+}) => {
   const currencySymbol = getCurrencySymbol(currency);
   const {
     id,
@@ -54,7 +62,9 @@ const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
         <img src={image} alt={name} />
       </ImgCol>
       <NameCol lg={{ span: 3 }}>
-        <StyledLink to={`/coins/${id}`}>{name}</StyledLink>
+        <StyledLink to={`/coins/${id}`} onClick={hideFavoriteList}>
+          {name}
+        </StyledLink>
         <div>
           <Ticker>{symbol}</Ticker>
         </div>
@@ -71,7 +81,7 @@ const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
       </CurrentPriceCol>
       {priceChangeValues.map((value) => {
         if (!value) {
-          return <NotAvailable span={2}>N/A</NotAvailable>;
+          return <NotAvailable span={2}>-</NotAvailable>;
         } else {
           return (
             <PriceChangeCol key={value} span={2} pricechange={value}>
@@ -118,4 +128,10 @@ const CoinListItem = ({ coin, currency, utilityColors, theme }) => {
   );
 };
 
-export default CoinListItem;
+const mapStateToProps = (state) => ({});
+
+const mapDispatchToProps = {
+  hideFavoriteList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoinListItem);

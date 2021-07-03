@@ -7,6 +7,7 @@ import {
   CoinListFooter,
   CoinListItem,
   EmptyFavoriteList,
+  ErrorMessage,
 } from "components";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
 import { utilityColors } from "../../theme";
@@ -32,6 +33,8 @@ const CoinList = (props) => {
     getCoinList,
     getFavoriteList,
     isLoading,
+    hasFavError,
+    hasListError,
     handleCoinsPerPage,
     handleListBy,
     handleListOrder,
@@ -41,12 +44,15 @@ const CoinList = (props) => {
     toggleFavoriteList,
     handleSort,
   } = props;
-  const { coinList, hasError } = props.list;
+  const { coinList } = props.list;
   const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =
     props.list.queryConfig;
   const { showFavorites, coinList: favoriteList } = props.favorites;
   const { theme, currency } = props.settings;
   const list = showFavorites ? favoriteList : coinList;
+  const errorMessage = showFavorites
+    ? props.favorites.errorMessage
+    : props.list.errorMessage;
   const loadingBar = React.createRef();
 
   const sortCoinList = () => {
@@ -141,9 +147,13 @@ const CoinList = (props) => {
           })}
         </>
       )}
-      {noFavorites && <EmptyFavoriteList />}
+      {noFavorites && !hasFavError && <EmptyFavoriteList />}
       {isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
-      {hasError && <div>There was a problem fetching your data..</div>}
+
+      {hasListError && !showFavorites && <ErrorMessage error={errorMessage} />}
+
+      {hasFavError && showFavorites && <ErrorMessage error={errorMessage} />}
+
       <CoinListFooter />
     </Container>
   );
@@ -154,6 +164,8 @@ const mapStateToProps = (state) => ({
   list: getList(state),
   favorites: state.favorites,
   isLoading: isListLoading(state),
+  hasFavError: state.favorites.hasError,
+  hasListError: state.list.hasError,
 });
 
 const mapDispatchToProps = {

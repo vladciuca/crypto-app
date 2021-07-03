@@ -3,6 +3,7 @@ const initialState = {
   chartData: null,
   isLoading: false,
   hasError: false,
+  errorMessage: null,
 };
 
 export const FETCH_CHART_DATA_PENDING = "FETCH_CHART_DATA_PENDING";
@@ -28,11 +29,11 @@ function chartReducer(state = initialState, action) {
     case FETCH_CHART_DATA_ERROR:
       return {
         ...state,
+        errorMessage: action.payload,
         isLoading: false,
         hasError: true,
       };
     case GET_CHART_PERIOD:
-      console.log(action.payload);
       return {
         days: action.payload,
       };

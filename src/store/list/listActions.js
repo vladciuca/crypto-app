@@ -116,6 +116,6 @@ export const getCoinList = () => async (dispatch, getState) => {
       payload: keysToCamel(data),
     });
   } catch (error) {
-    dispatch({ type: LIST_FETCH_COIN_LIST_ERROR });
+    dispatch({ type: LIST_FETCH_COIN_LIST_ERROR, payload: error.message });
   }
 };

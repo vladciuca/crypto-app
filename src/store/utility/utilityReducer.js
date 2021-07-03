@@ -2,11 +2,13 @@ const initialState = {
   globalData: null,
   isLoadingGlobalData: false,
   hasErrorGlobalData: false,
+  globalDataErrorMessage: null,
   btcMarketCap: null,
   ethMarketCap: null,
   ethGasData: null,
   isLoadingEthGas: false,
   hasErrorEthGas: false,
+  ethGasErrorMessage: null,
 };
 
 export const FETCH_GLOBAL_DATA_PENDING = "FETCH_GLOBAL_DATA_PENDING";
@@ -29,6 +31,7 @@ function utilityReducer(state = initialState, action) {
     case FETCH_GLOBAL_DATA_PENDING:
       return {
         ...state,
+        globalData: null,
         isLoadingGlobalData: true,
         hasErrorGlobalData: false,
       };
@@ -42,12 +45,14 @@ function utilityReducer(state = initialState, action) {
     case FETCH_GLOBAL_DATA_ERROR:
       return {
         ...state,
+        globalDataErrorMessage: action.payload,
         isLoadingGlobalData: false,
         hasErrorGlobalData: true,
       };
     case FETCH_ETH_GAS_DATA_PENDING:
       return {
         ...state,
+        ethGasData: null,
         isLoadingEthGas: true,
         hasErrorEthGas: false,
       };
@@ -61,6 +66,7 @@ function utilityReducer(state = initialState, action) {
     case FETCH_ETH_GAS_DATA_ERROR:
       return {
         ...state,
+        ethGasErrorMessage: action.payload,
         isLoadingEthGas: false,
         hasErrorEthGas: true,
       };

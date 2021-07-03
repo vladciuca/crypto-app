@@ -15,7 +15,7 @@ const CoinDescription = ({ description, categories, links }) => {
           <Icon>
             <AiFillTags />
           </Icon>
-          Tags
+          Tags:
         </Tab>
         {categories &&
           Object.values(categories).map((value) => {
@@ -27,7 +27,7 @@ const CoinDescription = ({ description, categories, links }) => {
           <Icon>
             <IoCube />
           </Icon>
-          Explorers
+          Explorers:
         </Tab>
         {Object.values(links.blockchainSite).map((value) => {
           if (value === "") {
@@ -45,7 +45,7 @@ const CoinDescription = ({ description, categories, links }) => {
         <Icon>
           <FaBookOpen />
         </Icon>
-        Description
+        Description:
       </Tab>
       <div
         dangerouslySetInnerHTML={{

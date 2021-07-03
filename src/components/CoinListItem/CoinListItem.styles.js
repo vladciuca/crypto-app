@@ -89,9 +89,7 @@ export const PriceChangeCol = styled(Col)`
 
 export const NotAvailable = styled(Col)`
   display: flex;
-  padding-left: 1.5rem;
   align-items: center;
-  font-size: 0.7rem;
 `;
 
 export const ChartCol = styled(Col)`

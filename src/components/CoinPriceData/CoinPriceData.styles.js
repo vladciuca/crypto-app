@@ -20,6 +20,7 @@ export const StyledRow = styled(Row)`
 `;
 
 export const AllTimeDate = styled.div`
+  display: block;
   padding-left: 0.2rem;
   padding-bottom: 0.35rem;
   font-size: 0.8rem;

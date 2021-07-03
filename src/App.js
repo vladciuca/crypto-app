@@ -1,8 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import { CoinList, CoinPage } from "pages";
+import { CoinList, CoinPage, NotFound } from "pages";
 import { NavBar, UtilityNav } from "components";
 import { toggleTheme, changeCurrency } from "store/settings/settingsActions";
 import { lightTheme, darkTheme } from "./theme";
@@ -14,7 +19,7 @@ const Container = styled.div`
 `;
 
 const App = (props) => {
-  const { theme, toggleTheme, currency, changeCurrency } = props;
+  const { theme, toggleTheme, currency, changeCurrency, showFavorites } = props;
   return (
     <ThemeProvider theme={theme ? lightTheme : darkTheme}>
       <Router>
@@ -22,18 +27,28 @@ const App = (props) => {
         <Container>
           <UtilityNav
             currency={currency}
-            handleCurrency={changeCurrency}
             theme={theme}
             handleTheme={toggleTheme}
           />
-          <NavBar />
+          <NavBar
+            currency={currency}
+            theme={theme}
+            handleCurrency={changeCurrency}
+            showFavorites={showFavorites}
+          />
         </Container>
         <Switch>
-          <Route exact path="/" component={CoinList}></Route>
+          <Route exact path="/">
+            <Redirect to="/coins" />
+          </Route>
+          <Route exact path="/coins" component={CoinList}></Route>
           <Route exact path="/coins/:id" component={CoinPage}></Route>
           {/* <Route exact path="/dashboard">
             <Portfolio />
           </Route> */}
+          <Route path="*">
+            <NotFound />
+          </Route>
         </Switch>
       </Router>
     </ThemeProvider>
@@ -43,6 +58,7 @@ const App = (props) => {
 const mapStateToProps = (state) => ({
   theme: state.settings.theme,
   currency: state.settings.currency,
+  showFavorites: state.favorites.showFavorites,
 });
 
 const mapDispatchToProps = {

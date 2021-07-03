@@ -24,6 +24,6 @@ export const getChartData = (id) => async (dispatch, getState) => {
     );
     dispatch({ type: FETCH_CHART_DATA_SUCCESS, payload: keysToCamel(data) });
   } catch (error) {
-    dispatch({ type: FETCH_CHART_DATA_ERROR });
+    dispatch({ type: FETCH_CHART_DATA_ERROR, payload: error.message });
   }
 };

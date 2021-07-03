@@ -15,3 +15,12 @@ export const Background = styled(Row)`
     display: block;
   }
 `;
+
+export const Container = styled.div`
+  margin: 2rem 5%;
+`;
+
+export const ChartContainer = styled.div`
+  width: 100%;
+  margin: 2rem 5%;
+`;

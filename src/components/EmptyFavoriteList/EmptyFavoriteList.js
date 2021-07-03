@@ -1,19 +1,19 @@
 import React from "react";
 import { RiHeartLine } from "react-icons/ri";
-import { Container, Paragraph, Icon } from "./EmptyFavoriteList.styles";
+import { Container, Center, List } from "./EmptyFavoriteList.styles";
 
 const EmptyFavoriteList = () => {
   return (
     <Container>
-      <Paragraph>Your Favorite List is empty.</Paragraph>
-      <Paragraph>
-        You can add and track the progress of your Favorite Coins by tapping on
-        the
-        <Icon>
+      <Center>
+        <List>Your Favorite List is empty.</List>
+        <div>
+          You can add and track the progress of your Favorite Coins by tapping
+          on the
           <RiHeartLine size="1.2rem" color="#ff7b7b" />
-        </Icon>
-        icon for the coin you wish to follow.
-      </Paragraph>
+          icon for the coin you wish to follow.
+        </div>
+      </Center>
     </Container>
   );
 };

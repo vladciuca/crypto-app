@@ -30,10 +30,9 @@ export const Category = styled.span`
 `;
 
 export const Tab = styled.span`
-  width: 15%;
+  width: 10%;
   display: inline-flex;
   align-items: center;
-  background: ${(props) => props.theme.cardSecondary};
   font-size: 0.8rem;
   border-radius: 0.99rem;
   padding: 0.35rem 1rem;
@@ -42,7 +41,10 @@ export const Tab = styled.span`
 `;
 
 export const Icon = styled.span`
-  padding-right: 1rem;
+  background: ${(props) => props.theme.cardSecondary};
+  padding: 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 0.99rem;
   display: flex;
   align-item: center;
 `;

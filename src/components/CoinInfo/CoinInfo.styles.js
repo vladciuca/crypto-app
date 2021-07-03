@@ -12,7 +12,9 @@ export const StyledRow = styled(Row)`
 `;
 
 export const Center = styled.div`
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Img = styled.img`

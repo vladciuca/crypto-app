@@ -25,7 +25,7 @@ export const getGlobalData = () => async (dispatch) => {
       payload: keysToCamel(data.data),
     });
   } catch (error) {
-    dispatch({ type: FETCH_GLOBAL_DATA_ERROR });
+    dispatch({ type: FETCH_GLOBAL_DATA_ERROR, payload: error.message });
   }
 };
 
@@ -41,7 +41,7 @@ export const getEthGasData = () => async (dispatch) => {
       payload: data,
     });
   } catch (error) {
-    dispatch({ type: FETCH_ETH_GAS_DATA_ERROR });
+    dispatch({ type: FETCH_ETH_GAS_DATA_ERROR, payload: error.message });
   }
 };
 

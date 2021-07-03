@@ -1,6 +1,5 @@
 const initialState = {
   allCoins: null,
-  lastUpdated: "",
   isLoading: false,
   hasError: false,
 };
@@ -20,8 +19,7 @@ function searchReducer(state = initialState, action) {
     case COINS_FETCH_ALL_SUCCESS:
       return {
         ...state,
-        allCoins: action.payload.data,
-        lastUpdated: action.payload.now,
+        allCoins: action.payload,
         isLoading: false,
         hasError: false,
       };

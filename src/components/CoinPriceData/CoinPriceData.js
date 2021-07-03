@@ -56,28 +56,35 @@ const CoinPriceData = ({ marketData, currency }) => {
         </div>
       </CenteredRow>
       <StyledRow>
-        <AthContainer>
-          <AllTimeHigh>
-            <FaCaretUp size="1.2rem" />
-          </AllTimeHigh>
-          <Description>All Time High:</Description>
-          <Value>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("ath"))}
-          </Value>
-        </AthContainer>
-        <AllTimeDate>{getDate("athDate")}</AllTimeDate>
-        <AthContainer>
-          <AllTimeLow>
-            <FaCaretDown size="1.2rem" />
-          </AllTimeLow>
-          <Description>All Time Low:</Description>
-          <Value>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("atl"))}
-          </Value>
-        </AthContainer>
-        <AllTimeDate>{getDate("atlDate")}</AllTimeDate>
+        <div>
+          <div>
+            <AthContainer>
+              <AllTimeHigh>
+                <FaCaretUp size="1.2rem" />
+              </AllTimeHigh>
+              <Description>All Time High:</Description>
+              <Value>
+                {currencySymbol}
+                {formatPrice(getCurrencyValue("ath"))}
+              </Value>
+            </AthContainer>
+
+            <AllTimeDate>{getDate("athDate")}</AllTimeDate>
+          </div>
+          <div>
+            <AthContainer>
+              <AllTimeLow>
+                <FaCaretDown size="1.2rem" />
+              </AllTimeLow>
+              <Description>All Time Low:</Description>
+              <Value>
+                {currencySymbol}
+                {formatPrice(getCurrencyValue("atl"))}
+              </Value>
+            </AthContainer>
+            <AllTimeDate>{getDate("atlDate")}</AllTimeDate>
+          </div>
+        </div>
       </StyledRow>
     </>
   );

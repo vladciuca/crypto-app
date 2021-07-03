@@ -19,15 +19,15 @@ const CurrencySelect = ({ currency, handleCurrency }) => {
   const currencyIcon = () => {
     switch (currency) {
       case "eur":
-        return <AiFillEuroCircle size="1.4rem" />;
+        return <AiFillEuroCircle size="1.6rem" />;
       case "gbp":
-        return <AiFillPoundCircle size="1.4rem" />;
+        return <AiFillPoundCircle size="1.6rem" />;
       case "btc":
-        return <FaBitcoin size="1.3rem" />;
+        return <FaBitcoin size="1.45rem" />;
       case "eth":
-        return <FaEthereum size="1rem" />;
+        return <FaEthereum size="1.2rem" />;
       default:
-        return <AiFillDollarCircle size="1.4rem" />;
+        return <AiFillDollarCircle size="1.6rem" />;
     }
   };
   const menu = (
@@ -36,31 +36,31 @@ const CurrencySelect = ({ currency, handleCurrency }) => {
         <div>
           <AiFillDollarCircle size="1.4rem" />
         </div>
-        <span>USD</span>
+        <span>USD (United States Dollar)</span>
       </StyledMenuItem>
       <StyledMenuItem key="gbp">
         <div>
           <AiFillPoundCircle size="1.4rem" />
         </div>
-        <span>GBP</span>
+        <span>GBP (British Pound Sterling)</span>
       </StyledMenuItem>
       <StyledMenuItem key="eur">
         <div>
           <AiFillEuroCircle size="1.4rem" />
         </div>
-        <span>EUR</span>
+        <span>EUR (Euro)</span>
       </StyledMenuItem>
       <StyledMenuItem key="btc">
         <div>
           <FaBitcoin size="1.25rem" />
         </div>
-        <span>BTC</span>
+        <span>BTC (Bitcoin)</span>
       </StyledMenuItem>
       <StyledMenuItem key="eth">
         <div>
           <FaEthereum size="1.1rem" />
         </div>
-        <span>ETH</span>
+        <span>ETH (Ethereum)</span>
       </StyledMenuItem>
     </StyledMenu>
   );

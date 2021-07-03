@@ -6,7 +6,7 @@ import {
   listenForHistoryChange,
 } from "redux-location-state";
 import { merge } from "lodash";
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 import storage from "redux-persist/lib/storage";
 import list from "./list/listReducer";
 import favorites from "./favorites/favoritesReducer";
@@ -19,7 +19,7 @@ import chart from "./chart/chartReducer";
 const history = createBrowserHistory();
 
 const paramSetup = {
-  "/": {
+  "/coins": {
     category: {
       stateKey: "list.queryConfig.category",
       options: { shouldPush: true },
@@ -29,16 +29,16 @@ const paramSetup = {
       options: { shouldPush: true },
       type: "number",
     },
-    perPage: {
+    coinsPerPage: {
       stateKey: "list.queryConfig.coinsPerPage",
       options: { shouldPush: true },
       type: "number",
     },
-    by: {
+    listBy: {
       stateKey: "list.queryConfig.listBy",
       options: { shouldPush: true },
     },
-    order: {
+    listOrder: {
       stateKey: "list.queryConfig.listOrder",
       options: { shouldPush: true },
     },
@@ -51,7 +51,7 @@ const paramSetup = {
 
 function mapLocationToState(state, location) {
   switch (location.pathname) {
-    case "/":
+    case "/coins":
       return merge({}, state, location.query);
 
     default:

@@ -4,8 +4,8 @@ import {
   PercentageBarTooltip,
   UtilityNavPair,
   ETHGasPrice,
-  CurrencySelect,
   ThemeSwitch,
+  ErrorTooltipMessage,
 } from "components";
 import { getCurrencySymbol, convertLongNumber, formatNumber } from "utils";
 import {
@@ -14,12 +14,16 @@ import {
   getEthMarketCap,
 } from "store/utility/utilityActions";
 import { utilityColors } from "../../theme";
-import { Container, StyledRow, StyledCol } from "./UtilityNav.styles";
+import {
+  Container,
+  StyledRow,
+  StyledCol,
+  StyledSwitch,
+} from "./UtilityNav.styles";
 import { SkeletonText } from "../skeletons/Skeletons.styles";
 
 const UtilityNav = ({
   currency,
-  handleCurrency,
   theme,
   handleTheme,
   globalData,
@@ -30,6 +34,7 @@ const UtilityNav = ({
   ethMarketCap,
   isLoading,
   hasError,
+  errorMessage,
 }) => {
   const getCurrencyValue = (key) => {
     if (globalData === null) return;
@@ -49,7 +54,7 @@ const UtilityNav = ({
   return (
     <Container>
       {isLoading && <SkeletonText width="70%" height="0.5rem" />}
-      {hasError && "has ERROR"}
+      {hasError && <ErrorTooltipMessage error={errorMessage} />}
       {hasData && (
         <StyledRow gutter={[8]}>
           <StyledCol>
@@ -139,7 +144,7 @@ const UtilityNav = ({
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"BTC Market Cap"}
-              fillValue={btcMarketCap && btcMarketCap[currency]}
+              fillValue={btcMarketCap ? btcMarketCap[currency] : "N/A"}
               fillColor={utilityColors.btc}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.btc.toFixed(2)
@@ -172,7 +177,7 @@ const UtilityNav = ({
               baseValue={hasData && getCurrencyValue("totalMarketCap")}
               baseColor={utilityColors.mktCap}
               fillTitle={"ETH Market Cap"}
-              fillValue={ethMarketCap && ethMarketCap[currency]}
+              fillValue={ethMarketCap ? ethMarketCap[currency] : "N/A"}
               fillColor={utilityColors.eth}
               fillPercentage={
                 hasData && globalData.marketCapPercentage.eth.toFixed(2)
@@ -189,10 +194,8 @@ const UtilityNav = ({
       )}
       <StyledRow>
         <StyledCol>
-          <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
-        </StyledCol>
-        <StyledCol>
-          <ThemeSwitch theme={theme} handleTheme={handleTheme} />
+          <ThemeSwitch theme={theme} />
+          <StyledSwitch size="small" onClick={handleTheme} />
         </StyledCol>
       </StyledRow>
     </Container>
@@ -205,6 +208,7 @@ const mapStateToProps = (state) => ({
   ethMarketCap: state.utility.ethMarketCap,
   isLoading: state.utility.isLoadingGlobalData,
   hasError: state.utility.hasErrorGlobalData,
+  errorMessage: state.utility.globalDataErrorMessage,
 });
 
 const mapDispatchToProps = {
