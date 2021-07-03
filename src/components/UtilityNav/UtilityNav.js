@@ -187,7 +187,7 @@ const UtilityNav = ({
               height={"0.4rem"}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-xs"}>
             <ETHGasPrice />
           </StyledCol>
         </StyledRow>

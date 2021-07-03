@@ -38,7 +38,7 @@ const NavBar = ({
     <Nav>
       <Container>
         <Col
-          xs={{ span: 6 }}
+          xs={{ span: 5 }}
           sm={{ span: 7 }}
           md={{ span: 8 }}
           lg={{ span: 8 }}
@@ -47,7 +47,7 @@ const NavBar = ({
           <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
         </Col>
         <SearchCol
-          xs={{ span: 12 }}
+          xs={{ span: 13 }}
           sm={{ span: 10 }}
           md={{ span: 8 }}
           lg={{ span: 8 }}
