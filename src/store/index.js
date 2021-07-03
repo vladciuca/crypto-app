@@ -68,7 +68,7 @@ const favoritesPersistConfig = {
 const rootPersistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["settings", "search"],
+  whitelist: ["settings"],
 };
 
 const reducers = combineReducers({

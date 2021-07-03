@@ -37,20 +37,38 @@ const NavBar = ({
   return (
     <Nav>
       <Container>
-        <Col span={8}>
+        <Col
+          xs={{ span: 6 }}
+          sm={{ span: 7 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 9 }}
+        >
           <CurrencySelect currency={currency} handleCurrency={handleCurrency} />
         </Col>
-        <SearchCol span={8}>
+        <SearchCol
+          xs={{ span: 12 }}
+          sm={{ span: 10 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 6 }}
+        >
           <Search theme={theme} history={history} />
         </SearchCol>
-        <LinkCol span={8}>
+        <LinkCol
+          xs={{ span: 6 }}
+          sm={{ span: 7 }}
+          md={{ span: 8 }}
+          lg={{ span: 8 }}
+          xl={{ span: 9 }}
+        >
           <ul>
             <li>
               <StyledLink to={`/coins/?${queryURL}`} onClick={hideFavoriteList}>
                 <Icon>
                   <FaCoins size="1.5rem" />
                 </Icon>
-                <span>Coins</span>
+                <span className={"hide-sm-md"}>Coins</span>
               </StyledLink>
             </li>
             <li>
@@ -65,7 +83,7 @@ const NavBar = ({
                     <RiHeartLine size="1.7rem" color="#ff7b7b" />
                   )}
                 </Icon>
-                <span>Favorites</span>
+                <span className={"hide-sm-md"}>Favorites</span>
               </StyledLink>
             </li>
             {/* <li>

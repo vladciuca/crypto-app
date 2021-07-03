@@ -51,8 +51,37 @@ body {
 
 ${radio}
 .hide-sm {
-  @media (max-width: 768px) {
+  @media (min-width: 375px) and (max-width: 576px) {
     display: none;
+  }
+  @media (min-width: 576px) and (max-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 768px) and (max-width: 992px) {
+    display: block;
+  }
+  @media (min-width: 992px) and (max-width: 1200px) {
+    display: block;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    display: block;
+  }
+}
+.hide-sm-md {
+  @media (min-width: 375px) and (max-width: 576px) {
+    display: none;
+  }
+  @media (min-width: 576px) and (max-width: 768px) {
+    display: none;
+  }
+  @media (min-width: 768px) and (max-width: 992px) {
+    display: none;
+  }
+  @media (min-width: 992px) and (max-width: 1200px) {
+    display: block;
+  }
+  @media (min-width: 1200px) and (max-width: 1600px) {
+    display: block;
   }
 }
 `;

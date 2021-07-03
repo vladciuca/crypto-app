@@ -36,31 +36,31 @@ const CurrencySelect = ({ currency, handleCurrency }) => {
         <div>
           <AiFillDollarCircle size="1.4rem" />
         </div>
-        <span>USD (United States Dollar)</span>
+        <span>USD - United States Dollar</span>
       </StyledMenuItem>
       <StyledMenuItem key="gbp">
         <div>
           <AiFillPoundCircle size="1.4rem" />
         </div>
-        <span>GBP (British Pound Sterling)</span>
+        <span>GBP - British Pound Sterling</span>
       </StyledMenuItem>
       <StyledMenuItem key="eur">
         <div>
           <AiFillEuroCircle size="1.4rem" />
         </div>
-        <span>EUR (Euro)</span>
+        <span>EUR - Euro</span>
       </StyledMenuItem>
       <StyledMenuItem key="btc">
         <div>
           <FaBitcoin size="1.25rem" />
         </div>
-        <span>BTC (Bitcoin)</span>
+        <span>BTC - Bitcoin</span>
       </StyledMenuItem>
       <StyledMenuItem key="eth">
         <div>
           <FaEthereum size="1.1rem" />
         </div>
-        <span>ETH (Ethereum)</span>
+        <span>ETH - Ethereum</span>
       </StyledMenuItem>
     </StyledMenu>
   );
@@ -68,7 +68,7 @@ const CurrencySelect = ({ currency, handleCurrency }) => {
     <Dropdown overlay={menu}>
       <DropdownContent>
         <Icon>{currencyIcon()}</Icon>
-        <Currency>{currency}</Currency>
+        <Currency className={"hide-sm"}>{currency}</Currency>
         <FaCaretDown />
       </DropdownContent>
     </Dropdown>

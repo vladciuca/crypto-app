@@ -2,7 +2,10 @@ import styled from "styled-components";
 import AsyncSelect from "react-select";
 
 export const StyledAsyncSelect = styled(AsyncSelect)`
-  width: 250px;
+  @media (min-width: 992px) and (max-width: 1200px) {
+    width: 80%;
+  }
+  width: 100%;
   .react-select__control {
     border-radius: 0.5rem;
     border: none;
@@ -37,8 +40,6 @@ export const StyledAsyncSelect = styled(AsyncSelect)`
     background-color: ${(props) => props.theme.cardSecondary};
     color: ${(props) => props.theme.text};
   }
-  .react-select__menu-list {
-  }
   .react-select__option {
     :hover {
       background: ${(props) => props.theme.bgSecondary};
@@ -52,7 +53,7 @@ export const StyledAsyncSelect = styled(AsyncSelect)`
     color: white;
   }
   .react-select__indicator-separator {
-    background: ${(props) => props.theme.secondary};
+    background: transparent;
   }
   svg path {
     fill: rgb(91, 72, 106);
