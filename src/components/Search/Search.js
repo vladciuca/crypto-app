@@ -38,7 +38,7 @@ const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
         defaultOptions
         onInputChange={handleInputChange}
         onChange={handleChange}
-        placeholder="Search..."
+        placeholder="Search Coins..."
         isLoading={isLoading}
       />
     </>

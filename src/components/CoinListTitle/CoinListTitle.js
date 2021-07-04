@@ -86,16 +86,39 @@ const CoinListTitle = ({
       )}
       {!showFavorites && (
         <StyledRow>
-          <StyledCol lg={{ span: 1 }}>
+          <StyledCol
+            xs={{ span: 1, offset: 1 }}
+            sm={{ span: 1, offset: 0 }}
+            md={{ span: 1, offset: 0 }}
+            lg={{ span: 1, offset: 0 }}
+            xl={{ span: 1, offset: 0 }}
+          >
             <Arrows
               onClick={() => handleListOrder(getOrder() ? "Asc" : "Desc")}
             >
               <TiArrowUnsorted size="1rem" />
             </Arrows>
           </StyledCol>
-          <StyledCol lg={{ span: 17 }}>
+          <StyledCol
+            className={"show-xs"}
+            xs={{ span: 22 }}
+            sm={{ span: 0 }}
+            md={{ span: 0 }}
+            lg={{ span: 0 }}
+            xl={{ span: 0 }}
+          >
             <Title>{list}</Title>
             <Value>{coinsPerPage * page}</Value>
+          </StyledCol>
+          <StyledCol
+            xs={{ span: 20, offset: 1 }}
+            sm={{ span: 19, offset: 0 }}
+            md={{ span: 17, offset: 0 }}
+            lg={{ span: 17, offset: 0 }}
+            xl={{ span: 17, offset: 0 }}
+          >
+            <Title className={"hide-xs"}>{list}</Title>
+            <Value className={"hide-xs"}>{coinsPerPage * page}</Value>
             <Category>
               <CategorySelect
                 obj={categoriesObj}
@@ -112,21 +135,29 @@ const CoinListTitle = ({
               />
             </Category>
           </StyledCol>
-          <StyledColEnd lg={{ span: 6 }}>
-            <Category>
-              {category === "all" && (
-                <>
-                  <Text>Show:</Text>
-                  <CategorySelect
-                    obj={perPageObj}
-                    label={coinsPerPage}
-                    handleSelect={handleCoinsPerPage}
-                  />
-                </>
-              )}
-            </Category>
+          <StyledColEnd
+            xs={{ span: 3 }}
+            sm={{ span: 4 }}
+            md={{ span: 6 }}
+            lg={{ span: 6 }}
+            xl={{ span: 6 }}
+          >
+            <div className={"hide-sm"}>
+              <Category>
+                {category === "all" && (
+                  <>
+                    <Text>Show:</Text>
+                    <CategorySelect
+                      obj={perPageObj}
+                      label={coinsPerPage}
+                      handleSelect={handleCoinsPerPage}
+                    />
+                  </>
+                )}
+              </Category>
+            </div>
             <PageContainer>
-              <Text>Page:</Text>
+              <Text className={"hide-sm"}>Page:</Text>
               <FaCaretLeft size="1rem" onClick={handlePrevPage} />
               <Page>{page}</Page>
               <FaCaretRight size="1rem" onClick={handleNextPage} />
