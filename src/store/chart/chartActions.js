@@ -8,7 +8,6 @@ import {
 } from "./chartReducer";
 
 export const getChartDays = (e) => async (dispatch) => {
-  console.log(e.target.value);
   dispatch({ type: GET_CHART_PERIOD, payload: e.target.value });
 };
 

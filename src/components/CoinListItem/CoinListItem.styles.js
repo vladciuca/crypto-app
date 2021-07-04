@@ -71,7 +71,6 @@ export const CurrentPriceCol = styled(Col)`
   align-items: center;
   color: ${(props) => props.theme.text};
   font-weight: bold;
-  padding-right: 1rem;
 `;
 
 export const PriceChangeCol = styled(Col)`

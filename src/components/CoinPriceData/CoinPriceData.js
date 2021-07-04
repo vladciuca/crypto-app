@@ -30,32 +30,42 @@ const CoinPriceData = ({ marketData, currency }) => {
   return (
     <>
       <CenteredRow>
-        <div>
-          <Price>
-            {currencySymbol}
-            {formatPrice(getCurrencyValue("currentPrice"))}
-          </Price>
-          <PriceChangeAlign>
-            <PriceCurrencyChange
-              pricechange={getCurrencyValue("priceChange24hInCurrency")}
-            >
-              {getCurrencyValue("priceChange24hInCurrency")
-                ? `${currencySymbol}${formatPrice(
-                    getCurrencyValue("priceChange24hInCurrency")
-                  )}`
-                : "N/A"}
-            </PriceCurrencyChange>
-            <PriceChange pricechange={priceChangePercentage24h}>
-              <CaretSymbol value={priceChangePercentage24h} />
-              {priceChangePercentage24h
-                ? priceChangePercentage24h.toFixed(2)
-                : "N/A"}
-              %
-            </PriceChange>
-          </PriceChangeAlign>
-        </div>
+        <Price
+          xs={{ span: 12 }}
+          sm={{ span: 24 }}
+          md={{ span: 24 }}
+          lg={{ span: 24 }}
+          xl={{ span: 24 }}
+        >
+          {currencySymbol}
+          {formatPrice(getCurrencyValue("currentPrice"))}
+        </Price>
+        <PriceChangeAlign
+          xs={{ span: 12 }}
+          sm={{ span: 24 }}
+          md={{ span: 24 }}
+          lg={{ span: 24 }}
+          xl={{ span: 24 }}
+        >
+          <PriceCurrencyChange
+            pricechange={getCurrencyValue("priceChange24hInCurrency")}
+          >
+            {getCurrencyValue("priceChange24hInCurrency")
+              ? `${currencySymbol}${formatPrice(
+                  getCurrencyValue("priceChange24hInCurrency")
+                )}`
+              : "N/A"}
+          </PriceCurrencyChange>
+          <PriceChange pricechange={priceChangePercentage24h}>
+            <CaretSymbol value={priceChangePercentage24h} />
+            {priceChangePercentage24h
+              ? priceChangePercentage24h.toFixed(2)
+              : "N/A"}
+            %
+          </PriceChange>
+        </PriceChangeAlign>
       </CenteredRow>
-      <StyledRow>
+      <StyledRow className={"hide-xs"}>
         <div>
           <div>
             <AthContainer>

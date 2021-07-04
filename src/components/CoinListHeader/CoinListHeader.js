@@ -16,11 +16,6 @@ const CoinListHeader = ({
   handleSort,
   sortBy,
 }) => {
-  // const priceChangeSorts = [
-  //   { title: "1h%", value: "priceChangePercentage1hInCurrency" },
-  //   { title: "24h%", value: "priceChangePercentage24hInCurrency" },
-  //   { title: "7d%", value: "priceChangePercentage7dInCurrency" },
-  // ];
   return (
     <RowHeader>
       <ColHeader
@@ -69,7 +64,7 @@ const CoinListHeader = ({
       <ColHeader
         xs={{ span: 5 }}
         sm={{ span: 3 }}
-        md={{ span: 2 }}
+        md={{ span: 3 }}
         lg={{ span: 2 }}
         xl={{ span: 2 }}
       >
@@ -78,16 +73,7 @@ const CoinListHeader = ({
           {sortBy === "currentPrice" && <CaretSymbol value={sortOrder} />}
         </Value>
       </ColHeader>
-      {/* {priceChangeSorts.map((sort) => {
-        return (
-          <ColHeader key={sort.title} span={2}>
-            <Value onClick={() => handleSort(sort.value)}>
-              {sort.title}
-              {sortBy === sort.value && <CaretSymbol value={sortOrder} />}
-            </Value>
-          </ColHeader>
-        );
-      })} */}
+
       <ColHeader
         className={"hide-sm-md"}
         xs={{ span: 0 }}

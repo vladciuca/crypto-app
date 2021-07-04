@@ -1,5 +1,5 @@
 const initialState = {
-  allCoins: null,
+  allCoins: [],
   isLoading: false,
   hasError: false,
 };

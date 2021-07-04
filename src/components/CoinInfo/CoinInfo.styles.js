@@ -4,17 +4,18 @@ import { Row, Col } from "antd";
 export const StyledRow = styled(Row)`
   background-color: ${(props) => props.theme.cardSecondary};
   border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
-  margin-bottom: 0.2rem;
+
   padding: 1rem;
   justify-content: center;
   align-items: center;
   height: 85%;
 `;
 
-export const Center = styled.div`
+export const Center = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0.2rem;
 `;
 
 export const Img = styled.img`
@@ -33,6 +34,9 @@ export const Rank = styled.span`
 export const Name = styled.div`
   font-weight: bold;
   font-size: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Ticker = styled.span`
@@ -40,19 +44,16 @@ export const Ticker = styled.span`
   font-weight: bold;
   font-size: 1.4rem;
   color: ${(props) => props.theme.primary};
-  padding: 0 0.2rem;
-`;
-
-export const Favorite = styled.span`
-  padding-left: 0.2rem;
+  padding: 0 0.2rem 0 0;
 `;
 
 export const LinkRow = styled(Col)`
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
   background-color: ${(props) => props.theme.cardPrimary};
   border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
   padding: 0.5rem;
-  text-overflow: ellipsis;
   justify-content: center;
   display: flex;
   align-items: center;
@@ -62,9 +63,4 @@ export const LinkRow = styled(Col)`
       color: ${(props) => props.theme.primary};
     }
   }
-`;
-
-export const CopyText = styled.span`
-  cursor: pointer;
-  margin-left: 0.3rem;
 `;

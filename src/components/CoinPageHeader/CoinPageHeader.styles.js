@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { Row, Col } from "antd";
 
-export const StyledCol = styled(Col)``;
+export const StyledCol = styled(Col)`
+  margin-bottom: 1rem;
+`;
 
 export const CoinPageHeaderRow = styled(Row)`
   @media (min-width: 375px) and (max-width: 576px) {

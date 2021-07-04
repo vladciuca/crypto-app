@@ -87,6 +87,7 @@ export const CoinPageCol = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 `;
 
 export const ChartBox = styled.div`

@@ -1,3 +1,4 @@
+import { Row, Col } from "antd";
 import {
   CoinInfo,
   CoinPriceData,
@@ -22,7 +23,13 @@ const CoinPageHeader = ({ coinData, currency }) => {
   return (
     <>
       <CoinPageHeaderRow>
-        <StyledCol span={6}>
+        <StyledCol
+          xs={{ span: 24, order: 1 }}
+          sm={{ span: 12, order: 1 }}
+          md={{ span: 11, order: 1 }}
+          lg={{ span: 6, order: 1 }}
+          xl={{ span: 6, order: 1 }}
+        >
           <CoinInfo
             id={id}
             image={image.large}
@@ -34,22 +41,42 @@ const CoinPageHeader = ({ coinData, currency }) => {
             categories={categories}
           />
         </StyledCol>
-        <StyledCol offset={1} span={6}>
+        <StyledCol
+          xs={{ span: 24, offset: 0, order: 2 }}
+          sm={{ span: 11, offset: 1, order: 2 }}
+          md={{ span: 12, offset: 1, order: 2 }}
+          lg={{ span: 6, offset: 1, order: 2 }}
+          xl={{ span: 6, offset: 1, order: 2 }}
+        >
           <CoinPriceData marketData={marketData} currency={currency} />
         </StyledCol>
-        <StyledCol offset={1} span={10}>
+        <StyledCol
+          xs={{ span: 24, offset: 0, order: 4 }}
+          sm={{ span: 24, offset: 0, order: 4 }}
+          md={{ span: 24, offset: 0, order: 4 }}
+          lg={{ span: 10, offset: 1, order: 3 }}
+          xl={{ span: 10, offset: 1, order: 3 }}
+        >
           <CoinMarketData
             symbol={symbol}
             marketData={marketData}
             currency={currency}
           />
         </StyledCol>
+        <StyledCol
+          xs={{ span: 24, order: 3 }}
+          sm={{ span: 24, order: 3 }}
+          md={{ span: 24, order: 3 }}
+          lg={{ span: 13, order: 4 }}
+          xl={{ span: 13, order: 4 }}
+        >
+          <PriceConvertor
+            symbol={symbol}
+            marketData={marketData}
+            currency={currency}
+          />
+        </StyledCol>
       </CoinPageHeaderRow>
-      <PriceConvertor
-        symbol={symbol}
-        marketData={marketData}
-        currency={currency}
-      />
     </>
   );
 };

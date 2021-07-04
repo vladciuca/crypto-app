@@ -94,11 +94,11 @@ const CoinPage = ({
           </Row>
           <Background justify="end">
             <CoinPageChartOptions getChartDays={getChartDays} days={days} />
-            <CoinDescription
+            {/* <CoinDescription
               description={coinData.description}
               categories={coinData.categories}
               links={coinData.links}
-            />
+            /> */}
           </Background>
         </>
       )}

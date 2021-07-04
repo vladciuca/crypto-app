@@ -47,11 +47,6 @@ const CoinListItem = ({
     totalSupply,
     sparklineIn7d,
   } = coin;
-  // const priceChangeValues = [
-  //   priceChangePercentage1hInCurrency,
-  //   priceChangePercentage24hInCurrency,
-  //   priceChangePercentage7dInCurrency,
-  // ];
   return (
     <ListItemRow>
       <FavoriteCol
@@ -111,18 +106,7 @@ const CoinListItem = ({
           </span>
         )}
       </CurrentPriceCol>
-      {/* {priceChangeValues.map((value) => {
-        if (!value) {
-          return <NotAvailable span={2}>-</NotAvailable>;
-        } else {
-          return (
-            <PriceChangeCol key={value} span={2} pricechange={value}>
-              <CaretSymbol value={value} />
-              {value.toFixed(2)}%
-            </PriceChangeCol>
-          );
-        }
-      })} */}
+
       <PriceChangeCol
         className={"hide-sm-md"}
         xs={{ span: 0 }}

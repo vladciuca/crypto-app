@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 
 export const CenteredRow = styled(Row)`
+  @media (min-width: 375px) and (max-width: 576px) {
+    justify-content: start;
+    border-radius: 0.75rem;
+    height: 100%;
+  }
   background-color: ${(props) => props.theme.cardPrimary};
   border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
   margin-bottom: 0.2rem;
@@ -36,7 +41,7 @@ export const Value = styled.span`
   font-weight: bold;
 `;
 
-export const Price = styled.span`
+export const Price = styled(Col)`
   font-size: 2.5rem;
   font-weight: bold;
   text-align: center;
@@ -47,9 +52,13 @@ export const AthContainer = styled.div`
   align-items: center;
 `;
 
-export const PriceChangeAlign = styled.div`
+export const PriceChangeAlign = styled(Col)`
   display: flex;
   align-items: center;
+  justify-content: center;
+  @media (min-width: 375px) and (max-width: 576px) {
+    justify-content: start;
+  }
 `;
 
 export const PriceCurrencyChange = styled.span`
