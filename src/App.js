@@ -8,13 +8,13 @@ import {
 } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import { CoinList, CoinPage, NotFound } from "pages";
-import { NavBar, UtilityNav } from "components";
+import { NavBar, UtilityNav, ContactFooter } from "components";
 import { toggleTheme, changeCurrency } from "store/settings/settingsActions";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyle } from "./GlobalStyle";
 import "antd/dist/antd.css";
 
-const Container = styled.div`
+const NavContainer = styled.div`
   @media (min-width: 375px) and (max-width: 576px) {
     margin: 0 2%;
   }
@@ -32,39 +32,45 @@ const Container = styled.div`
   }
 `;
 
+const Content = styled.div`
+  padding-bottom: 1rem;
+`;
+
 const App = (props) => {
   const { theme, toggleTheme, currency, changeCurrency, showFavorites } = props;
   return (
     <ThemeProvider theme={theme ? lightTheme : darkTheme}>
-      <Router>
-        <GlobalStyle />
-        <Container>
-          <UtilityNav
-            currency={currency}
-            theme={theme}
-            handleTheme={toggleTheme}
-          />
-          <NavBar
-            currency={currency}
-            theme={theme}
-            handleCurrency={changeCurrency}
-            showFavorites={showFavorites}
-          />
-        </Container>
-        <Switch>
-          <Route exact path="/">
-            <Redirect to="/coins" />
-          </Route>
-          <Route exact path="/coins" component={CoinList}></Route>
-          <Route exact path="/coins/:id" component={CoinPage}></Route>
-          {/* <Route exact path="/dashboard">
-            <Portfolio />
-          </Route> */}
-          <Route path="*">
-            <NotFound />
-          </Route>
-        </Switch>
-      </Router>
+      <Content>
+        <Router>
+          <GlobalStyle />
+          <NavContainer>
+            <UtilityNav
+              currency={currency}
+              theme={theme}
+              handleTheme={toggleTheme}
+            />
+            <NavBar
+              currency={currency}
+              theme={theme}
+              handleCurrency={changeCurrency}
+              showFavorites={showFavorites}
+            />
+          </NavContainer>
+
+          <Switch>
+            <Route exact path="/">
+              <Redirect to="/coins" />
+            </Route>
+            <Route exact path="/coins" component={CoinList}></Route>
+            <Route exact path="/coins/:id" component={CoinPage}></Route>
+            <Route path="*">
+              <NotFound />
+            </Route>
+          </Switch>
+
+          <ContactFooter />
+        </Router>
+      </Content>
     </ThemeProvider>
   );
 };

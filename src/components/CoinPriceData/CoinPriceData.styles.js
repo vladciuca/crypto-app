@@ -21,7 +21,7 @@ export const StyledRow = styled(Row)`
   background-color: ${(props) => props.theme.cardPrimary};
   border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
   margin-bottom: 0.2rem;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 `;
 
 export const AllTimeDate = styled.div`

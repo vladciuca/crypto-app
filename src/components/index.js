@@ -14,6 +14,7 @@ export { default as CaretSymbol } from "./CaretSymbol";
 export { default as PercentageBar } from "./PercentageBar";
 export { default as ErrorMessage } from "./ErrorMessage";
 export { default as ErrorTooltipMessage } from "./ErrorTooltipMessage";
+export { default as ContactFooter } from "./ContactFooter";
 //CoinList Components
 export { default as EmptyFavoriteList } from "./EmptyFavoriteList";
 export { default as CoinListTitle } from "./CoinListTitle";
@@ -33,4 +34,3 @@ export { default as CoinPageChart } from "./CoinPageChart";
 export { default as CoinPageChartOptions } from "./CoinPageChartOptions";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as PriceConvertor } from "./PriceConvertor";
-//Portfolio Components

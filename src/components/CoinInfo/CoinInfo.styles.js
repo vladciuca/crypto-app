@@ -4,11 +4,13 @@ import { Row, Col } from "antd";
 export const StyledRow = styled(Row)`
   background-color: ${(props) => props.theme.cardSecondary};
   border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
-
   padding: 1rem;
   justify-content: center;
   align-items: center;
-  height: 85%;
+  height: 85.5%;
+  @media (min-width: 375px) and (max-width: 576px) {
+    height: auto;
+  }
 `;
 
 export const Center = styled(Col)`
@@ -48,6 +50,7 @@ export const Ticker = styled.span`
 `;
 
 export const LinkRow = styled(Col)`
+  margin-top: 0.2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

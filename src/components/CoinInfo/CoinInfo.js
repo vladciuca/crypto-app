@@ -5,7 +5,6 @@ import {
   Rank,
   Name,
   Ticker,
-  Favorite,
   LinkRow,
   Center,
 } from "./CoinInfo.styles";
