@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  margin: 1rem 5%;
+  margin: 1rem 0;
   background: ${(props) => props.theme.cardPrimary};
   border-radius: 0.5rem;
   padding: 1.5rem;

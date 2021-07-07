@@ -4,17 +4,6 @@ import { Row } from "antd";
 export const Container = styled.div`
   border-radius: 0.75rem;
   background: ${(props) => props.theme.cardPrimary};
-  padding: 0.5rem 0;
-  margin: 0 30%;
-  @media (min-width: 375px) and (max-width: 576px) {
-    margin: 0 2%;
-  }
-  @media (min-width: 576px) and (max-width: 768px) {
-    margin: 0 15%;
-  }
-  @media (min-width: 768px) and (max-width: 992px) {
-    margin: 0 20%;
-  }
 `;
 
 export const SocialMediaRow = styled(Row)`
@@ -28,6 +17,7 @@ export const SocialMediaRow = styled(Row)`
 `;
 
 export const InfoRow = styled(Row)`
+  font-size: 0.8rem;
   justify-content: center;
   align-items: center;
   strong {

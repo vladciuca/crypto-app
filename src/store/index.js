@@ -22,6 +22,7 @@ const paramSetup = {
   "/coins": {
     category: {
       stateKey: "list.queryConfig.category",
+      // initialState: "all",
       options: { shouldPush: true },
     },
     page: {

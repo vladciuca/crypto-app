@@ -31,7 +31,7 @@ const CoinPriceData = ({ marketData, currency }) => {
     <>
       <CenteredRow>
         <Price
-          xs={{ span: 12 }}
+          xs={{ span: 17 }}
           sm={{ span: 24 }}
           md={{ span: 24 }}
           lg={{ span: 24 }}
@@ -41,13 +41,14 @@ const CoinPriceData = ({ marketData, currency }) => {
           {formatPrice(getCurrencyValue("currentPrice"))}
         </Price>
         <PriceChangeAlign
-          xs={{ span: 12 }}
+          xs={{ span: 0 }}
           sm={{ span: 24 }}
           md={{ span: 24 }}
           lg={{ span: 24 }}
           xl={{ span: 24 }}
         >
           <PriceCurrencyChange
+            className={"hide-xs"}
             pricechange={getCurrencyValue("priceChange24hInCurrency")}
           >
             {getCurrencyValue("priceChange24hInCurrency")

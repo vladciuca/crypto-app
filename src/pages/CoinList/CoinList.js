@@ -9,9 +9,10 @@ import {
   EmptyFavoriteList,
   ErrorMessage,
 } from "components";
+import { getScreenWidth } from "utils";
+import { ResponsiveContainer } from "components/UI/UI.styles";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
 import { utilityColors } from "../../theme";
-import { Container } from "./CoinList.styles";
 import {
   getCoinList,
   handleSort,
@@ -68,13 +69,6 @@ const CoinList = (props) => {
     }
   };
 
-  const getScreenWidth = () => {
-    const width = window.innerWidth;
-    if (width < 576) return 5;
-    if (width < 992 && width > 576) return 10;
-    return 15;
-  };
-
   const hasData = !!(!isLoading && list.length);
   const noFavorites = list.length === 0 && showFavorites && !isLoading;
   const sortedList = sortCoinList();
@@ -106,7 +100,7 @@ const CoinList = (props) => {
   ]);
 
   return (
-    <Container>
+    <ResponsiveContainer>
       <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
       <CoinListTitle
         showFavorites={showFavorites}
@@ -155,7 +149,7 @@ const CoinList = (props) => {
       {hasFavError && showFavorites && <ErrorMessage error={errorMessage} />}
 
       <CoinListFooter />
-    </Container>
+    </ResponsiveContainer>
   );
 };
 

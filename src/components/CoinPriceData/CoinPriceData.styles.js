@@ -78,6 +78,8 @@ export const PriceCurrencyChange = styled.span`
 `;
 
 export const PriceChange = styled.div`
+  font-size: 1.3rem;
+  padding-left: 0.2rem;
   display: inline-flex;
   align-items: center;
   margin-left: 0.2rem;

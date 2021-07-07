@@ -1,7 +1,7 @@
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { Col } from "antd";
-import { FaCoins, RiHeartFill, RiHeartLine } from "react-icons/all";
+import { RiHeartFill, RiHeartLine, MdExplore } from "react-icons/all";
 import { Search, CurrencySelect } from "components";
 import {
   Nav,
@@ -15,25 +15,17 @@ import {
   hideFavoriteList,
   toggleFavoriteList,
 } from "store/favorites/favoritesActions";
-import { getQueryConfig } from "store/list/listReducer";
 
 const NavBar = ({
+  queryURL,
   history,
   hideFavoriteList,
   toggleFavoriteList,
-  queryConfig,
   showFavorites,
   currency,
   handleCurrency,
   theme,
 }) => {
-  const queryURL = Object.entries(queryConfig)
-    .map((entry) => {
-      const [key, value] = entry;
-      return `${key}=${value}`;
-    })
-    .join("&");
-
   return (
     <Nav>
       <Container>
@@ -66,9 +58,9 @@ const NavBar = ({
             <li>
               <StyledLink to={`/coins/?${queryURL}`} onClick={hideFavoriteList}>
                 <Icon>
-                  <FaCoins size="1.5rem" />
+                  <MdExplore size="1.8rem" />
                 </Icon>
-                <span className={"hide-sm-md"}>Coins</span>
+                <span className={"hide-sm-md"}>Explore</span>
               </StyledLink>
             </li>
             <li>
@@ -86,14 +78,6 @@ const NavBar = ({
                 <span className={"hide-sm-md"}>Favorites</span>
               </StyledLink>
             </li>
-            {/* <li>
-            <StyledLink to="/dashboard">
-              <Icon>
-                <GiPieChart size="1.4rem" />
-              </Icon>
-              <span>Portfolio</span>
-            </StyledLink>
-          </li> */}
           </ul>
         </LinkCol>
       </Container>
@@ -101,9 +85,7 @@ const NavBar = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  queryConfig: getQueryConfig(state),
-});
+const mapStateToProps = (state) => ({});
 const mapDispatchToProps = {
   hideFavoriteList,
   toggleFavoriteList,

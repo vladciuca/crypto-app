@@ -1,5 +1,5 @@
 const formatNumber = (number) => {
-  if (number === null) return;
+  if (number === null || number === undefined) return;
   return number.toLocaleString(undefined, {
     maximumFractionDigits: 0,
   });

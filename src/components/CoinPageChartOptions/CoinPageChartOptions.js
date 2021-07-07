@@ -13,13 +13,15 @@ const CoinPageChartOptions = ({ getChartDays, days }) => {
   ];
 
   return (
-    <Container>
-      <Radio.Group
-        options={chartOptions}
-        onChange={getChartDays}
-        value={days}
-      />
-    </Container>
+    <>
+      <Container>
+        <Radio.Group
+          options={chartOptions}
+          onChange={getChartDays}
+          value={days}
+        />
+      </Container>
+    </>
   );
 };
 

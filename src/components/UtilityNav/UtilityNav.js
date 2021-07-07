@@ -53,7 +53,7 @@ const UtilityNav = ({
 
   return (
     <Container>
-      {isLoading && <SkeletonText width="70%" height="0.5rem" />}
+      {isLoading && <SkeletonText width="100%" height="1rem" />}
       {hasError && <ErrorTooltipMessage error={errorMessage} />}
       {hasData && (
         <StyledRow gutter={[8]}>

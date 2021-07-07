@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { StyledAsyncSelect } from "./Search.styles";
+import { hideFavoriteList } from "store/favorites/favoritesActions";
 import { getAllCoins } from "store/search/searchActions";
 
-const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
+const Search = ({
+  allCoins,
+  getAllCoins,
+  history,
+  isLoading,
+  hideFavoriteList,
+}) => {
   const [value, setValue] = useState("");
-
-  console.log(allCoins);
 
   useEffect(() => {
     getAllCoins(value);
@@ -25,6 +30,7 @@ const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
   const handleChange = (item) => {
     const coinId = item.id;
     history.push(`/coins/${coinId}`);
+    hideFavoriteList();
   };
 
   return (
@@ -49,6 +55,6 @@ const mapStateToProps = (state) => ({
   isLoading: state.search.isLoading,
 });
 
-const mapDispatchToProps = { getAllCoins };
+const mapDispatchToProps = { getAllCoins, hideFavoriteList };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

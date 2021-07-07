@@ -91,7 +91,7 @@ const CoinListItem = ({
         </div>
       </NameCol>
       <CurrentPriceCol
-        xs={{ span: 5 }}
+        xs={{ span: 6 }}
         sm={{ span: 3 }}
         md={{ span: 3 }}
         lg={{ span: 2 }}
@@ -127,7 +127,7 @@ const CoinListItem = ({
       </PriceChangeCol>
 
       <PriceChangeCol
-        xs={{ span: 5 }}
+        xs={{ span: 4 }}
         sm={{ span: 3 }}
         md={{ span: 3 }}
         lg={{ span: 2 }}

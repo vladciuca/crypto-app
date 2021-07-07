@@ -10,10 +10,12 @@ import {
   CoinDescription,
   ErrorMessage,
 } from "components";
+import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
+import { ResponsiveContainer } from "components/UI/UI.styles";
 import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
 import { SkeletonChart } from "components/skeletons/SkeletonChart";
-import { Background, Container, ChartContainer } from "./CoinPage.styles";
+import { Background, ChartContainer } from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
 
@@ -68,15 +70,22 @@ const CoinPage = ({
   return (
     <>
       <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
-      {isLoading && <SkeletonCoinPage />}
+      {isLoading && (
+        <ResponsiveContainer>
+          <SkeletonCoinPage />
+        </ResponsiveContainer>
+      )}
       {hasError && (
-        <Container>
+        <ResponsiveContainer>
           <ErrorMessage error={errorMessage} />
-        </Container>
+        </ResponsiveContainer>
       )}
       {hasData && (
         <>
-          <CoinPageHeader coinData={coinData} currency={currency} />
+          <ResponsiveContainer>
+            <CoinPageHeader coinData={coinData} currency={currency} />
+          </ResponsiveContainer>
+
           <Row>
             {!isChartLoading && !hasChartError && (
               <CoinPageChart
@@ -85,20 +94,27 @@ const CoinPage = ({
                 chartData={chartData}
               />
             )}
-            {isChartLoading && <SkeletonChart />}
+            {isChartLoading && (
+              <ChartContainer>
+                <SkeletonChart barPerChart={getScreenWidth()} />
+              </ChartContainer>
+            )}
             {hasChartError && (
               <ChartContainer>
                 <ErrorMessage error={chartErrorMessage} />
               </ChartContainer>
             )}
           </Row>
-          <Background justify="end">
-            <CoinPageChartOptions getChartDays={getChartDays} days={days} />
-            {/* <CoinDescription
-              description={coinData.description}
-              categories={coinData.categories}
-              links={coinData.links}
-            /> */}
+          <Background>
+            <ResponsiveContainer>
+              <CoinPageChartOptions getChartDays={getChartDays} days={days} />
+
+              {/* <CoinDescription
+                description={coinData.description}
+                categories={coinData.categories}
+                links={coinData.links}
+              /> */}
+            </ResponsiveContainer>
           </Background>
         </>
       )}

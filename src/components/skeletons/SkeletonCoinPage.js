@@ -34,7 +34,7 @@ export const SkeletonCoinPage = () => {
           </div>
           <Spacer />
           <div>
-            <SkeletonText width={"7.5rem"} height={"0.5rem"} />
+            <SkeletonText width={"7.5rem"} height={"1rem"} />
           </div>
         </div>
       </CoinPageCol>

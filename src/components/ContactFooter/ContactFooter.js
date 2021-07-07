@@ -29,6 +29,7 @@ const ContactFooter = () => (
         <img src="https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png" />
       </Img>
       <strong>CoinGecko API</strong>
+      <span className={"hide-xs"}> - 2021</span>
     </InfoRow>
   </Container>
 );

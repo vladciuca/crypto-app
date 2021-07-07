@@ -1,6 +1,6 @@
 import React from "react";
 import { RiHeartLine } from "react-icons/ri";
-import { Container, Center, List } from "./EmptyFavoriteList.styles";
+import { Container, Center, List, Icon } from "./EmptyFavoriteList.styles";
 
 const EmptyFavoriteList = () => {
   return (
@@ -10,7 +10,9 @@ const EmptyFavoriteList = () => {
         <div>
           You can add and track the progress of your Favorite Coins by tapping
           on the
-          <RiHeartLine size="1.2rem" color="#ff7b7b" />
+          <Icon>
+            <RiHeartLine size="1rem" color="#ff7b7b" />
+          </Icon>
           icon for the coin you wish to follow.
         </div>
       </Center>
