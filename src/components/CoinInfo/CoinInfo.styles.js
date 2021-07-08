@@ -8,8 +8,8 @@ export const StyledRow = styled(Row)`
   justify-content: center;
   align-items: center;
   height: 85.5%;
-  @media (min-width: 375px) and (max-width: 576px) {
-    height: auto;
+  @media (min-width: 375px) and (max-width: 992px) {
+    height: 84%;
   }
 `;
 
@@ -46,7 +46,7 @@ export const Ticker = styled.span`
   font-weight: bold;
   font-size: 1.4rem;
   color: ${(props) => props.theme.primary};
-  padding: 0 0.2rem 0 0;
+  padding: 0 1rem 0 0;
 `;
 
 export const LinkRow = styled(Col)`

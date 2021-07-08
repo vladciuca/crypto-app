@@ -31,7 +31,7 @@ const CoinPriceData = ({ marketData, currency }) => {
     <>
       <CenteredRow>
         <Price
-          xs={{ span: 17 }}
+          xs={{ span: "auto" }}
           sm={{ span: 24 }}
           md={{ span: 24 }}
           lg={{ span: 24 }}

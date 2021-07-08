@@ -9,7 +9,7 @@ export const SkeletonCoinList = ({ coinsPerPage }) => {
         : [...Array(coinsPerPage)].map((item, index) => (
             <SkeletonRow key={index}>
               <SkeletonAvatar width="2rem" height="2rem" />
-              <SkeletonText width="80%" height="1rem" />
+              <SkeletonText width="80%" height="0.75rem" />
             </SkeletonRow>
           ))}
     </>

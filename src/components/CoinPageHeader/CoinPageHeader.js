@@ -1,4 +1,3 @@
-import { Row, Col } from "antd";
 import {
   CoinInfo,
   CoinPriceData,
@@ -51,9 +50,9 @@ const CoinPageHeader = ({ coinData, currency }) => {
           <CoinPriceData marketData={marketData} currency={currency} />
         </StyledCol>
         <StyledCol
-          xs={{ span: 24, offset: 0, order: 4 }}
-          sm={{ span: 24, offset: 0, order: 4 }}
-          md={{ span: 24, offset: 0, order: 4 }}
+          xs={{ span: 24, offset: 0, order: 3 }}
+          sm={{ span: 24, offset: 0, order: 3 }}
+          md={{ span: 24, offset: 0, order: 3 }}
           lg={{ span: 10, offset: 1, order: 3 }}
           xl={{ span: 10, offset: 1, order: 3 }}
         >
@@ -63,7 +62,7 @@ const CoinPageHeader = ({ coinData, currency }) => {
             currency={currency}
           />
         </StyledCol>
-        <StyledCol
+        {/* <StyledCol
           xs={{ span: 24, order: 3 }}
           sm={{ span: 24, order: 3 }}
           md={{ span: 24, order: 3 }}
@@ -75,7 +74,7 @@ const CoinPageHeader = ({ coinData, currency }) => {
             marketData={marketData}
             currency={currency}
           />
-        </StyledCol>
+        </StyledCol> */}
       </CoinPageHeaderRow>
     </>
   );

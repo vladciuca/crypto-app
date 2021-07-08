@@ -3,7 +3,6 @@ import { Row, Col } from "antd";
 
 export const CenteredRow = styled(Row)`
   @media (min-width: 375px) and (max-width: 576px) {
-    justify-content: start;
     border-radius: 0.75rem;
     height: 100%;
   }
@@ -14,6 +13,10 @@ export const CenteredRow = styled(Row)`
   justify-content: center;
   align-items: center;
   height: 49%;
+  @media (min-width: 375px) and (max-width: 576px) {
+    border-radius: 0.75rem;
+    height: 100%;
+  }
 `;
 
 export const StyledRow = styled(Row)`
@@ -42,7 +45,7 @@ export const Value = styled.span`
 `;
 
 export const Price = styled(Col)`
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
 `;
@@ -78,7 +81,10 @@ export const PriceCurrencyChange = styled.span`
 `;
 
 export const PriceChange = styled.div`
-  font-size: 1.3rem;
+  font-size: 1rem;
+  @media (min-width: 375px) and (max-width: 576px) {
+    font-size: 1.3rem;
+  }
   padding-left: 0.2rem;
   display: inline-flex;
   align-items: center;

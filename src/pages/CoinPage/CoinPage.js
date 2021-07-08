@@ -2,20 +2,26 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 import {
   CoinPageHeader,
   CoinPageChart,
   CoinPageChartOptions,
   CoinDescription,
   ErrorMessage,
+  PriceConvertor,
 } from "components";
 import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
 import { ResponsiveContainer } from "components/UI/UI.styles";
 import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
 import { SkeletonChart } from "components/skeletons/SkeletonChart";
-import { Background, ChartContainer } from "./CoinPage.styles";
+import {
+  Background,
+  ChartContainer,
+  ChartOptions,
+  ChartOptionCol,
+} from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
 
@@ -107,7 +113,38 @@ const CoinPage = ({
           </Row>
           <Background>
             <ResponsiveContainer>
-              <CoinPageChartOptions getChartDays={getChartDays} days={days} />
+              <ChartOptions justify="center">
+                <ChartOptionCol
+                  xs={{ span: 24, order: 2 }}
+                  sm={{ span: 24, order: 2 }}
+                  md={{ span: 24, order: 2 }}
+                  lg={{ span: 12, order: 1 }}
+                  xl={{ span: 12, order: 1 }}
+                >
+                  <div>
+                    <PriceConvertor
+                      // symbol={symbol}
+                      coinData={coinData}
+                      currency={currency}
+                    />
+                  </div>
+                </ChartOptionCol>
+
+                <Col
+                  xs={{ span: 24, order: 1 }}
+                  sm={{ span: 24, order: 1 }}
+                  md={{ span: 24, order: 1 }}
+                  lg={{ span: 12, order: 2 }}
+                  xl={{ span: 12, order: 2 }}
+                >
+                  <div>
+                    <CoinPageChartOptions
+                      getChartDays={getChartDays}
+                      days={days}
+                    />
+                  </div>
+                </Col>
+              </ChartOptions>
 
               {/* <CoinDescription
                 description={coinData.description}
