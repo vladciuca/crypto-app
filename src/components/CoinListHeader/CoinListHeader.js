@@ -62,7 +62,7 @@ const CoinListHeader = ({
         </Spacer>
       </ColHeader>
       <ColHeader
-        xs={{ span: 6 }}
+        xs={{ span: 5 }}
         sm={{ span: 3 }}
         md={{ span: 3 }}
         lg={{ span: 2 }}
@@ -90,7 +90,7 @@ const CoinListHeader = ({
         </Value>
       </ColHeader>
       <ColHeader
-        xs={{ span: 4 }}
+        xs={{ span: 5 }}
         sm={{ span: 3 }}
         md={{ span: 3 }}
         lg={{ span: 2 }}

@@ -71,6 +71,11 @@ export const CurrentPriceCol = styled(Col)`
   align-items: center;
   color: ${(props) => props.theme.text};
   font-weight: bold;
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const PriceChangeCol = styled(Col)`
