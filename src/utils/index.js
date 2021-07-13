@@ -1,3 +1,4 @@
+export { default as getScreenWidth } from "./getScreenWidth";
 export { default as getCurrencySymbol } from "./getCurrencySymbol";
 export { default as camelToSnake } from "./StringUtils/camelToSnake";
 export { default as snakeToCamel } from "./StringUtils/snakeToCamel";

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  margin: 0 5%;
-  margin-bottom: 1rem;
   display: flex;
   align-items: center;
 `;
@@ -21,6 +19,7 @@ export const Input = styled.input`
   border: none;
   border-radius: 0.25rem;
   padding: 0.5rem;
+  width: 45%;
 `;
 
 export const Icon = styled.span`

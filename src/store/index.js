@@ -22,6 +22,7 @@ const paramSetup = {
   "/coins": {
     category: {
       stateKey: "list.queryConfig.category",
+      // initialState: "all",
       options: { shouldPush: true },
     },
     page: {
@@ -68,7 +69,7 @@ const favoritesPersistConfig = {
 const rootPersistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["settings", "search"],
+  whitelist: ["settings"],
 };
 
 const reducers = combineReducers({

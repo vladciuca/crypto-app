@@ -2,18 +2,25 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 import {
   CoinPageHeader,
   CoinPageChart,
   CoinPageChartOptions,
-  CoinDescription,
   ErrorMessage,
+  PriceConvertor,
 } from "components";
+import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
+import { ResponsiveContainer } from "components/UI/UI.styles";
 import { SkeletonCoinPage } from "components/skeletons/SkeletonCoinPage";
 import { SkeletonChart } from "components/skeletons/SkeletonChart";
-import { Background, Container, ChartContainer } from "./CoinPage.styles";
+import {
+  Background,
+  ChartContainer,
+  ChartOptions,
+  ChartOptionCol,
+} from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
 
@@ -24,6 +31,7 @@ function useLoadingBar(loadingBar, isLoading) {
     } else {
       loadingBar.current.complete();
     }
+    // eslint-disable-next-line
   }, [isLoading]);
 }
 
@@ -43,40 +51,41 @@ const CoinPage = ({
   days,
 }) => {
   const { id } = useParams();
+  const hasData = !isLoading && coinData;
   const loadingBar = React.createRef();
 
-  const hasData = !isLoading && coinData;
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     loadingBar.current.continuousStart();
-  //   } else {
-  //     loadingBar.current.complete();
-  //   }
-  // }, [isLoading]);
   useLoadingBar(loadingBar, isLoading);
 
   useEffect(() => {
     getCoin(id);
     getChartData(id);
+    // eslint-disable-next-line
   }, [getCoin, id]);
 
   useEffect(() => {
     getChartData(id);
+    // eslint-disable-next-line
   }, [getChartData, currency, days]);
 
   return (
     <>
       <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
-      {isLoading && <SkeletonCoinPage />}
+      {isLoading && (
+        <ResponsiveContainer>
+          <SkeletonCoinPage />
+        </ResponsiveContainer>
+      )}
       {hasError && (
-        <Container>
+        <ResponsiveContainer>
           <ErrorMessage error={errorMessage} />
-        </Container>
+        </ResponsiveContainer>
       )}
       {hasData && (
         <>
-          <CoinPageHeader coinData={coinData} currency={currency} />
+          <ResponsiveContainer>
+            <CoinPageHeader coinData={coinData} currency={currency} />
+          </ResponsiveContainer>
+
           <Row>
             {!isChartLoading && !hasChartError && (
               <CoinPageChart
@@ -85,20 +94,58 @@ const CoinPage = ({
                 chartData={chartData}
               />
             )}
-            {isChartLoading && <SkeletonChart />}
+            {isChartLoading && (
+              <ChartContainer>
+                <SkeletonChart barPerChart={getScreenWidth()} />
+              </ChartContainer>
+            )}
             {hasChartError && (
               <ChartContainer>
                 <ErrorMessage error={chartErrorMessage} />
               </ChartContainer>
             )}
           </Row>
-          <Background justify="end">
-            <CoinPageChartOptions getChartDays={getChartDays} days={days} />
-            <CoinDescription
-              description={coinData.description}
-              categories={coinData.categories}
-              links={coinData.links}
-            />
+          <Background>
+            <ResponsiveContainer>
+              <ChartOptions justify="center">
+                <ChartOptionCol
+                  xs={{ span: 24, order: 2 }}
+                  sm={{ span: 24, order: 2 }}
+                  md={{ span: 24, order: 2 }}
+                  lg={{ span: 12, order: 1 }}
+                  xl={{ span: 12, order: 1 }}
+                >
+                  <div>
+                    <PriceConvertor
+                      // symbol={symbol}
+                      coinData={coinData}
+                      currency={currency}
+                    />
+                  </div>
+                </ChartOptionCol>
+
+                <Col
+                  xs={{ span: 24, order: 1 }}
+                  sm={{ span: 24, order: 1 }}
+                  md={{ span: 24, order: 1 }}
+                  lg={{ span: 12, order: 2 }}
+                  xl={{ span: 12, order: 2 }}
+                >
+                  <div>
+                    <CoinPageChartOptions
+                      getChartDays={getChartDays}
+                      days={days}
+                    />
+                  </div>
+                </Col>
+              </ChartOptions>
+
+              {/* <CoinDescription
+                description={coinData.description}
+                categories={coinData.categories}
+                links={coinData.links}
+              /> */}
+            </ResponsiveContainer>
           </Background>
         </>
       )}

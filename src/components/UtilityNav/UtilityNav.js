@@ -53,11 +53,11 @@ const UtilityNav = ({
 
   return (
     <Container>
-      {isLoading && <SkeletonText width="70%" height="0.5rem" />}
+      {isLoading && <SkeletonText width="100%" height="0.75rem" />}
       {hasError && <ErrorTooltipMessage error={errorMessage} />}
       {hasData && (
         <StyledRow gutter={[8]}>
-          <StyledCol>
+          <StyledCol className={"hide-sm"}>
             <UtilityNavPair
               symbol={""}
               colorKey={""}
@@ -67,7 +67,7 @@ const UtilityNav = ({
               wide={false}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-sm"}>
             <UtilityNavPair
               symbol={""}
               colorKey={""}
@@ -108,7 +108,7 @@ const UtilityNav = ({
               wide={true}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-sm-md"}>
             <PercentageBarTooltip
               currencySymbol={currencySymbol}
               baseTitle={"Total Market Cap"}
@@ -137,7 +137,7 @@ const UtilityNav = ({
               wide={false}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-sm-md"}>
             <PercentageBarTooltip
               currencySymbol={currencySymbol}
               baseTitle={"Total Market Cap"}
@@ -170,7 +170,7 @@ const UtilityNav = ({
               wide={true}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-sm-md"}>
             <PercentageBarTooltip
               currencySymbol={currencySymbol}
               baseTitle={"Total Market Cap"}
@@ -187,7 +187,7 @@ const UtilityNav = ({
               height={"0.4rem"}
             />
           </StyledCol>
-          <StyledCol>
+          <StyledCol className={"hide-xs"}>
             <ETHGasPrice />
           </StyledCol>
         </StyledRow>

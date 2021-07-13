@@ -26,6 +26,9 @@ export const GlobalStyle = createGlobalStyle`
   margin: 0;
   padding: 0;
 }
+html, body {
+  height: 100%;
+}
 body { 
   background-color:  ${(props) => props.theme.bgPrimary};
   background-image: radial-gradient( circle farthest-corner at 0.8% 3.1%,  rgba(255,188,224,0.15) 0%, rgba(170,165,255,0.15) 46%, rgba(165,255,205,0.15) 100.2% );
@@ -50,8 +53,28 @@ body {
 }
 
 ${radio}
+
+.show-xs {
+  display: block;
+  @media (min-width: 576px) {
+    display: none;
+  }
+}
+
+.hide-xs {
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
 .hide-sm {
-  @media (max-width: 768px) {
+  @media (min-width: 375px) and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.hide-sm-md {
+  @media (min-width: 375px) and (max-width: 992px) {
     display: none;
   }
 }

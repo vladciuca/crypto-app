@@ -71,7 +71,11 @@ export const CurrentPriceCol = styled(Col)`
   align-items: center;
   color: ${(props) => props.theme.text};
   font-weight: bold;
-  padding-right: 1rem;
+  span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export const PriceChangeCol = styled(Col)`
@@ -90,6 +94,7 @@ export const PriceChangeCol = styled(Col)`
 export const NotAvailable = styled(Col)`
   display: flex;
   align-items: center;
+  color: ${(props) => props.theme.info};
 `;
 
 export const ChartCol = styled(Col)`

@@ -1,7 +1,11 @@
 import styled, { css } from "styled-components";
-import { Row } from "antd";
+import { Row, Col } from "antd";
 
 export const CenteredRow = styled(Row)`
+  @media (min-width: 375px) and (max-width: 576px) {
+    border-radius: 0.75rem;
+    height: 100%;
+  }
   background-color: ${(props) => props.theme.cardPrimary};
   border-radius: 0.75rem 0.75rem 0.25rem 0.25rem;
   margin-bottom: 0.2rem;
@@ -9,6 +13,10 @@ export const CenteredRow = styled(Row)`
   justify-content: center;
   align-items: center;
   height: 49%;
+  @media (min-width: 375px) and (max-width: 576px) {
+    border-radius: 0.75rem;
+    height: 100%;
+  }
 `;
 
 export const StyledRow = styled(Row)`
@@ -16,7 +24,7 @@ export const StyledRow = styled(Row)`
   background-color: ${(props) => props.theme.cardPrimary};
   border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
   margin-bottom: 0.2rem;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
 `;
 
 export const AllTimeDate = styled.div`
@@ -36,8 +44,8 @@ export const Value = styled.span`
   font-weight: bold;
 `;
 
-export const Price = styled.span`
-  font-size: 2.5rem;
+export const Price = styled(Col)`
+  font-size: 2rem;
   font-weight: bold;
   text-align: center;
 `;
@@ -47,9 +55,13 @@ export const AthContainer = styled.div`
   align-items: center;
 `;
 
-export const PriceChangeAlign = styled.div`
+export const PriceChangeAlign = styled(Col)`
   display: flex;
   align-items: center;
+  justify-content: center;
+  @media (min-width: 375px) and (max-width: 576px) {
+    justify-content: start;
+  }
 `;
 
 export const PriceCurrencyChange = styled.span`
@@ -69,6 +81,11 @@ export const PriceCurrencyChange = styled.span`
 `;
 
 export const PriceChange = styled.div`
+  font-size: 1rem;
+  @media (min-width: 375px) and (max-width: 576px) {
+    font-size: 1.3rem;
+  }
+  padding-left: 0.2rem;
   display: inline-flex;
   align-items: center;
   margin-left: 0.2rem;

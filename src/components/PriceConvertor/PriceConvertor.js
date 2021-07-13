@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import { FaExchangeAlt } from "react-icons/all";
 import { Container, Value, Input, Icon } from "./PriceConvertor.styles";
 
-export const PriceConvertor = ({ symbol, currency, marketData }) => {
+export const PriceConvertor = ({ currency, coinData }) => {
   const [currencyValue, setCurrencyValue] = useState("");
   const [cryptoValue, setCryptoValue] = useState("");
+
+  const { marketData, symbol } = coinData;
 
   const handleCurrencyChange = (e) => {
     const amount = e.target.value < 0 ? 0 : e.target.value;

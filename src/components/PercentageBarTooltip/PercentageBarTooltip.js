@@ -98,7 +98,7 @@ const PercentageBarTooltip = ({
     <>
       <TooltipContent>
         <Tooltip
-          placement="bottom"
+          placement="bottomRight"
           title={generateTooltip()}
           getPopupContainer={wide ? (triggerNode) => triggerNode : ""}
         >

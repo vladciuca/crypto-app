@@ -10,4 +10,5 @@ export const Footer = styled.div`
   height: 2.2rem;
   background: ${(props) => props.theme.cardSecondary};
   border-radius: 0.25rem 0.25rem 0.75rem 0.75rem;
+  margin-bottom: 2rem;
 `;

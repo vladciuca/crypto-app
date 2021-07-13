@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { StyledAsyncSelect } from "./Search.styles";
-// import { RiSearch2Line } from "react-icons/all";
+import { hideFavoriteList } from "store/favorites/favoritesActions";
 import { getAllCoins } from "store/search/searchActions";
 
-const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
+const Search = ({
+  allCoins,
+  getAllCoins,
+  history,
+  isLoading,
+  hideFavoriteList,
+}) => {
   const [value, setValue] = useState("");
 
   useEffect(() => {
     getAllCoins(value);
   }, [getAllCoins, value]);
 
-  const searchList =
-    allCoins &&
-    allCoins.map((item) => {
-      return { value: item.symbol, label: item.name, id: item.id };
-    });
+  const searchList = allCoins.map((item) => {
+    return { value: item.symbol, label: item.name, id: item.id };
+  });
 
   const handleInputChange = (newValue) => {
     const inputValue = newValue.replace(/\W/g, "");
@@ -26,6 +30,7 @@ const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
   const handleChange = (item) => {
     const coinId = item.id;
     history.push(`/coins/${coinId}`);
+    hideFavoriteList();
   };
 
   return (
@@ -38,7 +43,7 @@ const Search = ({ allCoins, getAllCoins, history, isLoading }) => {
         defaultOptions
         onInputChange={handleInputChange}
         onChange={handleChange}
-        placeholder="Search..."
+        placeholder="Search"
         isLoading={isLoading}
       />
     </>
@@ -50,6 +55,6 @@ const mapStateToProps = (state) => ({
   isLoading: state.search.isLoading,
 });
 
-const mapDispatchToProps = { getAllCoins };
+const mapDispatchToProps = { getAllCoins, hideFavoriteList };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

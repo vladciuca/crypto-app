@@ -4,7 +4,7 @@ export const Container = styled.div`
   background-color: ${(props) => props.theme.cardPrimary};
   margin: 0.2rem 0;
   border-radius: 0.5rem;
-  height: 300px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;

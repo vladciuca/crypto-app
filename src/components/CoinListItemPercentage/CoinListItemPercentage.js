@@ -52,7 +52,7 @@ export const CoinListItemPercentage = ({
           fillColor={fillColor}
           fillPercentage={""}
           wide={true}
-          width={"10rem"}
+          width={"8rem"}
           height={"0.35rem"}
         />
       </div>

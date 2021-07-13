@@ -67,7 +67,7 @@ export const SkeletonAvatar = styled.div`
 `;
 
 export const CoinPageRow = styled(Row)`
-  margin: 2rem 5%;
+  margin: 2rem 0;
 `;
 
 export const Spacer = styled.div`
@@ -87,11 +87,16 @@ export const CoinPageCol = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 1rem;
 `;
 
-export const ChartBox = styled.div`
-  height: 150px;
+export const ChartBox = styled(Row)`
   width: 100%;
-  display: flex;
-  align-items: center;
+
+  align-items: baseline;
+  justify-content: center;
+`;
+
+export const ChartBar = styled(Col)`
+  width: 4rem;
 `;
