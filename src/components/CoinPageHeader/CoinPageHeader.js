@@ -1,9 +1,4 @@
-import {
-  CoinInfo,
-  CoinPriceData,
-  CoinMarketData,
-  PriceConvertor,
-} from "components";
+import { CoinInfo, CoinPriceData, CoinMarketData } from "components";
 import { CoinPageHeaderRow, StyledCol } from "./CoinPageHeader.styles";
 
 const CoinPageHeader = ({ coinData, currency }) => {
@@ -62,19 +57,6 @@ const CoinPageHeader = ({ coinData, currency }) => {
             currency={currency}
           />
         </StyledCol>
-        {/* <StyledCol
-          xs={{ span: 24, order: 3 }}
-          sm={{ span: 24, order: 3 }}
-          md={{ span: 24, order: 3 }}
-          lg={{ span: 13, order: 4 }}
-          xl={{ span: 13, order: 4 }}
-        >
-          <PriceConvertor
-            symbol={symbol}
-            marketData={marketData}
-            currency={currency}
-          />
-        </StyledCol> */}
       </CoinPageHeaderRow>
     </>
   );

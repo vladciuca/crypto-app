@@ -13,20 +13,28 @@ const ContactFooter = () => (
       <a
         href="https://www.linkedin.com/in/vlad-cristian-2a0b6620a/"
         target="_blank"
+        rel="noreferrer"
       >
         <FaLinkedin size="1.5rem" />
       </a>
       <a href="mailto:vladccdev@gmail.com">
         <HiMail size="1.6rem" />
       </a>
-      <a href="https://github.com/vladciuca/crypto-app" target="_blank">
+      <a
+        href="https://github.com/vladciuca/crypto-app"
+        target="_blank"
+        rel="noreferrer"
+      >
         <FaGithubSquare size="1.55rem" />
       </a>
     </SocialMediaRow>
     <InfoRow>
       Created by <strong>Vlad Ciuca</strong> / Powered by
       <Img>
-        <img src="https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png" />
+        <img
+          src="https://static.coingecko.com/s/thumbnail-007177f3eca19695592f0b8b0eabbdae282b54154e1be912285c9034ea6cbaf2.png"
+          alt="CoinGheko"
+        />
       </Img>
       <strong>CoinGecko API</strong>
       <span className={"hide-xs"}> - 2021</span>

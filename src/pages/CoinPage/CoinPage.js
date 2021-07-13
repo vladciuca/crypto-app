@@ -7,7 +7,6 @@ import {
   CoinPageHeader,
   CoinPageChart,
   CoinPageChartOptions,
-  CoinDescription,
   ErrorMessage,
   PriceConvertor,
 } from "components";
@@ -32,6 +31,7 @@ function useLoadingBar(loadingBar, isLoading) {
     } else {
       loadingBar.current.complete();
     }
+    // eslint-disable-next-line
   }, [isLoading]);
 }
 
@@ -51,26 +51,20 @@ const CoinPage = ({
   days,
 }) => {
   const { id } = useParams();
+  const hasData = !isLoading && coinData;
   const loadingBar = React.createRef();
 
-  const hasData = !isLoading && coinData;
-
-  // useEffect(() => {
-  //   if (isLoading) {
-  //     loadingBar.current.continuousStart();
-  //   } else {
-  //     loadingBar.current.complete();
-  //   }
-  // }, [isLoading]);
   useLoadingBar(loadingBar, isLoading);
 
   useEffect(() => {
     getCoin(id);
     getChartData(id);
+    // eslint-disable-next-line
   }, [getCoin, id]);
 
   useEffect(() => {
     getChartData(id);
+    // eslint-disable-next-line
   }, [getChartData, currency, days]);
 
   return (

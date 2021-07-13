@@ -29,6 +29,17 @@ import {
 } from "store/favorites/favoritesActions";
 import { getList, isListLoading } from "store/list/listReducer";
 
+function useLoadingBar(loadingBar, isLoading) {
+  useEffect(() => {
+    if (isLoading) {
+      loadingBar.current.continuousStart();
+    } else {
+      loadingBar.current.complete();
+    }
+    // eslint-disable-next-line
+  }, [isLoading]);
+}
+
 const CoinList = (props) => {
   const {
     getCoinList,
@@ -56,6 +67,8 @@ const CoinList = (props) => {
     : props.list.errorMessage;
   const loadingBar = React.createRef();
 
+  useLoadingBar(loadingBar, isLoading);
+
   const sortCoinList = () => {
     if (!list) {
       return;
@@ -72,14 +85,6 @@ const CoinList = (props) => {
   const hasData = !!(!isLoading && list.length);
   const noFavorites = list.length === 0 && showFavorites && !isLoading;
   const sortedList = sortCoinList();
-
-  useEffect(() => {
-    if (isLoading) {
-      loadingBar.current.continuousStart();
-    } else {
-      loadingBar.current.complete();
-    }
-  }, [isLoading]);
 
   useEffect(() => {
     if (showFavorites) {

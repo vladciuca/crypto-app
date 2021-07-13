@@ -30,15 +30,15 @@ const CoinDescription = ({ description, categories, links }) => {
           Explorers:
         </Tab>
         {Object.values(links.blockchainSite).map((value) => {
-          if (value === "") {
-            return;
-          } else {
-            return (
-              <Category key={value}>
-                <a href={value}>{value}</a>
-              </Category>
-            );
-          }
+          // if (value === "") {
+          //   return;
+          // } else {
+          return (
+            <Category key={value}>
+              <a href={value}>{value}</a>
+            </Category>
+          );
+          // }
         })}
       </Header>
       <Tab>
