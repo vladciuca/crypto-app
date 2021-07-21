@@ -59,14 +59,21 @@ export const ImgCol = styled(Col)`
 `;
 
 export const NameCol = styled(Col)`
+  padding-right: 1rem;
   font-size: 0.9rem;
   color: ${(props) => props.theme.primary};
+  div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   ${Ticker} {
     padding-left: 0;
   }
 `;
 
 export const CurrentPriceCol = styled(Col)`
+  padding-right: 0.5rem;
   display: flex;
   align-items: center;
   color: ${(props) => props.theme.text};

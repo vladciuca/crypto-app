@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { Row, Col } from "antd";
 import {
@@ -10,6 +10,7 @@ import {
   ErrorMessage,
   PriceConvertor,
 } from "components";
+import { CoinList } from "pages";
 import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
 import { ResponsiveContainer } from "components/UI/UI.styles";
@@ -33,6 +34,13 @@ function useLoadingBar(loadingBar, isLoading) {
     }
     // eslint-disable-next-line
   }, [isLoading]);
+}
+
+function withFavorites(Component) {
+  return (props) => {
+    const showFavorites = useSelector((state) => state.favorites.showFavorites);
+    return showFavorites ? <CoinList {...props} /> : <Component {...props} />;
+  };
 }
 
 const CoinPage = ({
@@ -164,8 +172,12 @@ const mapStateToProps = (state) => ({
   hasChartError: state.chart.hasError,
   chartErrorMessage: state.chart.errorMessage,
   days: state.chart.days,
+  // showFavorites: state.favorites.showFavorites,
 });
 
 const mapDispatchToProps = { getCoin, getChartData, getChartDays };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoinPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFavorites(CoinPage));

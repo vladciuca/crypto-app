@@ -83,9 +83,12 @@ const CoinListItem = ({
         lg={{ span: 3 }}
         xl={{ span: 3 }}
       >
-        <StyledLink to={`/coins/${id}`} onClick={hideFavoriteList}>
-          {name}
-        </StyledLink>
+        <div>
+          <StyledLink to={`/coins/${id}`} onClick={hideFavoriteList}>
+            {name}
+          </StyledLink>
+        </div>
+
         <div>
           <Ticker>{symbol}</Ticker>
         </div>
