@@ -10,7 +10,7 @@ import {
   ErrorMessage,
   PriceConvertor,
 } from "components";
-import { CoinList } from "pages";
+
 import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
 import { ResponsiveContainer } from "components/UI/UI.styles";
@@ -24,6 +24,7 @@ import {
 } from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
+import withFavorites from 'HOC/withFavorites'
 
 function useLoadingBar(loadingBar, isLoading) {
   useEffect(() => {
@@ -36,12 +37,7 @@ function useLoadingBar(loadingBar, isLoading) {
   }, [isLoading]);
 }
 
-function withFavorites(Component) {
-  return (props) => {
-    const showFavorites = useSelector((state) => state.favorites.showFavorites);
-    return showFavorites ? <CoinList {...props} /> : <Component {...props} />;
-  };
-}
+
 
 const CoinPage = ({
   getCoin,

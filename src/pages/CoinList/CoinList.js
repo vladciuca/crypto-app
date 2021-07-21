@@ -8,11 +8,12 @@ import {
   CoinListItem,
   EmptyFavoriteList,
   ErrorMessage,
+  CoinTable
 } from "components";
 import { getScreenWidth } from "utils";
 import { ResponsiveContainer } from "components/UI/UI.styles";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import { utilityColors } from "../../theme";
+import { utilityColors } from "theme";
 import {
   getCoinList,
   handleSort,
@@ -28,6 +29,7 @@ import {
   toggleFavoriteList,
 } from "store/favorites/favoritesActions";
 import { getList, isListLoading } from "store/list/listReducer";
+import withFavorites from 'HOC/withFavorites'
 
 function useLoadingBar(loadingBar, isLoading) {
   useEffect(() => {
@@ -40,6 +42,28 @@ function useLoadingBar(loadingBar, isLoading) {
   }, [isLoading]);
 }
 
+
+
+const ConnectedTable = connect((state) => ({
+  settings: state.settings,
+  favorites: state.favorites,
+  isLoading: isListLoading(state),
+  hasFavError: state.favorites.hasError,
+  hasListError: state.list.hasError,
+
+}), {
+  getCoinList,
+  getFavoriteList,
+  toggleFavoriteList,
+  handleSort,
+  handleCategory,
+  handleCoinsPerPage,
+  handleNextPage,
+  handlePrevPage,
+  handleListOrder,
+  handleListBy,
+})(CoinTable)
+
 const CoinList = (props) => {
   const {
     getCoinList,
@@ -47,21 +71,21 @@ const CoinList = (props) => {
     isLoading,
     hasFavError,
     hasListError,
-    handleCoinsPerPage,
-    handleListBy,
-    handleListOrder,
-    handleCategory,
-    handleNextPage,
-    handlePrevPage,
-    toggleFavoriteList,
-    handleSort,
+    // handleCoinsPerPage,
+    // handleListBy,
+    // handleListOrder,
+    // handleCategory,
+    // handleNextPage,
+    // handlePrevPage,
+    // toggleFavoriteList,
+    // handleSort,
   } = props;
   const { coinList } = props.list;
   const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =
     props.list.queryConfig;
   const { showFavorites, coinList: favoriteList } = props.favorites;
   const { theme, currency } = props.settings;
-  const list = showFavorites ? favoriteList : coinList;
+  const list =  coinList;
   const errorMessage = showFavorites
     ? props.favorites.errorMessage
     : props.list.errorMessage;
@@ -87,11 +111,9 @@ const CoinList = (props) => {
   const sortedList = sortCoinList();
 
   useEffect(() => {
-    if (showFavorites) {
-      getFavoriteList();
-    } else {
+  
       getCoinList();
-    }
+
   }, [
     currency,
     getCoinList,
@@ -107,52 +129,11 @@ const CoinList = (props) => {
   return (
     <ResponsiveContainer>
       <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
-      <CoinListTitle
-        showFavorites={showFavorites}
-        favoriteCoinsLength={list.length}
-        coinsPerPage={coinsPerPage}
-        handleCoinsPerPage={handleCoinsPerPage}
-        page={page}
-        listOrder={listOrder}
-        listBy={listBy}
-        handleListBy={handleListBy}
-        handleListOrder={handleListOrder}
-        category={category}
-        handleCategory={handleCategory}
-        handleNextPage={handleNextPage}
-        handlePrevPage={handlePrevPage}
-      />
-      <CoinListHeader
-        showFavorites={showFavorites}
-        toggleFavoriteList={toggleFavoriteList}
-        sortOrder={sortOrder}
-        sortBy={sortBy}
-        handleSort={handleSort}
-        page={page}
-        coinsPerPage={coinsPerPage}
-      />
-      {hasData && (
-        <>
-          {sortedList.map((coin) => {
-            return (
-              <CoinListItem
-                key={coin.id}
-                coin={coin}
-                currency={currency}
-                theme={theme}
-                utilityColors={utilityColors}
-              />
-            );
-          })}
-        </>
-      )}
+      <ConnectedTable list={coinList} coinsPerPage={coinsPerPage} page={page} sortedList={sortedList} hasData={hasData}/>
       {noFavorites && !hasFavError && <EmptyFavoriteList />}
       {isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
-
       {hasListError && !showFavorites && <ErrorMessage error={errorMessage} />}
-
       {hasFavError && showFavorites && <ErrorMessage error={errorMessage} />}
-
       <CoinListFooter />
     </ResponsiveContainer>
   );
@@ -180,4 +161,7 @@ const mapDispatchToProps = {
   handleListBy,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoinList);
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(withFavorites(CoinList));

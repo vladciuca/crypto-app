@@ -64,8 +64,8 @@ const NavBar = ({
               </StyledLink>
             </li>
             <li>
-              <StyledLink
-                to={`/coins/?${queryURL}`}
+              <div
+
                 onClick={toggleFavoriteList}
               >
                 <Icon>
@@ -76,7 +76,7 @@ const NavBar = ({
                   )}
                 </Icon>
                 <span className={"hide-sm-md"}>Favorites</span>
-              </StyledLink>
+              </div>
             </li>
           </ul>
         </LinkCol>
