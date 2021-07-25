@@ -7,6 +7,7 @@ import {
   Nav,
   Container,
   StyledLink,
+  Favorites,
   Icon,
   LinkCol,
   SearchCol,
@@ -64,10 +65,7 @@ const NavBar = ({
               </StyledLink>
             </li>
             <li>
-              <div
-
-                onClick={toggleFavoriteList}
-              >
+              <Favorites onClick={toggleFavoriteList}>
                 <Icon>
                   {showFavorites ? (
                     <RiHeartFill size="1.7rem" color="#ff7b7b" />
@@ -76,7 +74,7 @@ const NavBar = ({
                   )}
                 </Icon>
                 <span className={"hide-sm-md"}>Favorites</span>
-              </div>
+              </Favorites>
             </li>
           </ul>
         </LinkCol>

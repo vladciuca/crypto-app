@@ -57,3 +57,17 @@ export const StyledLink = styled(Link)`
     }
   }
 `;
+
+export const Favorites = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  margin-left: 1.5rem;
+  display: flex;
+  align-items: center;
+  :hover {
+    color: ${(props) => props.theme.text};
+    ${Icon} {
+      color: ${(props) => props.theme.primary};
+    }
+  }
+`;

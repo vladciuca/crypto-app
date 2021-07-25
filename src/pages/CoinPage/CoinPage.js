@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import { Row, Col } from "antd";
 import {
@@ -24,7 +24,7 @@ import {
 } from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
-import withFavorites from 'HOC/withFavorites'
+import withFavorites from "HOC/withFavorites";
 
 function useLoadingBar(loadingBar, isLoading) {
   useEffect(() => {
@@ -36,8 +36,6 @@ function useLoadingBar(loadingBar, isLoading) {
     // eslint-disable-next-line
   }, [isLoading]);
 }
-
-
 
 const CoinPage = ({
   getCoin,
