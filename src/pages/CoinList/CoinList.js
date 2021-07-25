@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import LoadingBar from "react-top-loading-bar";
 import {
   CoinListTitle,
@@ -64,7 +64,68 @@ const ConnectedTable = connect((state) => ({
   handleListBy,
 })(CoinTable)
 
+export function useCoins(isFavorites){
+  const dispatch = useDispatch();
+  const hasFavError = useSelector(state =>  state.favorites.hasError)
+  const hasListError = useSelector(state => state.list.hasError)
+  const favorites = useSelector(state=> state.favorites)
+  const list = useSelector(state => state.list)
+  const settings = useSelector(state => state.settings)
+ 
+  const { coinList } = list;
+  const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =list.queryConfig;
+  const { showFavorites, coinList: favoriteList } = favorites;
+  const { theme, currency } = settings;
+
+
+  // const sortCoinList = () => {
+  //   if (!list) {
+  //     return;
+  //   } else {
+  //     return coinList.sort((a, b) => {
+  //       if (sortOrder === true) {
+  //         return a[sortBy] > b[sortBy] ? 1 : -1;
+  //       }
+  //       return a[sortBy] < b[sortBy] ? 1 : -1;
+  //     });
+  //   }
+  // };
+
+  // const hasData = !!(!isLoading && coinList.length);
+  // const noFavorites = coinList.length === 0 && showFavorites && !isLoading;
+  // const sortedList = sortCoinList();
+
+  useEffect(() => {
+    if(isFavorites){
+      dispatch(getFavoriteList())
+    }else {
+      dispatch(getCoinList());
+    }
+      
+
+  }, [
+    isFavorites,
+    showFavorites,
+    currency,
+    getCoinList,
+    getFavoriteList,
+    showFavorites,
+    listOrder,
+    listBy,
+    category,
+    page,
+    coinsPerPage,
+  ]);
+  if(isFavorites){
+    return favoriteList
+  }else {
+    return coinList
+  }
+}
+
 const CoinList = (props) => {
+const newData = useCoins(false);
+console.log('newData', newData)
   const {
     getCoinList,
     getFavoriteList,
