@@ -1,7 +1,11 @@
+import React from "react";
+import { useSelector } from "react-redux";
+import LoadingBar from "react-top-loading-bar";
 import { utilityColors } from "theme";
 import { getScreenWidth } from "utils";
 import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
 import { ResponsiveContainer } from "components/UI/UI.styles";
+import { useLoadingBar } from "hooks";
 
 import {
   CoinListTitle,
@@ -12,49 +16,75 @@ import {
   ErrorMessage,
 } from "components";
 
-export const CoinTable = (props) => {
-  console.log(props.list);
+export const CoinTable = ({
+  isLoading,
+  hasListError,
+  hasFavError,
+  errorMessage,
+  list,
+  listBy,
+  listOrder,
+  handleListBy,
+  handleListOrder,
+  category,
+  handleCategory,
+  page,
+  coinsPerPage,
+  handleCoinsPerPage,
+  handleNextPage,
+  handlePrevPage,
+  toggleFavoriteList,
+  handleSort,
+}) => {
+  const loadingBar = React.createRef();
+  const { currency, theme } = useSelector((state) => state.settings);
+
+  const { showFavorites } = useSelector((state) => state.favorites);
+  const { sortBy, sortOrder } = useSelector((state) => state.list.queryConfig);
   const sortCoinList = () => {
-    if (!props.list) {
+    if (!list) {
       return;
     } else {
-      return props.list.sort((a, b) => {
-        if (props.sortOrder === true) {
-          return a[props.sortBy] > b[props.sortBy] ? 1 : -1;
+      return list.sort((a, b) => {
+        if (sortOrder === true) {
+          return a[sortBy] > b[sortBy] ? 1 : -1;
         }
-        return a[props.sortBy] < b[props.sortBy] ? 1 : -1;
+        return a[sortBy] < b[sortBy] ? 1 : -1;
       });
     }
   };
-  const hasData = !!(!props.isLoading && props.list.length);
-  const noFavorites =
-    props.list.length === 0 && props.showFavorites && !props.isLoading;
   const sortedList = sortCoinList();
+  const hasData = !!(!isLoading && list.length);
+  const noFavorites = list.length === 0 && showFavorites && !isLoading;
+
+  useLoadingBar(loadingBar, isLoading);
+
   return (
     <ResponsiveContainer>
+      <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
       <CoinListTitle
-        showFavorites={props.showFavorites}
-        favoriteCoinsLength={props.list.length}
-        coinsPerPage={props.coinsPerPage}
-        handleCoinsPerPage={props.handleCoinsPerPage}
-        page={props.page}
-        listOrder={props.listOrder}
-        listBy={props.listBy}
-        handleListBy={props.handleListBy}
-        handleListOrder={props.handleListOrder}
-        category={props.category}
-        handleCategory={props.handleCategory}
-        handleNextPage={props.handleNextPage}
-        handlePrevPage={props.handlePrevPage}
+        showFavorites={showFavorites}
+        favoriteCoinsLength={list.length}
+        coinsPerPage={coinsPerPage}
+        handleCoinsPerPage={handleCoinsPerPage}
+        page={page}
+        listOrder={listOrder}
+        listBy={listBy}
+        handleListBy={handleListBy}
+        handleListOrder={handleListOrder}
+        category={category}
+        handleCategory={handleCategory}
+        handleNextPage={handleNextPage}
+        handlePrevPage={handlePrevPage}
       />
       <CoinListHeader
-        showFavorites={props.showFavorites}
-        toggleFavoriteList={props.toggleFavoriteList}
-        sortOrder={props.sortOrder}
-        sortBy={props.sortBy}
-        handleSort={props.handleSort}
-        page={props.page}
-        coinsPerPage={props.coinsPerPage}
+        showFavorites={showFavorites}
+        toggleFavoriteList={toggleFavoriteList}
+        sortOrder={sortOrder}
+        sortBy={sortBy}
+        handleSort={handleSort}
+        page={page}
+        coinsPerPage={coinsPerPage}
       />
       {hasData && (
         <>
@@ -63,22 +93,18 @@ export const CoinTable = (props) => {
               <CoinListItem
                 key={coin.id}
                 coin={coin}
-                currency={props.settings.currency}
-                theme={props.settings.theme}
+                currency={currency}
+                theme={theme}
                 utilityColors={utilityColors}
               />
             );
           })}
         </>
       )}
-      {noFavorites && !props.hasFavError && <EmptyFavoriteList />}
-      {props.isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
-      {props.hasListError && !props.showFavorites && (
-        <ErrorMessage error={props.errorMessage} />
-      )}
-      {props.hasFavError && props.showFavorites && (
-        <ErrorMessage error={props.errorMessage} />
-      )}
+      {noFavorites && !hasFavError && <EmptyFavoriteList />}
+      {isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
+      {hasListError && !showFavorites && <ErrorMessage error={errorMessage} />}
+      {hasFavError && showFavorites && <ErrorMessage error={errorMessage} />}
       <CoinListFooter />
     </ResponsiveContainer>
   );

@@ -25,17 +25,18 @@ import {
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
 import withFavorites from "HOC/withFavorites";
+import { useLoadingBar } from "hooks";
 
-function useLoadingBar(loadingBar, isLoading) {
-  useEffect(() => {
-    if (isLoading) {
-      loadingBar.current.continuousStart();
-    } else {
-      loadingBar.current.complete();
-    }
-    // eslint-disable-next-line
-  }, [isLoading]);
-}
+// function useLoadingBar(loadingBar, isLoading) {
+//   useEffect(() => {
+//     if (isLoading) {
+//       loadingBar.current.continuousStart();
+//     } else {
+//       loadingBar.current.complete();
+//     }
+//     // eslint-disable-next-line
+//   }, [isLoading]);
+// }
 
 const CoinPage = ({
   getCoin,
