@@ -1,18 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import LoadingBar from "react-top-loading-bar";
-import {
-  CoinListTitle,
-  CoinListHeader,
-  CoinListFooter,
-  CoinListItem,
-  EmptyFavoriteList,
-  ErrorMessage,
-} from "components";
-import { getScreenWidth } from "utils";
-import { ResponsiveContainer } from "components/UI/UI.styles";
-import { SkeletonCoinList } from "components/skeletons/SkeletonCoinList";
-import { utilityColors } from "../../theme";
+import { CoinTable } from "components";
 import {
   getCoinList,
   handleSort,
@@ -28,133 +16,63 @@ import {
   toggleFavoriteList,
 } from "store/favorites/favoritesActions";
 import { getList, isListLoading } from "store/list/listReducer";
+import withFavorites from "HOC/withFavorites";
+import { useCoins } from "hooks";
 
-function useLoadingBar(loadingBar, isLoading) {
-  useEffect(() => {
-    if (isLoading) {
-      loadingBar.current.continuousStart();
-    } else {
-      loadingBar.current.complete();
-    }
-    // eslint-disable-next-line
-  }, [isLoading]);
-}
-
-const CoinList = (props) => {
-  const {
+const ConnectedTable = connect(
+  (state) => ({
+    settings: state.settings,
+    favorites: state.favorites,
+    isLoading: isListLoading(state),
+    hasFavError: state.favorites.hasError,
+    hasListError: state.list.hasError,
+  }),
+  {
     getCoinList,
     getFavoriteList,
-    isLoading,
-    hasFavError,
-    hasListError,
-    handleCoinsPerPage,
-    handleListBy,
-    handleListOrder,
-    handleCategory,
-    handleNextPage,
-    handlePrevPage,
     toggleFavoriteList,
     handleSort,
-  } = props;
-  const { coinList } = props.list;
-  const { listOrder, listBy, category, page, coinsPerPage, sortBy, sortOrder } =
+    handleCategory,
+    handleCoinsPerPage,
+    handleNextPage,
+    handlePrevPage,
+    handleListOrder,
+    handleListBy,
+  }
+)(CoinTable);
+
+const CoinList = (props) => {
+  const { isLoading, hasListError } = props;
+  const list = props.list.coinList;
+  const { listOrder, listBy, category, page, coinsPerPage } =
     props.list.queryConfig;
-  const { showFavorites, coinList: favoriteList } = props.favorites;
-  const { theme, currency } = props.settings;
-  const list = showFavorites ? favoriteList : coinList;
-  const errorMessage = showFavorites
-    ? props.favorites.errorMessage
-    : props.list.errorMessage;
-  const loadingBar = React.createRef();
+  // const { showFavorites } = props.favorites;
+  const errorMessage = props.list.errorMessage;
 
-  useLoadingBar(loadingBar, isLoading);
-
-  const sortCoinList = () => {
-    if (!list) {
-      return;
-    } else {
-      return list.sort((a, b) => {
-        if (sortOrder === true) {
-          return a[sortBy] > b[sortBy] ? 1 : -1;
-        }
-        return a[sortBy] < b[sortBy] ? 1 : -1;
-      });
-    }
-  };
-
-  const hasData = !!(!isLoading && list.length);
-  const noFavorites = list.length === 0 && showFavorites && !isLoading;
-  const sortedList = sortCoinList();
-
-  useEffect(() => {
-    if (showFavorites) {
-      getFavoriteList();
-    } else {
-      getCoinList();
-    }
-  }, [
-    currency,
-    getCoinList,
-    getFavoriteList,
-    showFavorites,
-    listOrder,
-    listBy,
-    category,
-    page,
-    coinsPerPage,
-  ]);
+  useCoins(false);
 
   return (
-    <ResponsiveContainer>
-      <LoadingBar color={utilityColors.mktCap} ref={loadingBar} />
-      <CoinListTitle
-        showFavorites={showFavorites}
-        favoriteCoinsLength={list.length}
-        coinsPerPage={coinsPerPage}
-        handleCoinsPerPage={handleCoinsPerPage}
-        page={page}
-        listOrder={listOrder}
+    <>
+      <ConnectedTable
+        isLoading={isLoading}
+        hasListError={hasListError}
+        errorMessage={errorMessage}
+        handleSort={handleSort}
+        list={list}
         listBy={listBy}
         handleListBy={handleListBy}
+        listOrder={listOrder}
         handleListOrder={handleListOrder}
+        toggleFavoriteList={toggleFavoriteList}
         category={category}
         handleCategory={handleCategory}
+        page={page}
         handleNextPage={handleNextPage}
         handlePrevPage={handlePrevPage}
-      />
-      <CoinListHeader
-        showFavorites={showFavorites}
-        toggleFavoriteList={toggleFavoriteList}
-        sortOrder={sortOrder}
-        sortBy={sortBy}
-        handleSort={handleSort}
-        page={page}
         coinsPerPage={coinsPerPage}
+        handleCoinsPerPage={handleCoinsPerPage}
       />
-      {hasData && (
-        <>
-          {sortedList.map((coin) => {
-            return (
-              <CoinListItem
-                key={coin.id}
-                coin={coin}
-                currency={currency}
-                theme={theme}
-                utilityColors={utilityColors}
-              />
-            );
-          })}
-        </>
-      )}
-      {noFavorites && !hasFavError && <EmptyFavoriteList />}
-      {isLoading && <SkeletonCoinList coinsPerPage={getScreenWidth()} />}
-
-      {hasListError && !showFavorites && <ErrorMessage error={errorMessage} />}
-
-      {hasFavError && showFavorites && <ErrorMessage error={errorMessage} />}
-
-      <CoinListFooter />
-    </ResponsiveContainer>
+    </>
   );
 };
 
@@ -180,4 +98,7 @@ const mapDispatchToProps = {
   handleListBy,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoinList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFavorites(CoinList));

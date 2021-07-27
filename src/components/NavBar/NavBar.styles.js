@@ -35,7 +35,7 @@ export const LinkCol = styled(Col)`
   align-items: center;
   justify-content: flex-end;
   span {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 `;
 
@@ -50,7 +50,20 @@ export const StyledLink = styled(Link)`
   margin-left: 1.5rem;
   display: flex;
   align-items: center;
+  :hover {
+    color: ${(props) => props.theme.text};
+    ${Icon} {
+      color: ${(props) => props.theme.primary};
+    }
+  }
+`;
 
+export const Favorites = styled.div`
+  cursor: pointer;
+  color: ${(props) => props.theme.text};
+  margin-left: 1.5rem;
+  display: flex;
+  align-items: center;
   :hover {
     color: ${(props) => props.theme.text};
     ${Icon} {

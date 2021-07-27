@@ -34,3 +34,8 @@ export { default as CoinPageChart } from "./CoinPageChart";
 export { default as CoinPageChartOptions } from "./CoinPageChartOptions";
 export { default as ProgressBar } from "./ProgressBar";
 export { default as PriceConvertor } from "./PriceConvertor";
+
+//
+
+export { default as CoinTable } from "./CoinTable";
+

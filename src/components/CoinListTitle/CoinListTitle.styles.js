@@ -18,6 +18,7 @@ export const StyledRow = styled(Row)`
 export const StyledCol = styled(Col)`
   display: flex;
   align-items: baseline;
+  color: ${(props) => props.theme.text};
 `;
 
 export const StyledColEnd = styled(Col)`
@@ -26,6 +27,7 @@ export const StyledColEnd = styled(Col)`
   align-items: baseline;
   justify-content: flex-end;
   padding-right: 1rem;
+  color: ${(props) => props.theme.text};
 `;
 
 export const Arrows = styled.div`
@@ -35,13 +37,16 @@ export const Arrows = styled.div`
 `;
 
 export const Value = styled.span`
-  font-weight: bold;
   padding: 0 0.5rem;
+  font-weight: bold;
+  color: ${(props) => props.theme.text};
 `;
 
 export const Title = styled.span`
   padding-left: 0.5rem;
   text-transform: uppercase;
+  font-weight: bold;
+  color: ${(props) => props.theme.text};
 `;
 
 export const Category = styled.span`
@@ -50,6 +55,7 @@ export const Category = styled.span`
   align-items: baseline;
   padding: 0 0.4rem;
   font-size: 1rem;
+  color: ${(props) => props.theme.text};
 `;
 
 export const PageContainer = styled.div`
@@ -57,6 +63,7 @@ export const PageContainer = styled.div`
   margin-left: 0.5rem;
   display: flex;
   align-items: center;
+  color: ${(props) => props.theme.text};
 `;
 
 export const Page = styled.div`

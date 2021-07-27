@@ -10,6 +10,7 @@ import {
   ErrorMessage,
   PriceConvertor,
 } from "components";
+
 import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
 import { ResponsiveContainer } from "components/UI/UI.styles";
@@ -23,17 +24,19 @@ import {
 } from "./CoinPage.styles";
 import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
+import withFavorites from "HOC/withFavorites";
+import { useLoadingBar } from "hooks";
 
-function useLoadingBar(loadingBar, isLoading) {
-  useEffect(() => {
-    if (isLoading) {
-      loadingBar.current.continuousStart();
-    } else {
-      loadingBar.current.complete();
-    }
-    // eslint-disable-next-line
-  }, [isLoading]);
-}
+// function useLoadingBar(loadingBar, isLoading) {
+//   useEffect(() => {
+//     if (isLoading) {
+//       loadingBar.current.continuousStart();
+//     } else {
+//       loadingBar.current.complete();
+//     }
+//     // eslint-disable-next-line
+//   }, [isLoading]);
+// }
 
 const CoinPage = ({
   getCoin,
@@ -164,8 +167,12 @@ const mapStateToProps = (state) => ({
   hasChartError: state.chart.hasError,
   chartErrorMessage: state.chart.errorMessage,
   days: state.chart.days,
+  // showFavorites: state.favorites.showFavorites,
 });
 
 const mapDispatchToProps = { getCoin, getChartData, getChartDays };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CoinPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withFavorites(CoinPage));
