@@ -24,9 +24,15 @@ export const Ticker = styled.span`
   color: ${(props) => props.theme.info};
   font-weight: bold;
   margin-left: 0.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Value = styled.span`
   display: flex;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

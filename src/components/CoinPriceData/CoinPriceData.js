@@ -61,7 +61,7 @@ const CoinPriceData = ({ marketData, currency }) => {
             <CaretSymbol value={priceChangePercentage24h} />
             {priceChangePercentage24h
               ? priceChangePercentage24h.toFixed(2)
-              : "N/A"}
+              : "-"}
             %
           </PriceChange>
         </PriceChangeAlign>

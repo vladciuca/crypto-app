@@ -2,12 +2,28 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  margin: 1rem 0;
+  margin: 2rem 0;
+  margin-top: 4rem;
   background: ${(props) => props.theme.cardPrimary};
   border-radius: 0.5rem;
   padding: 1.5rem;
   a {
     color: ${(props) => props.theme.primary};
+  }
+`;
+
+export const ShowBtn = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  span {
+    display: flex;
+    align-items: center;
+    color: white;
+    background: ${(props) => props.theme.primary};
+    border-radius: 0.25rem;
+    margin-top: 0.5rem;
+    padding: 0.1rem 0.5rem;
+    cursor: pointer;
   }
 `;
 
@@ -29,22 +45,12 @@ export const Category = styled.span`
   }
 `;
 
-export const Tab = styled.span`
-  width: 10%;
-  display: inline-flex;
+export const Icon = styled.div`
+  display: flex;
   align-items: center;
-  font-size: 0.8rem;
-  border-radius: 0.99rem;
-  padding: 0.35rem 1rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding: 0 0.2rem;
 `;
 
-export const Icon = styled.span`
-  background: ${(props) => props.theme.cardSecondary};
-  padding: 0.5rem;
-  margin-right: 0.5rem;
-  border-radius: 0.99rem;
-  display: flex;
-  align-item: center;
+export const Spacer = styled.div`
+  height: 3rem;
 `;

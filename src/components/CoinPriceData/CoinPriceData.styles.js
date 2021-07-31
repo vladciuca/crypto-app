@@ -71,7 +71,11 @@ export const PriceCurrencyChange = styled.span`
   padding: 0 0.3rem;
   margin-right: 0.2rem;
   ${(props) =>
-    props.pricechange < 0
+    props.pricechange === undefined
+      ? css`
+          background: ${(props) => props.theme.textLight};
+        `
+      : props.pricechange < 0
       ? css`
           background: ${(props) => props.theme.danger};
         `
@@ -90,7 +94,11 @@ export const PriceChange = styled.div`
   align-items: center;
   margin-left: 0.2rem;
   ${(props) =>
-    props.pricechange < 0
+    props.pricechange === null || props.pricechange === 0
+      ? css`
+          color: ${(props) => props.theme.textLight};
+        `
+      : props.pricechange < 0
       ? css`
           color: ${(props) => props.theme.danger};
         `

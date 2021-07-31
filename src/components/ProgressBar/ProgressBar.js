@@ -8,6 +8,8 @@ const ProgressBar = ({
   circSupColor,
   volColor,
 }) => {
+  console.log({ circulatingPercentage }, { volumePercentage });
+
   return (
     <Container>
       <Bar maxSupColor={maxSupColor}>

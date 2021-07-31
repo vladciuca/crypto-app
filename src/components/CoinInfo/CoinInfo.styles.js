@@ -47,6 +47,9 @@ export const Ticker = styled.span`
   font-size: 1.4rem;
   color: ${(props) => props.theme.primary};
   padding: 0 1rem 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const LinkRow = styled(Col)`

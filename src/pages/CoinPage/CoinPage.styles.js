@@ -3,7 +3,6 @@ import { Row, Col } from "antd";
 
 export const Background = styled.div`
   padding-top: 2rem;
-  padding-bottom: 10%;
   background: linear-gradient(
     to top,
     transparent 50%,
