@@ -59,6 +59,9 @@ export const StyledLink = styled(Link)`
 `;
 
 export const Favorites = styled.div`
+  @media (max-width: 576px) {
+    margin-left: 0.5rem;
+  }
   cursor: pointer;
   color: ${(props) => props.theme.text};
   margin-left: 1.5rem;
