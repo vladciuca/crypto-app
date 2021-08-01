@@ -2,7 +2,7 @@ import { FaCaretUp, FaCaretDown } from "react-icons/all";
 
 const CaretSymbol = (props) => {
   const { value } = props;
-  if (!value) {
+  if (value === null) {
     return "";
   }
   if (typeof value === "boolean") {

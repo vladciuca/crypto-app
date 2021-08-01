@@ -22,8 +22,6 @@ const CoinDescription = ({ description, categories }) => {
     setIsTruncated(!isTruncated);
   };
 
-  console.log(description.en === "");
-
   if (description.en === "") {
     return <Spacer />;
   } else {

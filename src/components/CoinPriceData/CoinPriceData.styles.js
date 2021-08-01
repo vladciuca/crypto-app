@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Row, Col } from "antd";
 
 export const CenteredRow = styled(Row)`
-  @media (min-width: 375px) and (max-width: 576px) {
+  @media (max-width: 576px) {
     border-radius: 0.75rem;
     height: 100%;
   }
@@ -13,10 +13,6 @@ export const CenteredRow = styled(Row)`
   justify-content: center;
   align-items: center;
   height: 49%;
-  @media (min-width: 375px) and (max-width: 576px) {
-    border-radius: 0.75rem;
-    height: 100%;
-  }
 `;
 
 export const StyledRow = styled(Row)`
@@ -59,7 +55,7 @@ export const PriceChangeAlign = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (min-width: 375px) and (max-width: 576px) {
+  @media (max-width: 576px) {
     justify-content: start;
   }
 `;
