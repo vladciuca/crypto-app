@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { Row, Col } from "antd";
 
 export const CenteredRow = styled(Row)`
-  @media (min-width: 375px) and (max-width: 576px) {
+  @media (max-width: 576px) {
     border-radius: 0.75rem;
     height: 100%;
   }
@@ -13,10 +13,6 @@ export const CenteredRow = styled(Row)`
   justify-content: center;
   align-items: center;
   height: 49%;
-  @media (min-width: 375px) and (max-width: 576px) {
-    border-radius: 0.75rem;
-    height: 100%;
-  }
 `;
 
 export const StyledRow = styled(Row)`
@@ -59,7 +55,7 @@ export const PriceChangeAlign = styled(Col)`
   display: flex;
   align-items: center;
   justify-content: center;
-  @media (min-width: 375px) and (max-width: 576px) {
+  @media (max-width: 576px) {
     justify-content: start;
   }
 `;
@@ -71,7 +67,11 @@ export const PriceCurrencyChange = styled.span`
   padding: 0 0.3rem;
   margin-right: 0.2rem;
   ${(props) =>
-    props.pricechange < 0
+    props.pricechange === undefined
+      ? css`
+          background: ${(props) => props.theme.textLight};
+        `
+      : props.pricechange < 0
       ? css`
           background: ${(props) => props.theme.danger};
         `
@@ -90,7 +90,11 @@ export const PriceChange = styled.div`
   align-items: center;
   margin-left: 0.2rem;
   ${(props) =>
-    props.pricechange < 0
+    props.pricechange === null || props.pricechange === 0
+      ? css`
+          color: ${(props) => props.theme.textLight};
+        `
+      : props.pricechange < 0
       ? css`
           color: ${(props) => props.theme.danger};
         `

@@ -43,13 +43,10 @@ const ConnectedTable = connect(
 
 const CoinList = (props) => {
   const { isLoading, hasListError } = props;
-  const list = props.list.coinList;
+  const list = useCoins(false);
   const { listOrder, listBy, category, page, coinsPerPage } =
     props.list.queryConfig;
-  // const { showFavorites } = props.favorites;
   const errorMessage = props.list.errorMessage;
-
-  useCoins(false);
 
   return (
     <>

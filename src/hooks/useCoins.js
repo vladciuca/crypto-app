@@ -5,8 +5,6 @@ import { getCoinList } from "store/list/listActions";
 
 function useCoins(isFavorites) {
   const dispatch = useDispatch();
-  //   const hasFavError = useSelector((state) => state.favorites.hasError);
-  //   const hasListError = useSelector((state) => state.list.hasError);
   const favorites = useSelector((state) => state.favorites);
   const list = useSelector((state) => state.list);
   const settings = useSelector((state) => state.settings);

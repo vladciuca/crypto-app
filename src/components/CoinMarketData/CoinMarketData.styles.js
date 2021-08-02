@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Row } from "antd";
+import { Row, Tooltip } from "antd";
 
 export const StyledRow = styled(Row)`
   background-color: ${(props) => props.theme.cardPrimary};
@@ -36,6 +36,10 @@ export const Ticker = styled.span`
   text-transform: uppercase;
   font-weight: bold;
   padding-left: 0.2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 50%;
 `;
 
 export const PriceChange = styled.div`
@@ -43,7 +47,11 @@ export const PriceChange = styled.div`
   align-items: center;
   margin-left: 0.2rem;
   ${(props) =>
-    props.pricechange < 0
+    props.pricechange === null || props.pricechange === 0
+      ? css`
+          color: ${(props) => props.theme.textLight};
+        `
+      : props.pricechange < 0
       ? css`
           color: ${(props) => props.theme.danger};
         `
@@ -55,4 +63,11 @@ export const PriceChange = styled.div`
 export const BarContainer = styled.div`
   padding-bottom: 0.5rem;
   width: 100%;
+`;
+
+export const Bullet = styled(Tooltip)`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.textLight};
+  cursor: pointer;
 `;

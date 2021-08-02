@@ -7,11 +7,16 @@ export const Container = styled.div`
 
 export const Value = styled.span`
   text-transform: uppercase;
+  text-align: center;
   font-weight: bold;
   background-color: ${(props) => props.theme.cardSecondary};
   padding: 0.5rem;
   margin: 0 0.2rem;
   border-radius: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 5rem;
 `;
 
 export const Input = styled.input`

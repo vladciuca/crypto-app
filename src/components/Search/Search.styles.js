@@ -2,7 +2,7 @@ import styled from "styled-components";
 import AsyncSelect from "react-select";
 
 export const StyledAsyncSelect = styled(AsyncSelect)`
-  @media (min-width: 375px) and (max-width: 576px) {
+  @media (max-width: 576px) {
     width: 80%;
   }
   @media (min-width: 992px) and (max-width: 1200px) {

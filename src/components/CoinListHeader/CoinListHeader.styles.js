@@ -24,6 +24,7 @@ export const Centered = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  cursor: default;
 `;
 
 export const Spacer = styled.span`

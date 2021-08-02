@@ -61,13 +61,14 @@ export const ImgCol = styled(Col)`
 export const NameCol = styled(Col)`
   padding-right: 1rem;
   font-size: 0.9rem;
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.text};
   div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   ${Ticker} {
+    color: ${(props) => props.theme.textLight};
     padding-left: 0;
   }
 `;

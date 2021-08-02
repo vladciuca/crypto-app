@@ -9,8 +9,8 @@ import {
   CoinPageChartOptions,
   ErrorMessage,
   PriceConvertor,
+  CoinDescription,
 } from "components";
-
 import { getScreenWidth } from "utils";
 import { utilityColors } from "../../theme";
 import { ResponsiveContainer } from "components/UI/UI.styles";
@@ -26,17 +26,6 @@ import { getCoin } from "store/coin/coinActions";
 import { getChartData, getChartDays } from "store/chart/chartActions";
 import withFavorites from "HOC/withFavorites";
 import { useLoadingBar } from "hooks";
-
-// function useLoadingBar(loadingBar, isLoading) {
-//   useEffect(() => {
-//     if (isLoading) {
-//       loadingBar.current.continuousStart();
-//     } else {
-//       loadingBar.current.complete();
-//     }
-//     // eslint-disable-next-line
-//   }, [isLoading]);
-// }
 
 const CoinPage = ({
   getCoin,
@@ -119,11 +108,7 @@ const CoinPage = ({
                   xl={{ span: 12, order: 1 }}
                 >
                   <div>
-                    <PriceConvertor
-                      // symbol={symbol}
-                      coinData={coinData}
-                      currency={currency}
-                    />
+                    <PriceConvertor coinData={coinData} currency={currency} />
                   </div>
                 </ChartOptionCol>
 
@@ -143,11 +128,10 @@ const CoinPage = ({
                 </Col>
               </ChartOptions>
 
-              {/* <CoinDescription
+              <CoinDescription
                 description={coinData.description}
                 categories={coinData.categories}
-                links={coinData.links}
-              /> */}
+              />
             </ResponsiveContainer>
           </Background>
         </>
@@ -167,7 +151,6 @@ const mapStateToProps = (state) => ({
   hasChartError: state.chart.hasError,
   chartErrorMessage: state.chart.errorMessage,
   days: state.chart.days,
-  // showFavorites: state.favorites.showFavorites,
 });
 
 const mapDispatchToProps = { getCoin, getChartData, getChartDays };

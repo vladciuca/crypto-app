@@ -1,5 +1,5 @@
 const initialState = {
-  theme: true,
+  theme: false,
   currency: "usd",
 };
 

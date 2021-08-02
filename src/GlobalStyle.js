@@ -68,13 +68,13 @@ ${radio}
 }
 
 .hide-sm {
-  @media (min-width: 375px) and (max-width: 768px) {
+  @media (max-width: 768px) {
     display: none;
   }
 }
 
 .hide-sm-md {
-  @media (min-width: 375px) and (max-width: 992px) {
+  @media (max-width: 992px) {
     display: none;
   }
 }
