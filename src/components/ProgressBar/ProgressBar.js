@@ -25,9 +25,6 @@ const ProgressBar = ({
     }
   };
 
-  console.log("circulating %:", circulatingPercentage());
-  console.log("volume %:", volumePercentage());
-
   return (
     <Container>
       <Bar maxSupColor={maxSupColor}>
