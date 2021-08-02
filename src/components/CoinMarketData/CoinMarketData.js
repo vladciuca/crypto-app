@@ -36,15 +36,9 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
   };
   const { marketCapChangePercentage24h, circulatingSupply, totalSupply } =
     marketData;
-  const circulatingSupplyPercentage = (
-    (circulatingSupply / totalSupply) *
-    100
-  ).toFixed(0);
   const totalVolumeInCoins =
     getCurrencyValue("totalVolume") / getCurrencyValue("currentPrice");
-  const totalVolumePercentage = totalSupply
-    ? ((totalVolumeInCoins / totalSupply) * 100).toFixed(0)
-    : ((totalVolumeInCoins / circulatingSupply) * 100).toFixed(0);
+
   return (
     <>
       <StyledRow>
@@ -160,10 +154,9 @@ const CoinMarketData = ({ marketData, symbol, currency }) => {
         </div>
         <BarContainer>
           <ProgressBar
-            circulatingPercentage={
-              totalSupply ? circulatingSupplyPercentage : 100
-            }
-            volumePercentage={totalVolumePercentage}
+            totalVolumeInCoins={totalVolumeInCoins}
+            circulatingSupply={circulatingSupply}
+            totalSupply={totalSupply}
             maxSupColor={utilityColors.maxSupply}
             circSupColor={utilityColors.mktCap}
             volColor={utilityColors.volume}

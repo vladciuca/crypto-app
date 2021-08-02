@@ -2,36 +2,59 @@ import React from "react";
 import { Container, Bar, Filler, FillerTwo, Label } from "./ProgressBar.styles";
 
 const ProgressBar = ({
-  circulatingPercentage,
-  volumePercentage,
+  totalVolumeInCoins,
+  circulatingSupply,
+  totalSupply,
   maxSupColor,
   circSupColor,
   volColor,
 }) => {
-  console.log({ circulatingPercentage }, { volumePercentage });
+  const circulatingPercentage = () => {
+    if (!totalSupply) {
+      return 100;
+    } else {
+      return ((circulatingSupply / totalSupply) * 100).toFixed(0);
+    }
+  };
+
+  const volumePercentage = () => {
+    if (!totalSupply) {
+      return ((totalVolumeInCoins / circulatingSupply) * 100).toFixed(0);
+    } else {
+      return ((totalVolumeInCoins / totalSupply) * 100).toFixed(0);
+    }
+  };
+
+  console.log("circulating %:", circulatingPercentage());
+  console.log("volume %:", volumePercentage());
 
   return (
     <Container>
       <Bar maxSupColor={maxSupColor}>
         <Filler
-          circulatingpercentage={circulatingPercentage}
+          circulatingpercentage={
+            circulatingPercentage() === "Infinity" ? 0 : circulatingPercentage()
+          }
           circSupColor={circSupColor}
         >
-          <Label>{`${
-            Number(circulatingPercentage) < Number(volumePercentage)
+          <Label>
+            {circulatingPercentage() < 1 ||
+            circulatingPercentage() === "Infinity"
               ? ""
-              : circulatingPercentage
-          }%`}</Label>
+              : `${circulatingPercentage()}%`}
+          </Label>
         </Filler>
         <FillerTwo
           volumepercentage={
-            Number(volumePercentage) > Number(circulatingPercentage)
-              ? 100
-              : volumePercentage
+            volumePercentage() === "Infinity" ? 0 : volumePercentage()
           }
           volColor={volColor}
         >
-          <Label>{`${volumePercentage}%`}</Label>
+          <Label>
+            {volumePercentage() < 1 || volumePercentage() === "Infinity"
+              ? ""
+              : `${volumePercentage()}%`}
+          </Label>
         </FillerTwo>
       </Bar>
     </Container>
