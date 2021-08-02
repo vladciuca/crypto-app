@@ -36,14 +36,19 @@ const ProgressBar = ({
         >
           <Label>
             {circulatingPercentage() < 1 ||
-            circulatingPercentage() === "Infinity"
+            circulatingPercentage() === "Infinity" ||
+            volumePercentage() > 100
               ? ""
               : `${circulatingPercentage()}%`}
           </Label>
         </Filler>
         <FillerTwo
           volumepercentage={
-            volumePercentage() === "Infinity" ? 0 : volumePercentage()
+            volumePercentage() === "Infinity"
+              ? 0
+              : volumePercentage() > 100
+              ? 100
+              : volumePercentage()
           }
           volColor={volColor}
         >
